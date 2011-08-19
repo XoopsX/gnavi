@@ -19,7 +19,7 @@ function b_gnavi_archive_show( $options )
 	while( $photo = $xoopsDB->fetchArray( $result ) ) {
 
 		$photo['link'] = date ("Ym",$photo["date"]) ;
-		$photo['text'] = date ("YÇ¯ m·î",$photo["date"]) ;
+		$photo['text'] = date ("YÇ¯ mï¿½ï¿½",$photo["date"]) ;
 
 		if($count>1){
 			if($block['archive'][$count-1]['link']!=$photo['link']){
@@ -34,7 +34,7 @@ function b_gnavi_archive_show( $options )
 
 	if( empty( $options['disable_renderer'] ) ) {
 		require_once XOOPS_ROOT_PATH.'/class/template.php' ;
-		$tpl =& new XoopsTpl() ;
+		$tpl = new XoopsTpl() ;
 		$tpl->assign( 'block' , $block ) ;
 		$ret['content'] = $tpl->fetch( $this_template ) ;
 		return $ret ;

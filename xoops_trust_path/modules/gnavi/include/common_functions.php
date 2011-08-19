@@ -30,11 +30,11 @@ function gnavi_get_thumbnail_wh( $width , $height )
 		case 'b' :
 			if( $width > $height ) {
 				$new_w = $gnavi_thumbsize ;
-				$scale = $width / $new_w ; 
+				$scale = $width / $new_w ;
 				$new_h = intval( round( $height / $scale ) ) ;
 			} else {
 				$new_h = $gnavi_thumbsize ;
-				$scale = $height / $new_h ; 
+				$scale = $height / $new_h ;
 				$new_w = intval( round( $width / $scale ) ) ;
 			}
 			break ;
@@ -109,8 +109,15 @@ function gnavi_create_thumb_by_gd( $src_path , $node , $ext )
 	switch( $type ) {
 		case 1 :
 			// GIF (skip)
-			@copy( $src_path , "$thumbs_dir/$node.$ext" ) ;
-			return 2 ;
+//HACK by domifara
+//			@copy( $src_path , "$thumbs_dir/$node.$ext" ) ;
+//			return 2 ;
+			$src_img = imagecreatefromgif( $src_path ) ;
+			if (empty($src_img)){
+				@copy( $src_path , "$thumbs_dir/$node.$ext" ) ;
+				return 2 ;
+			}
+			break ;
 		case 2 :
 			// JPEG
 			$src_img = imagecreatefromjpeg( $src_path ) ;
@@ -146,6 +153,12 @@ function gnavi_create_thumb_by_gd( $src_path , $node , $ext )
 	}
 
 	switch( $type ) {
+//HACK by  domifara
+		case 1 :
+			// GIF
+			imagegif( $dst_img, "$thumbs_dir/$node.$ext" ) ;
+			imagedestroy( $dst_img ) ;
+			break ;
 		case 2 :
 			// JPEG
 			imagejpeg( $dst_img, "$thumbs_dir/$node.$ext" ) ;
@@ -305,11 +318,11 @@ function gnavi_modify_photo_by_gd( $src_path , $dst_path )
 	if( $width > $gnavi_width || $height > $gnavi_height ) {
 		if( $width / $gnavi_width > $height / $gnavi_height ) {
 			$new_w = $gnavi_width ;
-			$scale = $width / $new_w ; 
+			$scale = $width / $new_w ;
 			$new_h = intval( round( $height / $scale ) ) ;
 		} else {
 			$new_h = $gnavi_height ;
-			$scale = $height / $new_h ; 
+			$scale = $height / $new_h ;
 			$new_w = intval( round( $width / $scale ) ) ;
 		}
 		$dst_img = imagecreatetruecolor( $new_w , $new_h ) ;
@@ -456,11 +469,11 @@ function gnavi_modify_photo_by_netpbm( $src_path , $dst_path )
 	if( $width > $gnavi_width || $height > $gnavi_height ) {
 		if( $width / $gnavi_width > $height / $gnavi_height ) {
 			$new_w = $gnavi_width ;
-			$scale = $width / $new_w ; 
+			$scale = $width / $new_w ;
 			$new_h = intval( round( $height / $scale ) ) ;
 		} else {
 			$new_h = $gnavi_height ;
-			$scale = $height / $new_h ; 
+			$scale = $height / $new_h ;
 			$new_w = intval( round( $width / $scale ) ) ;
 		}
 		$pipe1 .= "{$gnavi_netpbmpath}pnmscale -xysize $new_w $new_h |" ;
@@ -583,7 +596,7 @@ function gnavi_get_photo_total_sum_from_cats( $cids , $whr_append = "" )
 }
 
 
-// Update a photo 
+// Update a photo
 function gnavi_update_item($mode,$lid,
 							$title,$cid,$cid1,$cid2,$cid3,$cid4,
                             $url,$tel,$fax,$zip,$address,$rss,$lat,$lng,$zoom,$mtype,$icd,
@@ -806,7 +819,7 @@ function gnavi_delete_photos( $whr )
 		$xoopsDB->query( "DELETE FROM $table_votedata WHERE lid=$lid" ) or die( "DB error: DELETE votedata table." ) ;
 		$xoopsDB->query( "DELETE FROM $table_text WHERE lid=$lid" ) or die( "DB error: DELETE text table." ) ;
 		$xoopsDB->query( "DELETE FROM $table_photos WHERE lid=$lid" ) or die( "DB error: DELETE photo table." ) ;
-	
+
 		if($ext){
 			@unlink( "$photos_dir/$lid.$ext" ) ;
 			@unlink( "$thumbs_dir/$lid.$ext" ) ;
@@ -819,7 +832,7 @@ function gnavi_delete_photos( $whr )
 			@unlink( $photos_dir."/".$lid."_2.".$ext2 ) ;
 			@unlink( $photos_dir."/".$lid."_2.".$ext2 ) ;
 		}
-		
+
 
 
 	}
@@ -932,7 +945,7 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 				@unlink( "$photos_dir/$preview_name" ) ;
 			}
 			$preview_name='';
-		} 
+		}
 	}else{
 		$preview_name='';
 	}
@@ -945,7 +958,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 
 	$tmp_name='';
 	$ext='';
-	
+
 	// Check if upload file name specified
 	if( empty( $field ) || $field == "" ) {
 		die( "UPLOAD error: file name not specified" ) ;
@@ -1218,7 +1231,7 @@ function gnavi_make_breadcrumbs($sel_id, $url , $arrcrumbs = array() )
 	list($pid,$title) = $xoopsDB->fetchRow($result);
 	$myts =& MyTextSanitizer::getInstance();
 	$title = $myts->makeTboxData4Show($title);
-	
+
 	$urls = $url.(preg_match('/\?/',$url) ? '&' :'?').'cid='.$sel_id;
 
 	$arr = array( 'url' => $urls , 'name' => $title );
@@ -1234,7 +1247,7 @@ function gnavi_make_breadcrumbs($sel_id, $url , $arrcrumbs = array() )
 
 function gnavi_mobile_templete_disp($templete){
 	global $xoopsTpl,$gnavi_mobile_encording;
-	
+
 	$out_text='';
 
     if (XOOPS_USE_MULTIBYTES == 1 && $gnavi_mobile_encording && $gnavi_mobile_encording!=_CHARSET) {
@@ -1247,7 +1260,7 @@ function gnavi_mobile_templete_disp($templete){
         }
     }
 
-	
+
 
 	if($out_text){
 		echo $out_text;
@@ -1255,7 +1268,7 @@ function gnavi_mobile_templete_disp($templete){
 		$xoopsTpl->assign('charset',_CHARSET);
 		$xoopsTpl->display($templete);
 	}
-	
+
 
 }
 

@@ -60,7 +60,7 @@ if( $cid > 0 ) {
 	// Category Specified
 
 	//assign category description ->  "category_desc"
-	if( $gnavi_body_editor == 'common_fckeditor' || 
+	if( $gnavi_body_editor == 'common_fckeditor' ||
 		($gnavi_body_editor == 'common_spaw' && file_exists( XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' )) ||
 		$gnavi_body_editor == 'pure_html'){
 		$arrow_html=1;
@@ -122,7 +122,7 @@ if( $cid > 0 ) {
 		$xoopsTpl->assign( 'uid' , $uid ) ;
 		$pagetitle = sprintf( _MD_GNAV_CAT_MOREPHOTOS,gnavi_get_name_from_uid( $uid )) ;
 	}
-	
+
 	//count
 	$prs = $xoopsDB->query( "SELECT COUNT(lid) FROM $table_photos WHERE $where AND status>0 AND (lat<>0 OR lng<>0)" ) ;
 	list( $photo_num_total ) = $xoopsDB->fetchRow( $prs ) ;
@@ -226,7 +226,7 @@ $xoops_module_header ="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v
 $xoopsTpl->assign('xoops_module_header',$xoops_module_header);
 
 if($GNAVI_MOBILE){
-//for mobile code 
+//for mobile code
 	if($GNAVI_MOBILE_MAP){
 	//for degug
 
@@ -235,13 +235,13 @@ if($GNAVI_MOBILE){
 
 		$gnavi_mobile_maekercolor="blue";
 
-		/*°ŞÅÙ¤Ï -90ÅÙ ¡Á +90ÅÙ¤ÎÈÏ°Ï¤Ë¡¢·ĞÅÙ¤Ï -180ÅÙ ¡Á +180ÅÙ¤ÎÈÏ°Ï¤Ë¼ı¤Ş¤ë¤è¤¦¤Ë*/
+		/*ç·¯åº¦ã¯ -90åº¦ ã€œ +90åº¦ã®ç¯„å›²ã«ã€çµŒåº¦ã¯ -180åº¦ ã€œ +180åº¦ã®ç¯„å›²ã«åã¾ã‚‹ã‚ˆã†ã«*/
 
 		$movex=$gnavi_mobile_mapsizex/pow(2,$default_zoom);
 		$movey=$gnavi_mobile_mapsizey/pow(2,$default_zoom);
 
 		//Amount of movement on Mini map . set bigger than 0 and 1 or less. (0 < value <=1).
-		$gnavi_mobile_mapmove_raito = 0.6;  
+		$gnavi_mobile_mapmove_raito = 0.6;
 
 		$latup = gnavi_latlnground($default_lat+$movey * $gnavi_mobile_mapmove_raito);
 		$latdown = gnavi_latlnground($default_lat-$movey * $gnavi_mobile_mapmove_raito);
@@ -298,16 +298,16 @@ if($GNAVI_MOBILE){
 
 		$xoopsTpl->assign('query',$query);
 		if(!$latlng && $query){
-			$xoopsTpl->assign('result',$query."¤Ï¸«¤Ä¤«¤ê¤Ş¤»¤ó");
+			$xoopsTpl->assign('result',$query."ã¯è¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
 		}elseif($latlng && $query){
-			$xoopsTpl->assign('result',$query."¤òÉ½¼¨¤·¤Ş¤¹");
+			$xoopsTpl->assign('result',$query."ã‚’è¡¨ç¤ºã—ã¾ã™");
 		}
 
 
 		if($markers)$markers="&markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 		$xoopsTpl->assign('markerlist',$markerlist);
-		$xoopsTpl->assign('lang_category',"¥«¥Æ¥´¥ê¡¼");
+		$xoopsTpl->assign('lang_category',"ã‚«ãƒ†ã‚´ãƒªãƒ¼");
 		$xoopsTpl->assign('mapkeys', $mapkeys);
 
 		gnavi_mobile_templete_disp("db:{$mydirname}_mobile_map.html");

@@ -62,7 +62,7 @@ if( $cid > 0 ) {
 	// Category Specified
 
 	//assign category description ->  "category_desc"
-	if( $gnavi_body_editor == 'common_fckeditor' || 
+	if( $gnavi_body_editor == 'common_fckeditor' ||
 		($gnavi_body_editor == 'common_spaw' && file_exists( XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' )) ||
 		$gnavi_body_editor == 'pure_html'){
 		$arrow_html=1;
@@ -158,7 +158,7 @@ if( $cid > 0 ) {
 	// uid Specified
 	$where = "date>=$gettime AND $getetime>date" ;
 	$get_append = "m=$month" ;
-	$pagetitle = date("YÇ¯m·E,$gettime)."¤ÎÅEÆ" ;
+	$pagetitle = date("Yå¹´mæœˆ",$gettime)."ã®æŠ•ç¨¿" ;
 
 	//count
 	$prs = $xoopsDB->query( "SELECT COUNT(lid) FROM $table_photos WHERE $where " ) ;
@@ -200,7 +200,7 @@ if( $cid > 0 ) {
 			if(is_file($gnavi_qrcode_path)){
 				require_once $gnavi_qrcode_path ;
 				$qrimage=new Qrcode_image;
-				$qrimage->set_module_size($gnavi_mobile_useqr); 
+				$qrimage->set_module_size($gnavi_mobile_useqr);
 				$qrimage->qrcode_image_out( "$mod_url/","png","$qrimg_dir/index.png");
 				$xoopsTpl->assign( 'qrimg' , "$qrimg_url/index.png" ) ;
 			}

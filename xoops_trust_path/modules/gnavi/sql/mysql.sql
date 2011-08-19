@@ -21,7 +21,7 @@ CREATE TABLE cat (
   KEY (weight),
   KEY (depth),
   KEY (pid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -76,7 +76,7 @@ CREATE TABLE photos (
   KEY (status),
   KEY (title),
   KEY (submitter)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -97,7 +97,7 @@ CREATE TABLE icons (
   infoWindowAnchor_x int(4) NOT NULL default '0',
   infoWindowAnchor_y int(4) NOT NULL default '0',
   PRIMARY KEY (icd)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -110,7 +110,7 @@ CREATE TABLE text (
   arrowhtml tinyint(1) NOT NULL default '0',
   addinfo text,
   PRIMARY KEY lid (lid)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 # --------------------------------------------------------
 
 #
@@ -128,5 +128,5 @@ CREATE TABLE votedata (
   KEY (lid),
   KEY (ratinguser),
   KEY (ratinghostname)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
