@@ -1,8 +1,8 @@
 <?php
 
 //include files
-require_once dirname(dirname(__FILE__)).'/include/read_configs.php' ;
-require_once dirname(dirname(__FILE__)).'/include/get_perms.php' ;
+require dirname(dirname(__FILE__)).'/include/read_configs.php' ;
+require dirname(dirname(__FILE__)).'/include/get_perms.php' ;
 require_once dirname(dirname(__FILE__)).'/include/draw_functions.php' ;
 require_once dirname(dirname(__FILE__)).'/include/common_functions.php' ;
 require_once dirname(dirname(__FILE__)).'/include/common_javalang.inc.php' ;

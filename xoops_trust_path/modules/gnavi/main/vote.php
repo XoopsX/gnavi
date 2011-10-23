@@ -85,7 +85,7 @@ if( ! empty( $_POST['submit'] ) ) {
 		$_SESSION["{$mydirname}_uri4return"] = $_SERVER['HTTP_REFERER'] ;
 	}
 
-	$xoops_module_header="<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
+	$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 	$xoopsTpl->assign('xoops_module_header',$xoops_module_header);
 
 	$result = $xoopsDB->query( "SELECT l.lid, l.cid,l.cid1,l.cid2,l.cid3,l.cid4, l.title,l.caption,l.caption1,l.caption2, l.poster_name,l.icd,l.url,l.tel,l.fax,l.zip,l.address,l.rss,l.lat,l.lng,l.zoom,l.mtype, l.ext,l.ext1,l.ext2, l.res_x, l.res_y,l.res_x1, l.res_y1,l.res_x2, l.res_y2, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.submitter, t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_text t ON l.lid=t.lid WHERE l.lid=$lid" ) ;

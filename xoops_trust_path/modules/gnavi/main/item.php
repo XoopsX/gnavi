@@ -107,7 +107,7 @@ $arricon = gnavi_get_gicon($icon);
 	}
 
 //xoops_module_header
-$xoops_module_header ="<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
+$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 if($gnavi_usegooglemap && (floatval($photo['lng'])<>0 || floatval($photo['lat'])<>0 )){
 $xoopsTpl->assign( 'map' , _MD_GNAV_MAP_SHOW ) ;
 $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v=2&amp;key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>

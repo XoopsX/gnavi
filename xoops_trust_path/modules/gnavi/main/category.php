@@ -47,7 +47,7 @@ $xoopsTpl->assign('cat_link',$mod_url."/index.php?".( $page_cat ? $page_cat.'&':
 if( $global_perms & GNAV_GPERM_INSERTABLE ) $xoopsTpl->assign( 'lang_add_photo' , _MD_GNAV_CAT_ADDITEM ) ;
 
 //module header
-$xoops_module_header ="<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
+$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 $xoopsTpl->assign('xoops_module_header',$xoops_module_header);
 
 
