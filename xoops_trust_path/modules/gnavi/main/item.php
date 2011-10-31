@@ -140,6 +140,11 @@ $xoops_module_header .="<script src='http://www.google.com/jsapi?key=$gnavi_goog
 
 $xoopsTpl->assign('xoops_module_header',$xoops_module_header);
 
+// meta_description
+$gnavi_meta_description = preg_replace('/[\r\n\t]/','',htmlspecialchars(mb_substr(strip_tags($photo['description']),0,120, _CHARSET),ENT_QUOTES)); // naao
+
+$xoopsTpl->assign('xoops_meta_description', $gnavi_meta_description);
+
 // Orders
 require_once dirname(dirname(__FILE__)).'/include/item_orders.php' ;
 
@@ -218,6 +223,17 @@ $xoopsTpl->assign(array(
 	"lng_show_mobile"=>_MD_GNAV_SHOW_MOBILE,
 	"lng_send_mobile"=>_MD_GNAV_SEND_MOBILE,
 	)) ;
+
+if ($gnavi_meta_description) {
+	// For XCL 2.2 Call addMeta
+	if (defined('LEGACY_MODULE_VERSION') && version_compare(LEGACY_MODULE_VERSION, '2.2', '>=')) {
+		$xclRoot =& XCube_Root::getSingleton();
+		$headerScript = $xclRoot->mContext->getAttribute('headerScript');
+		$headerScript->addMeta('description', $gnavi_meta_description);
+	} elseif (isset($xoTheme) && is_object($xoTheme)) {	// for XOOPS 2.3 over
+		$xoTheme->addMeta('meta', 'description', $gnavi_meta_description);
+	}
+}
 
 // comments
 if($GNAVI_MOBILE){

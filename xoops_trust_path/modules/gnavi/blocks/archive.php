@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function b_gnavi_archive_show( $options )
 {
@@ -12,6 +12,7 @@ function b_gnavi_archive_show( $options )
 
 	$block = array() ;
 
+	$constpref = '_MB_' . strtoupper( $mydirname ) ;
 	$myts =& MyTextSanitizer::getInstance() ;
 	$result = $xoopsDB->query( "SELECT date FROM $table_photos WHERE status>0 ORDER BY date DESC" ) ;
 
@@ -19,7 +20,10 @@ function b_gnavi_archive_show( $options )
 	while( $photo = $xoopsDB->fetchArray( $result ) ) {
 
 		$photo['link'] = date ("Ym",$photo["date"]) ;
-		$photo['text'] = date ("Yǯ m��",$photo["date"]) ;
+		//$photo['text'] = date ("Y? m??",$photo["date"]) ;
+		$_year = date("Y",$photo["date"]);
+		$_month = date("m",$photo["date"]);
+		$photo['text'] = sprintf( constant( $constpref.'_ARCH_POSTMONTH'), $_year, $_month ) ;
 
 		if($count>1){
 			if($block['archive'][$count-1]['link']!=$photo['link']){

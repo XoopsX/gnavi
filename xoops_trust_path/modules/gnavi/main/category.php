@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ------------------------------------------------------------------------- //
 //                      GNAVI - XOOPS area guide +                           //
 //                        <http://xoops.iko-ze.net/>                         //
@@ -158,7 +158,9 @@ if( $cid > 0 ) {
 	// uid Specified
 	$where = "date>=$gettime AND $getetime>date" ;
 	$get_append = "m=$month" ;
-	$pagetitle = date("Y年m月",$gettime)."の投稿" ;
+	$_year = date("Y",$gettime);
+	$_month = date("m",$gettime);
+	$pagetitle = sprintf( constant('_MD_GNAV_ARCH_POSTMONTH'), $_year, $_month ) ;
 
 	//count
 	$prs = $xoopsDB->query( "SELECT COUNT(lid) FROM $table_photos WHERE $where " ) ;

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // ------------------------------------------------------------------------- //
 //                      GNAVI - XOOPS area guide +                           //
 //                        <http://xoops.iko-ze.net/>                         //
@@ -235,7 +235,7 @@ if($GNAVI_MOBILE){
 
 		$gnavi_mobile_maekercolor="blue";
 
-		/*緯度は -90度 〜 +90度の範囲に、経度は -180度 〜 +180度の範囲に収まるように*/
+		/*緯度は -90度 ? +90度の範囲に、経度は -180度 ? +180度の範囲に収まるように*/
 
 		$movex=$gnavi_mobile_mapsizex/pow(2,$default_zoom);
 		$movey=$gnavi_mobile_mapsizey/pow(2,$default_zoom);
@@ -298,16 +298,20 @@ if($GNAVI_MOBILE){
 
 		$xoopsTpl->assign('query',$query);
 		if(!$latlng && $query){
-			$xoopsTpl->assign('result',$query."は見つかりません");
+			$pagetitle =  ;
+			//$xoopsTpl->assign('result',$query."は見つかりません");
+			$xoopsTpl->assign('result',sprintf( constant('_MD_GNAV_MOBILE_NOTFOUND'), $query ));
 		}elseif($latlng && $query){
-			$xoopsTpl->assign('result',$query."を表示します");
+			//$xoopsTpl->assign('result',$query."を表示します");
+			$xoopsTpl->assign('result',sprintf( constant('_MD_GNAV_MOBILE_SHOW'), $query ));
 		}
 
 
 		if($markers)$markers="&markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 		$xoopsTpl->assign('markerlist',$markerlist);
-		$xoopsTpl->assign('lang_category',"カテゴリー");
+		//$xoopsTpl->assign('lang_category',"カテゴリー");
+		$xoopsTpl->assign('lang_category', constant('_MD_GNAV_MOBILE_CATEGORY') );
 		$xoopsTpl->assign('mapkeys', $mapkeys);
 
 		gnavi_mobile_templete_disp("db:{$mydirname}_mobile_map.html");

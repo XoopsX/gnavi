@@ -49,6 +49,7 @@ define( "_MD_GNAV_ITM_CAUTION" , "<font color='red'>Attention</font>" ) ;
 define( "_MD_GNAV_ITM_ABOUTUPLOADS" , "<font color='red'>It takes time for up-loading when the size of the file is large. <br />Please wait for the transmission until the screen changes clicking only once. </font>" ) ;
 define( "_MD_GNAV_ITM_PRINT" , "Print this page." ) ;
 
+define( "_MD_GNAV_ARCH_POSTMONTH" , "Posted in %2\$d/%1\$d" ) ;
 
 
 //map
@@ -81,6 +82,9 @@ define( "_MD_GNAV_MOBILE_PREV" , "prev" ) ;
 define( "_MD_GNAV_MOBILE_NEXT" , "next" ) ;
 define( "_MD_GNAV_MOBILE_SHOW_AREA" , "Display the surrounding" ) ;
 
+define( "_MD_GNAV_MOBILE_CATEGORY" , "Category" ) ;
+define( "_MD_GNAV_MOBILE_NOTFOUND" , "Cannot find \$s" ) ;
+define( "_MD_GNAV_MOBILE_SHOW" , "Showing \$s" ) ;
 
 //for javascripts on GoogleMap
 define( "_MD_GNAV_JAVA_HERE" , "here¡ª" ) ;

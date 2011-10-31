@@ -49,6 +49,7 @@ define( "_MD_GNAV_ITM_CAUTION" , "<font color='red'>注意</font>" ) ;
 define( "_MD_GNAV_ITM_ABOUTUPLOADS" , "<font color='red'>ファイルサイズが大きい場合、アップロードに時間がかかります。<br />送信は一度だけクリックして画面が変わるまでお待ちください。</font>" ) ;
 define( "_MD_GNAV_ITM_PRINT" , "このページを印刷" ) ;
 
+define( "_MD_GNAV_ARCH_POSTMONTH" , "%1\$d年%2\$d月の投稿" ) ;
 
 
 //map
@@ -81,6 +82,9 @@ define( "_MD_GNAV_MOBILE_PREV" , "前へ" ) ;
 define( "_MD_GNAV_MOBILE_NEXT" , "続き" ) ;
 define( "_MD_GNAV_MOBILE_SHOW_AREA" , "周辺を表示" ) ;
 
+define( "_MD_GNAV_MOBILE_CATEGORY" , "カテゴリー" ) ;
+define( "_MD_GNAV_MOBILE_NOTFOUND" , "\$sは見つかりません" ) ;
+define( "_MD_GNAV_MOBILE_SHOW" , "\$sを表示します" ) ;
 
 //for javascripts on GoogleMap
 define( "_MD_GNAV_JAVA_HERE" , "ここです！" ) ;

@@ -7,6 +7,8 @@ if( defined( 'FOR_XOOPS_LANG_CHECKER' ) || ! defined( $constpref.'_LOADED' ) ) {
 
 define( $constpref.'_LOADED' , 1 ) ;
 
+define( $constpref.'_ARCH_POSTMONTH' , "%1\$d«Ø%2\$d∑Ó§Œ≈Íπ∆" ) ;
+
 // definitions for displaying blocks 
 //define($constpref."","");
 
