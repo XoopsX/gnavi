@@ -494,18 +494,11 @@ $modversion['config'][] = array(
 	'description'	=> $constpref.'_CFG_DESCDEFMTYPE' ,
 	'formtype'		=> 'select' ,
 	'valuetype'		=> 'text' ,
-	'default'		=> 'G_NORMAL_MAP' ,
-	'options'		=> array('G_NORMAL_MAP'=>'G_NORMAL_MAP',
-							'G_SATELLITE_MAP'=>'G_SATELLITE_MAP',
-							'G_HYBRID_MAP'=>'G_HYBRID_MAP',
-							'G_PHYSICAL_MAP'=>'G_PHYSICAL_MAP',
-							'G_HYBRID_PHYSICAL_MAP'=>'G_HYBRID_PHYSICAL_MAP',
-							'G_MOON_ELEVATION_MAP'=>'G_MOON_ELEVATION_MAP',
-							'G_MOON_VISIBLE_MAP'=>'G_MOON_VISIBLE_MAP',
-							'G_MARS_ELEVATION_MAP'=>'G_MARS_ELEVATION_MAP',
-							'G_MARS_VISIBLE_MAP'=>'G_MARS_VISIBLE_MAP',
-							'G_MARS_INFRARED_MAP'=>'G_MARS_INFRARED_MAP',
-							'G_SKY_VISIBLE_MAP'=>'G_SKY_VISIBLE_MAP')
+	'default'		=> 'ROADMAP' ,
+	'options'		=> array('ROADMAP'=>'ROADMAP',
+							'SATELLITE'=>'SATELLITE',
+							'HYBRID'=>'HYBRID',
+							'TERRAIN'=>'TERRAIN')
 ) ;
 $modversion['config'][] = array(
 	'name'			=> 'gnavi_map_draw' ,

@@ -110,7 +110,7 @@ $arricon = gnavi_get_gicon($icon);
 $xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 if($gnavi_usegooglemap && (floatval($photo['lng'])<>0 || floatval($photo['lat'])<>0 )){
 $xoopsTpl->assign( 'map' , _MD_GNAV_MAP_SHOW ) ;
-$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v=2&amp;key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor=false' type='text/javascript' charset='utf-8'></script>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
@@ -127,7 +127,7 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;
 }
 
 if($gnavi_use_rss>0 && $photo['rss']!=""){
-$xoops_module_header .="<script src='http://www.google.com/jsapi?key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header .="<script src='http://www.google.com/jsapi' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
 	var gn_feedlink='".$photo['rss']."';

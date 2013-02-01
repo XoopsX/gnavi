@@ -19,7 +19,7 @@ require_once dirname(dirname(__FILE__)).'/include/common_javalang.inc.php' ;
 
 // GPCS vars
 $action = isset( $_POST[ 'action' ] ) ? $_POST[ 'action' ] : '' ;
-//¢­¢­¢­¢­¢­¢­
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 // Initializations
 $myts =& MyTextSanitizer::getInstance();
@@ -367,7 +367,7 @@ $gmap = new XoopsFormLabel(_MD_GNAV_MAP, "
 <input type='hidden' name='z' id='z' size='20' value='".$myts->makeTboxData4Edit($zoom)."' />
 <input type='hidden' name='mt' id='mt' size='30' value='".$myts->makeTboxData4Edit($mtype)."' />
 </div>
-<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v=2&amp;key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
+<script src='".$gnavi_googlemap_url."/maps/api/js?sensor=false' type='text/javascript' charset='utf-8'></script>
 <script src='../js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[

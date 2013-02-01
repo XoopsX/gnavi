@@ -1,165 +1,76 @@
 // ------------------------------------------------------------------------- //
 //                      GNAVI - XOOPS area guide +                           //
 //                        <http://xoops.iko-ze.net/>                         //
-//                        main script for googleMap                          //
+//                        main script for googleMap-v3                       //
+//                        edit by tatsu                                      //
+//                        <http://www.onwil.com/>                            //
 // ------------------------------------------------------------------------- //
 
-/*-----Gnavi const values-----*/
-
-	//Map types dimension on strings
-	var GN_MTX = new Array(
-			"G_NORMAL_MAP",
-			"G_SATELLITE_MAP",
-			"G_HYBRID_MAP",
-			"G_PHYSICAL_MAP",
-			"G_MOON_ELEVATION_MAP",
-			"G_MOON_VISIBLE_MAP",
-			"G_MARS_ELEVATION_MAP",
-			"G_MARS_VISIBLE_MAP",
-			"G_MARS_INFRARED_MAP",
-			"G_SKY_VISIBLE_MAP",
-			"G_HYBRID_PHYSICAL_MAP");
-
-	// Add CustomMap Types if you need
-	if(window['G_PHYSICAL_MAP'] && window['G_HYBRID_MAP'] && window['G_NORMAL_MAP'])
-		var G_HYBRID_PHYSICAL_MAP = new GMapType([G_PHYSICAL_MAP.getTileLayers()[0],G_HYBRID_MAP.getTileLayers()[1]],G_NORMAL_MAP.getProjection(),"Hybrid Physical");
-
-	//handl events type    'end' operates googlemap at high speed.
-	var GN_DRAG ='dragend'; // 'dragend' or 'drag' 
-	var GN_MOVE ='moveend'; // 'moveend' or 'move'
+ 	
+	//Map types is 'ROADMAP','SATELLITE','HYBRID','TERRAIN
+	//event.addListener  to 'idle' change from 'moveend' or 'zoomend'  This event is fired when the map becomes idle after panning or zooming.
 
 /*-----Gnavi Global Params-----*/
 
-	var gn_map=null;
-	var gn_om=null
-	var gn_geo=null;
-	var gn_mymk=null;
-
-	var gn_lg =null;
-	var gn_geoz=null;
+	var gn_map=null;    
+	var gn_geo=null;    
+	var gn_mymk=null;   
+	var gn_lg =null;    
+	var gn_geoz=null;   
 	var gn_mheight=null;
-	var gn_url=null;
-	var gn_ulop=null;
-	var gn_mk=[];
-	var gn_desc=[];
-	var gn_l=0;
-	var gn_ic='';
-	var gn_mt=null;
-	var gn_kmls=null;
-	var gn_mykmls=null;
+	var gn_url=null;    
+	var gn_ulop=null;   
+	var gn_mk=[];       
+	var gn_desc=[];     
+	var gn_l=0;         
+	var gn_ic='';       
+	var gn_mt=null;     
+	var gn_kmls=null;   
+	var gn_mykmls=null; 
 	var gn_ep=0;
 	var gn_drkm=0;
-	var gn_it='';
-	var gn_ilt=0;
-	var gn_ilg=0;
-	var gn_iz=0;
-	var gn_pe=null;
-	var gn_pekey="";
+	var gn_it='';       
+	var gn_ilt=0;       
+	var gn_ilg=0;       
+	var gn_iz=0;        
+	var gn_pe=null;     
+	var gn_pekey="";    
+	var gn_infowindow=null;  
+	var myLatlng=null;  
+	var mypoint=null;  
+	var mypoint2=null; 
 
 
 /*-----Gnavi functions-----*/
 
 function InitializeGmap(){
-
+	
 	if(!document.getElementById('map'))return false;
+	
 
-	if(!gn_mt)gn_mt=G_NORMAL_MAP;
-	opts = {mapTypes : getMapTypes(gn_mt) };
-	gn_map = new GMap2(document.getElementById('map'),opts);
+	// map original settings.  
 
-	// If don't use , comment out these settings.  
+	if(!gn_mt)gn_mt='ROADMAP';
+	if(!gn_iz)gn_iz=12;
+	gn_geoz=18;
+	gn_infowindow = new google.maps.InfoWindow({disableAutoPan:true}); 
+	myLatlng = new google.maps.LatLng(gn_ilt,gn_ilg);
+	
 
-		// option1: add small map
-		gn_om = new GOverviewMapControl();
-		gn_map.addControl(gn_om);
+	var myOptions = {
+	     zoom: gn_iz,
+	     center: myLatlng,
+	     scaleControl :true,
+	     mapTypeId:google.maps.MapTypeId[gn_mt]
+		    };
+	gn_map = new google.maps.Map(document.getElementById('map'), myOptions);
 
-		// option2: add large map control
-		gn_map.addControl(new GLargeMapControl());
-
-		// option3: add Scale
-		gn_map.addControl(new GScaleControl());
-
-		// option4: add maptype control button
-		addGMapTypeControl();
-
-		// option5: enable DoubleClickZoom
-		gn_map.enableDoubleClickZoom();
-
-		// option6: enable smooze Zoom
-		gn_map.enableContinuousZoom();
-
-		// option7: enable move by keybode
-		new GKeyboardHandler(gn_map);
-		
-		//option10: zoom then get address by geocording (gn_geoz=-1:no set)
-		gn_geoz=18;
-
-		// option11: set default maptype
-		setGMapType();
-
-		//option 12: include kml files
-		ShowGeoXml();
-
-		if(gn_pekey!="")InitPlaceEngine();
 
 	return true;
 }
 
-function setGMapType(){
-	if(gn_mt){
-		//set maptype
-		GEvent.addListener(gn_map,"load",function(){ 
-			gn_map.setMapType( gn_mt );
-			setTimeout("setOv()",100);
-	    });
-	}
-}
 
-function InitPlaceEngine(){
-	include("http://www.placeengine.com/javascripts/pengine.js");
-	var cr="<a href='www.placeengine.com'><img src='images/pe_logo.png'/></a>";
-
-	l();
-	function l(){
-		if(window['PEngine']) m();
-		else setTimeout(l,100);
-	}
-	function m(){
-		gn_pe = new PEngine({onGetLocation:c,idstatus:"pestatus",appkey:gn_pekey});
-		var s="";
-		s+="<input src='images/wide_bt2.png' type='image' onclick='gn_pe.registerLocation(gn_map)' />&nbsp;";
-		s+="<input src='images/wide_bt1.png' type='image' onclick='gn_pe.getLocation()' />&nbsp;";
-		s+="<span id='pestatus'></span>";
-		s+="&nbsp;"+cr;
-		document.getElementById("peui").innerHTML=s;
-	}
-	function c(x, y, r, info){
-	    if (gn_map != null){
-			gn_map.panTo(new GLatLng(y, x));
-			gn_map.openInfoWindowHtml(new GLatLng(y, x),info.addr+"<div align='center'>"+cr+"</div>");
-		}
-	    if (document.getElementById("pestatus")!=null)document.getElementById("pestatus").innerHTML = info.addr;
-	}
-}
-
-
-function addGMapTypeControl(){
-
-		if(getMapTypes(gn_mt)==G_DEFAULT_MAP_TYPES && window['G_HYBRID_PHYSICAL_MAP']){
-			gn_map.addMapType(G_PHYSICAL_MAP);
-			gn_map.addMapType(G_HYBRID_PHYSICAL_MAP);
-			//gn_map.addMapType(G_SATELLITE_3D_MAP);
-
-			var c = new GHierarchicalMapTypeControl();
-			c.clearRelationships();
-			c.addRelationship(G_SATELLITE_MAP, G_HYBRID_MAP, unescape(gn_lg['addlabel']), false);
-			c.addRelationship(G_PHYSICAL_MAP, G_HYBRID_PHYSICAL_MAP, unescape(gn_lg['addlabel']), false);
-			gn_map.addControl(c);
-		}else{
-			gn_map.addControl(new GMapTypeControl());
-		}
-}
-
+//rss from item.php 
 function gn_feedLoader(){
 
 	var feed = new google.feeds.Feed(gn_feedlink);
@@ -171,10 +82,10 @@ function gn_feedLoader(){
 			s+="<ul>";
 			for (var i = 0; i < result.feed.entries.length; i++) {
 				var entry = result.feed.entries[i];
-				s+="<li>"+df(entry.publishedDate)+"&nbsp;<a href='"+entry.link+"' target='_blank'>"+entry.title+"</a></li>";
+				s+="<li>"+df(entry.publishedDate)+" <a href='"+entry.link+"' target='_blank'>"+entry.title+"</a></li>";
 			}
 			s+="</ul>";
-			s+="<div align='right'><img src='images/rss.gif' align='absmiddle'/>&nbsp;<a href='"+gn_feedlink+"' target='_blank'>"+result.feed.title+"</a>";
+			s+="<div align='right'><img src='images/rss.gif' align='absmiddle'/> <a href='"+gn_feedlink+"' target='_blank'>"+result.feed.title+"</a>";
 			var d = document.createElement("div");
 			d.innerHTML=s;
 			container.appendChild(d);
@@ -194,190 +105,171 @@ function gn_feedLoader(){
 	}
 }
 
-function getMapTypes(m){
-	var r;
-	switch(m){
-		case 	G_NORMAL_MAP:
-		case 	G_SATELLITE_MAP:
-		case 	G_HYBRID_MAP:
-		case 	G_PHYSICAL_MAP:
-		case 	G_HYBRID_PHYSICAL_MAP:
-			r = G_DEFAULT_MAP_TYPES;
-			break;
-		case 	G_MOON_ELEVATION_MAP:
-		case 	G_MOON_VISIBLE_MAP:
-			r = G_MOON_MAP_TYPES;
-			break;
-		case 	G_MARS_ELEVATION_MAP:
-		case 	G_MARS_VISIBLE_MAP:
-		case 	G_MARS_INFRARED_MAP:
-			r = G_MARS_MAP_TYPES;
-			break;
-		case 	G_SKY_VISIBLE_MAP:
-			r = G_SKY_MAP_TYPES;
-			break;
-		default:
-			r = G_DEFAULT_MAP_TYPES;
-	}
-
-	return r;
-}
-
-function setOv() {
-   	var m = gn_om.getOverviewMap();
-	if (m) {    
-		if(m.isLoaded()){
-			m.clearOverlays();
-			m.setMapType( gn_mt );
-		}else{
-			GEvent.addListener(m,"load",function(){ 
-				m.clearOverlays();
-				m.setMapType( gn_mt );
-		    });
-		}
-	} else {
-	   	setTimeout("setOv()",100);
-	}
-}
-
-function ShowGeoXml(){
-	if(gn_kmls){
-		for( var i = 0; i < gn_kmls.length; i++ ) {
-			var x = new GGeoXml(gn_kmls[i]);
-			gn_map.addOverlay(x);
-		}
-	}
-	if(gn_mykmls){
-		for( var i = 0; i < gn_mykmls.length; i++ ) {
-			var x = new GGeoXml(gn_mykmls[i]);
-			gn_map.addOverlay(x);
-		}
-	}
-}
 
 
 
 function ShowItemGMap() {
 
 	//show map on individual article.
-
-	if(GBrowserIsCompatible()){
-
-		if(gn_it) gn_mt = eval(gn_it) ;
+        	if(gn_it) gn_mt = gn_it ;
+		gn_iz = parseInt(gn_iz);
 		if(!InitializeGmap())return;
 
 		//setcenter
-		var c = new GLatLng(gn_ilt,gn_ilg);
-		gn_map.setCenter(c,parseInt(gn_iz));
 		var p = new Object();
 		p.title = unescape(gn_lg['here']);
 
+
 		if(gn_ic==''){
-			gn_mymk = new GMarker(c);
-			gn_map.addOverlay(gn_mymk);
+			gn_mymk = new google.maps.Marker({
+        		position: myLatlng, 
+        		map: gn_map,
+       			title:p.title
+    			}); 
 		}else{
 			var p = gn_ic.split(",");
-			icon = new GIcon();
-			icon.image = p[0];
-			icon.iconSize = new GSize(eval(p[1]), eval(p[2]));
+			var iconimage = new google.maps.MarkerImage(p[0],
+			      new google.maps.Size(eval(p[1]), eval(p[2])),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(eval(p[6], eval(p[7]))));
+
 			if(p[3]!=''){
-				icon.shadow = p[3];
-				icon.shadowSize = new GSize(eval(p[4]), eval(p[5]));
+			var iconshadow = new google.maps.MarkerImage(p[3],
+			      new google.maps.Size(eval(p[4]), eval(p[5])),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(eval(p[6], eval(p[7]))));
+				gn_mymk = new google.maps.Marker({
+			        position:myLatlng, 
+				//draggable : true, 
+				icon: iconimage,
+				shadow : iconshadow,
+			        map: gn_map,
+				title: p.title
+				}); 
+			}else{
+			
+			
+			gn_mymk = new google.maps.Marker({
+			        position:myLatlng, 
+				//draggable : true, 
+				icon: iconimage,
+				//shadow : iconshadow,
+			        map: gn_map,
+				title: p.title
+				}); 
 			}
-			icon.iconAnchor = new GLatLng(eval(p[7]),eval(p[6])); 
-			gn_mymk = new GMarker(c,icon);
-			gn_map.addOverlay(gn_mymk);
+
 		}
 
-	}else{
 
-		document.getElementById("map").innerHTML='<strong>'+unescape(gn_lg['gmapdisable'])+'</strong>';
-
-	}
 }
 
+
+
 function ShowGMap() {
+// display many markers.
 
-	// display many markers.
-
-	if(GBrowserIsCompatible()){
-
-	//	mashmap(gn_map);
-
-		if(document.getElementById('mt').value && window[document.getElementById('mt').value]){
-			gn_mt = eval(document.getElementById('mt').value);
+	// mashmap(gn_map);
+		if(document.getElementById('mt').value){
+			gn_mt = document.getElementById('mt').value;
 		}else{
-			gn_mt = G_NORMAL_MAP;
+			gn_mt = 'ROADMAP';
 		}
-
+		gn_iz=parseInt(document.getElementById('z').value);
+		gn_ilt=document.getElementById('lat').value;
+		gn_ilg=document.getElementById('lng').value;
+		
 		if(!InitializeGmap())return;
 
 		if(gn_drkm){
     		var k = gn_url+'/kml.php?'+gn_ulop;
-			var g = new GGeoXml(k);
-			gn_map.addOverlay(g);
+			var g = new google.maps.KmlLayer(k,
+			{ suppressInfoWindows: true,
+			  map: gn_map});
+			g.setMap(gn_map);
 		}
 
 		searchSales();
 
 		//addListener
-		GEvent.addListener(gn_map, GN_MOVE, function() {
+		google.maps.event.addListener(gn_map, 'idle', function() {
 			var p = gn_map.getCenter();
 			DrawLatLngTxt(p);
-	    });
-		GEvent.addListener(gn_map, 'zoomend',function(oldZoomLevel, newZoomLevel) {
+			var newZoomLevel = gn_map.getZoom();
 	     		document.getElementById('z').value  =newZoomLevel;
 	     		document.getElementById('sz').innerHTML  =newZoomLevel;
-		});
-
-		//addListener
-		GEvent.addListener(gn_map, 'maptypechanged', function() {
-			for (i in GN_MTX){
-				if(eval(GN_MTX[i])==gn_map.getCurrentMapType()){
-					document.getElementById('mt').value = GN_MTX[i];break;
-				}
-			}
 	    });
 		
-		//setcenter
-		var c = new GLatLng(document.getElementById('lat').value,document.getElementById('lng').value);
-	  	gn_map.setCenter(c,parseInt(document.getElementById('z').value));
 
-		if(gn_ep)right_click();
+		//addListener
+		google.maps.event.addListener(gn_map, 'maptypeid_changed', function() {
+		document.getElementById('mt').value = gn_map.getMapTypeId().toUpperCase();
+		});
+
 		
-	}else{
+		//addListener
+		google.maps.event.addListener(gn_map, 'click', function(){
+	         gn_infowindow.close(gn_map);
+		 });
 
-		document.getElementById("map").innerHTML='<strong>'+unescape(gn_lg['gmapdisable'])+'</strong>';
+	 
+		
+		//setcenter
+		var c = new google.maps.LatLng(document.getElementById('lat').value,document.getElementById('lng').value);
+	  	gn_map.setCenter(c);
+		gn_map.setZoom(parseInt(document.getElementById('z').value));
+		if(gn_ep)right_click();
 
-	}
+
 }
+
 
 function right_click(){
+	
+	var r = "<div><input type='button' onclick='frmlatlng.submit()' style='padding:3px;font-size:13px;cursor:pointer;' value='"+unescape(gn_lg['additem'])+"'></div>";
+	
+	google.maps.event.addListener(gn_map, 'rightclick', function(point) {
 
-	var r = document.createElement("div");
-	r.style.visibility = "hidden";
-	r.innerHTML = "<input type='button' onclick='frmlatlng.submit()' style='padding:3px;font-size:13px;cursor:pointer;' value='"+unescape(gn_lg['additem'])+"'>";
+	if(mypoint){mypoint.setMap(null);}
 
-	gn_map.getContainer().appendChild(r);
 
-	GEvent.addListener(gn_map, "singlerightclick", function(point) {
-		DrawLatLngTxt(gn_map.fromContainerPixelToLatLng(point));
-		var p = new GControlPosition(G_ANCHOR_TOP_LEFT, new GSize(point.x, point.y));
-		p.apply(r);
-		r.style.visibility = "visible";
+	var righticon = new google.maps.MarkerImage('http://www.google.com/mapfiles/gadget/arrowSmall80.png',
+			      new google.maps.Size(31, 27),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(8, 27));
+	var righticonsh = new google.maps.MarkerImage('http://www.google.com/mapfiles/gadget/arrowshadowSmall80.png',
+			      new google.maps.Size(31, 27),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(8, 27));
+	
+	
+	mypoint = new google.maps.Marker({
+        position:point.latLng, 
+	icon: righticon,
+	shadow : righticonsh,
+	map: gn_map
+	});   
+
+	  gn_infowindow.setContent(r);
+ 	  gn_infowindow.open(gn_map,mypoint);
+	
+	  DrawLatLngTxt(point.latLng);
+	  
+        
+	google.maps.event.addListener(gn_map, 'click', function(){
+          mypoint.setMap(null);
+	});
+	
+	google.maps.event.addListener(mypoint, 'click', function(){
+          gn_infowindow.open(gn_map,mypoint);
 	});
 
-	GEvent.addListener(gn_map, "click", function() {
-	  	if (r.style.visibility == "visible")r.style.visibility = "hidden";
-	});
-	GEvent.addListener(gn_map, "mouseout", function() {
-	  	if (r.style.visibility == "visible")r.style.visibility = "hidden";
-	});
-	GEvent.addListener(gn_map, GN_MOVE, function() {
-	  	if (r.style.visibility == "visible")r.style.visibility = "hidden";
-	});
+	
+
+        });
 
 }
+
 
 function searchSales(){
 	
@@ -396,12 +288,13 @@ function searchSales(){
 
 function func2(req){
 
-	//show markers.
-
+	//Initial setting markers.
+	
 	if(!gn_drkm){
 		//create icons
 	  	var nl = req.responseXML.getElementsByTagName( 'IconStyle' );
-		var icon = [];
+		var iconimage = []; 
+		var iconshadow = [];
 	  	for( var i = 0; i < nl.length; i++ ) {
 		    var nli = nl[ i ];
 		    var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
@@ -410,51 +303,41 @@ function func2(req){
 		    var param = nli.getElementsByTagName( 'param' )[0].firstChild.nodeValue;
 			var p = param.split(",");
 
-		    icon[icd] = new GIcon();
-		    icon[icd].image = iimg;
-		    icon[icd].iconSize = new GSize(eval(p[0]), eval(p[1]));
-			if(shadow!='x'){
-			    icon[icd].shadow = shadow;
-			    icon[icd].shadowSize = new GSize(eval(p[2]), eval(p[3]));
+		    iconimage[icd] = new google.maps.MarkerImage(iimg,
+			      new google.maps.Size(eval(p[0]), eval(p[1])),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(eval(p[4]), eval(p[5])));
+		    if(shadow!='x'){
+		    iconshadow[icd] = new google.maps.MarkerImage(shadow,
+			      new google.maps.Size(eval(p[2]), eval(p[3])),
+			      new google.maps.Point(0,0),
+			      new google.maps.Point(eval(p[4]), eval(p[5])));
 			}
-		    icon[icd].iconAnchor = new GLatLng(eval(p[5]),eval(p[4])); 
-		    icon[icd].infoWindowAnchor = new GLatLng(eval(p[7]),eval(p[6])); 
+		
 	  	}
 	}
 
+	
+
+        var nl = req.responseXML.getElementsByTagName( 'Placemark' );
+  	        
 	var lst='';
-  	var nl = req.responseXML.getElementsByTagName( 'Placemark' );
-  	for( var i = 0; i < nl.length; i++ ) {
+
+	for( var i = 0; i < nl.length; i++ ) {
 	    var nli = nl[ i ];
 	    var lid = eval(nli.getElementsByTagName( 'lid' )[0].firstChild.nodeValue);
-	    var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
 	    var name = nli.getElementsByTagName( 'name' )[0].firstChild.nodeValue;
-	    var coordinates = nli.getElementsByTagName( 'coordinates' )[0].firstChild.nodeValue;
 	    var description = nli.getElementsByTagName( 'description' )[0].firstChild.nodeValue;
-
+		
+		//setup list
 		lst += "<li><a href='javascript:void(0)' onclick='go("+lid+")'>"+name+"</a></li>";
-
-		var p = coordinates.split(",");
-		var ll=new GLatLng(eval(p[1]), eval(p[0]));
-		if(icd==0)
-			gn_mk[lid] = new GMarker(ll);
-		else
-			gn_mk[lid] = new GMarker(ll,icon[icd]);
-
-
-		if(!gn_drkm){
-
-			gn_map.addOverlay(gn_mk[lid]);
-			var u='';
-			if(gn_ulop) u = "&" + gn_ulop ; 
-			gn_desc[lid]="<div style='width:250px;'><a href='"+gn_url+"/index.php?lid="+lid+u+"'>"+name+"</a><br />"+description+"</div>";
-
-			GEvent.addListener( gn_mk[lid], "click", 
-			    GEvent.callbackArgs( gn_mk[lid], function( lid ){ 
-			        this.openInfoWindowHtml(gn_desc[lid]); 
-			    },lid));
+		
+		//setup infowindow
+		var u='';
+		if(gn_ulop) u = "&" + gn_ulop ; 
+		gn_desc[lid]="<div style='width:250px;'><a href='"+gn_url+"/index.php?lid="+lid+u+"'>"+name+"</a><br />"+description+"</div>";
+		
 		}
-  	}
 
 	if(lst)
 		lst = "<ul>" + lst + "</ul>";
@@ -462,133 +345,235 @@ function func2(req){
 		lst = "<div>"+unescape(gn_lg['nodata'])+"</div>";
 
 	document.getElementById("gn_mklist").innerHTML=lst;
-	if(gn_l>0){gn_mk[gn_l].openInfoWindowHtml(gn_desc[gn_l]);}
+
+
+	
+	
+  	for( var i = 0; i < nl.length; i++ ) {
+	    var nli = nl[ i ];
+	    var lid = eval(nli.getElementsByTagName( 'lid' )[0].firstChild.nodeValue);
+	    var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
+	    var coordinates = nli.getElementsByTagName( 'coordinates' )[0].firstChild.nodeValue;
+	    
+		
+
+		var p = coordinates.split(",");
+		var ll=new google.maps.LatLng(eval(p[1]), eval(p[0]));
+
+
+		//setup marker in map
+		if(icd==0){
+			gn_mk[lid] = new google.maps.Marker({
+		        position: ll, 
+			map: gn_map
+			});
+		}else{
+			if(shadow!='x'){
+			gn_mk[lid] = new google.maps.Marker({
+		        position: ll, 
+			icon: iconimage[icd],
+			shadow : iconshadow[icd],
+		        map: gn_map
+			});
+			}else{
+			gn_mk[lid] = new google.maps.Marker({
+		        position: ll, 
+			icon: iconimage[icd],
+			map: gn_map
+			});
+			}
+
+		}   
+		
+		if(!gn_drkm){
+			showInfo(lid);
+			
+		}
+
+		
+  	}
+
+
+	
+	
 }
+
+
+
+ // marker show Infowindow
+function showInfo(lid){
+        
+	var hyoji = function()
+	   {
+		gn_infowindow.setContent(gn_desc[lid]);
+		gn_infowindow.open(gn_map,gn_mk[lid]);
+		gn_map.panTo(gn_mk[lid].getPosition());
+		
+           };
+	
+   	google.maps.event.addListener(gn_mk[lid], 'click', hyoji);
+	
+	if(gn_l>0){gn_infowindow.setContent(gn_desc[gn_l]);
+		   gn_infowindow.open(gn_map,gn_mk[gn_l]);
+		}
+
+	
+
+ }
 
 function go(lid){
-	gn_map.panTo(gn_mk[lid].getPoint());
-	if(!gn_drkm)gn_mk[lid].openInfoWindowHtml(gn_desc[lid]);
+google.maps.event.trigger(gn_mk[lid], "click");
+
 }
 
+
 function InputGMap() {
-	if(GBrowserIsCompatible()){
 
 		gn_mheight=document.getElementById("map").style.height;
-
-		if(document.getElementById('mt').value && window[document.getElementById('mt').value]){
-			gn_mt = eval(document.getElementById('mt').value);
+		if(document.getElementById('mt').value){
+			gn_mt = document.getElementById('mt').value;
 		}else{
-			gn_mt = G_NORMAL_MAP;
+			gn_mt = 'ROADMAP';
 		}
 
 		//initialize
 		if(!InitializeGmap())return;
-		gn_geo = new GClientGeocoder();
+		gn_geo = new google.maps.Geocoder();
 
 		//setcenter
-		var c = new GLatLng(document.getElementById('lat').value,document.getElementById('lng').value);
-	  	gn_map.setCenter(c,parseInt(document.getElementById('z').value));
+		var c = new google.maps.LatLng(document.getElementById('lat').value,document.getElementById('lng').value);
+		gn_map.setCenter(c);
+		gn_map.setZoom(parseInt(document.getElementById('z').value));
 
 		//setmarker
-		var p = new Object();
-		p.draggable = true;
-		p.title = unescape(gn_lg['setpoint']);
-		gn_mymk = new GMarker(c, p);
-		gn_map.addOverlay(gn_mymk);
-
-		//addListener
-		GEvent.addListener(gn_map, 'click', function(overlay, point) {
-			if (point) {
-				gn_mymk.setPoint(point);
-				DrawLatLngTxt(point);
-		   	}
-	    });
-		GEvent.addListener(gn_map, 'zoomend',function(oldZoomLevel, newZoomLevel) {
-	    	document.getElementById('z').value  =newZoomLevel;
-	    	document.getElementById('sz').innerHTML  =newZoomLevel;
+		mypoint2 = new google.maps.Marker({
+	        position:c, 
+		draggable : true,
+		map: gn_map,
+		title : unescape(gn_lg['setpoint'])
 		});
-	    GEvent.addListener(gn_mymk, GN_DRAG,function() {
-	       	var p = gn_mymk.getPoint();
+
+		
+		//addListener
+		google.maps.event.addListener(gn_map, 'click', function(point) {
+		
+			if (point) {
+				mypoint2.setPosition(point.latLng);
+				DrawLatLngTxt(point.latLng);
+		   	}
+	    	});
+
+		google.maps.event.addListener(gn_map, 'idle', function(point) {
+			var p = gn_map.getCenter(point);
 			DrawLatLngTxt(p);
-	    });
+			var newZoomLevel = gn_map.getZoom();
+	     		document.getElementById('z').value  =newZoomLevel;
+	     		document.getElementById('sz').innerHTML  =newZoomLevel;
+	    	});
+
+		
+	    	google.maps.event.addListener(mypoint2, 'dragend', function(point) {
+	       	var p = mypoint2.getPosition(point);
+			DrawLatLngTxt(p);
+	   	});
+
 
 		//addListener
-		GEvent.addListener(gn_map, 'maptypechanged', function() {
-			for (i in GN_MTX){
-				if(eval(GN_MTX[i])==gn_map.getCurrentMapType()){
-					document.getElementById('mt').value = GN_MTX[i];break;
-				}
-			}
-	    });
+		google.maps.event.addListener(gn_map, 'maptypeid_changed', function() {
+			
+			document.getElementById('mt').value = gn_map.getMapTypeId().toUpperCase();
+		});
 
 		ChangeMapArea(document.getElementById('set_latlng'));
 
-	}else{
-
-		document.getElementById("geo").style.visibility = "hidden"; 
-		if(document.getElementById("geo"))document.getElementById("map").innerHTML='<strong>'+unescape(gn_lg['gmapdisable'])+'</strong>';
-
-	}
+	
 }
+
 
 function showAddress(address) {
 
-	//get latlng by address strings.
-
-	if(!GBrowserIsCompatible()||address=='')return;
-
+//get latlng by address strings.
+	if(address=='')return;
 	if (gn_geo) {
-       	gn_geo.getLatLng(address,function(point) {
-			if (!point) {
-				alert(address + unescape(gn_lg['notfound']));
-			} else {
-				if(gn_geoz<0){
-					gn_map.setCenter(point);
+	gn_geo.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+		mypoint2.setPosition(results[0].geometry.location);
+		gn_map.setCenter(results[0].geometry.location);
+		if(gn_geoz<0){
+					//gn_map.setCenter(point);
 				}else{
-					gn_map.setCenter(point,gn_geoz);
+					gn_map.setZoom(gn_geoz);
 				}
-               	gn_mymk.setPoint(point);
-               	gn_mymk.openInfoWindowHtml(address);
-				DrawLatLngTxt(point);
-           	}
-       	});
+
+	        gn_infowindow.setContent(document.createTextNode(address));
+		gn_infowindow.open(gn_map,mypoint2);
+		DrawLatLngTxt(results[0].geometry.location);
+	      } else {
+	        alert(address + unescape(gn_lg['notfound']));
+	      }
+	    });
 	}
+
+		//addListener
+		google.maps.event.addListener(gn_map, 'click', function(){
+		gn_infowindow.close(gn_map);
+		 });
+
+		google.maps.event.addListener(mypoint2, 'dragstart', function(point) {
+	       	gn_infowindow.close(gn_map);
+	   	});
+
 
 }
 
 function showAddress2(address) {
 
-	//get latlng by address strings.
+//get latlng by address strings.
+	if(address=='')return;
+	gn_geo = new google.maps.Geocoder();
 
-	if(!GBrowserIsCompatible()||address=='')return;
-	gn_geo = new GClientGeocoder();
 
 	if (gn_geo) {
-       	gn_geo.getLatLng(address,function(point) {
-			if (!point) {
-				//alert(address + unescape(gn_lg['notfound']));
-			} else {
-				if(gn_geoz<0){
-					gn_map.setCenter(point);
+	gn_geo.geocode( { 'address': address}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+
+		gn_map.setCenter(results[0].geometry.location);
+		if(gn_geoz<0){
+					//gn_map.setCenter(point);
 				}else{
-					gn_map.setCenter(point,gn_geoz);
+					gn_map.setZoom(gn_geoz);
 				}
-				gn_map.openInfoWindow(point,document.createTextNode(address));
-				DrawLatLngTxt(point);
-           	}
-       	});
+
+	        gn_infowindow.setContent(document.createTextNode(address));
+		gn_infowindow.setPosition(results[0].geometry.location);
+		gn_infowindow.open(gn_map);
+		DrawLatLngTxt(results[0].geometry.location);
+		
+	      } else {
+	        //alert(address + unescape(gn_lg['notfound']));
+	      }
+	    });
 	}
 
-}
-
-function DrawLatLngTxt(point){
-
-	document.getElementById('lat').value  = mround(point.y);
-	document.getElementById('slat').innerHTML  = mround(point.y);
-	document.getElementById('lng').value  = mround(point.x);
-	document.getElementById('slng').innerHTML  = mround(point.x);
+		//addListener
+		google.maps.event.addListener(gn_map, 'click', function(){
+	         gn_infowindow.close(gn_map);
+		 });
 
 }
+
+
+function DrawLatLngTxt(p){
+        
+	document.getElementById('lat').value  = mround(p.lat());
+	document.getElementById('slat').innerHTML  = mround(p.lat());
+	document.getElementById('lng').value  = mround(p.lng());
+	document.getElementById('slng').innerHTML  = mround(p.lng());
+
+}
+
+
+
 
 function ChangeMapArea(obj){
 
@@ -603,6 +588,8 @@ function ChangeMapArea(obj){
 	}
 
 }
+
+
 
 /*-----Ken's common func-----*/
 
