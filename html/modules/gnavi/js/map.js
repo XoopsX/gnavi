@@ -128,16 +128,17 @@ function ShowItemGMap() {
     			}); 
 		}else{
 			var p = gn_ic.split(",");
+			p.title = unescape(gn_lg['here']);
 			var iconimage = new google.maps.MarkerImage(p[0],
 			      new google.maps.Size(eval(p[1]), eval(p[2])),
 			      new google.maps.Point(0,0),
-			      new google.maps.Point(eval(p[6], eval(p[7]))));
+			      new google.maps.Point(eval(p[6]), eval(p[7])));
 
 			if(p[3]!=''){
 			var iconshadow = new google.maps.MarkerImage(p[3],
 			      new google.maps.Size(eval(p[4]), eval(p[5])),
 			      new google.maps.Point(0,0),
-			      new google.maps.Point(eval(p[6], eval(p[7]))));
+			      new google.maps.Point(eval(p[6]), eval(p[7])));
 				gn_mymk = new google.maps.Marker({
 			        position:myLatlng, 
 				//draggable : true, 
