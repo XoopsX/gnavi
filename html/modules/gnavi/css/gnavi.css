@@ -192,6 +192,11 @@
 	border-collapse: separate; 
 	margin:4px 4px 4px 2px;
 }
+
+table.gn_outer {
+	width: 100%;
+}
+
 .gn_outer td{
 	vertical-align:middle;
 }
