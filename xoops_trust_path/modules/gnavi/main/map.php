@@ -218,7 +218,17 @@ $xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\
 	gn_l=$lid;
 	gn_ep = ".( $global_perms & GNAV_GPERM_INSERTABLE )." ;
 	gn_drkm = $gnavi_map_draw ;
-	window.onload = ShowGMap;
+	if (!jQuery) {
+		(function(){
+			var _onload = window.onload;
+			window.onload = function() {
+				if (_onload) _onload();
+				ShowGMap();
+			}
+		})();
+	} else {
+		jQuery(function(){ ShowGMap(); });
+	}
 	".($gnavi_pe_appkey==""?"":"gn_pekey='".$gnavi_pe_appkey."';")."
 //]]>
 </script>";

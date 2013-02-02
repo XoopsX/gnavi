@@ -121,7 +121,17 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor
 	gn_iz=".$photo['zoom'].";
 	gn_it='".$photo['mtype']."';
 	".$arricon."
-	window.onload = ShowItemGMap;
+	if (!jQuery) {
+		(function(){
+			var _onload = window.onload;
+			window.onload = function() {
+				if (_onload) _onload();
+				ShowItemGMap();
+			}
+		})();
+	} else {
+		jQuery(function(){ ShowItemGMap(); });
+	}
 //]]>
 </script>";
 }

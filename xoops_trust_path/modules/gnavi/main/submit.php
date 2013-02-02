@@ -815,7 +815,17 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor
 <script type='text/javascript'>
 //<![CDATA[
 	$gnavi_lang_java
-	window.onload = InputGMap;
+	if (!jQuery) {
+		(function(){
+			var _onload = window.onload;
+			window.onload = function() {
+				if (_onload) _onload();
+				InputGMap();
+			}
+		})();
+	} else {
+		jQuery(function(){ InputGMap(); });
+	}
 //]]>
 </script>";
 
