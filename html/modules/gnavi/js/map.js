@@ -578,12 +578,18 @@ function DrawLatLngTxt(p){
 function ChangeMapArea(obj){
 
 	if(obj.checked){
-		document.getElementById("maparea").style.visibility = "hidden"; 
-		document.getElementById("map").style.height = "0px"; 
+		// change for GMap V3 by nao-pon
+		//document.getElementById("maparea").style.visibility = "hidden"; 
+		//document.getElementById("map").style.height = "0px"; 
+		document.getElementById("maparea").style.position = "absolute"; 
+		document.getElementById("maparea").style.top = "-2000px"; 
 		if(document.getElementById("geo"))document.getElementById("geo").style.visibility = "hidden"; 
 	}else{
-		document.getElementById("maparea").style.visibility = "visible"; 
-		document.getElementById("map").style.height = gn_mheight; 
+		// change for GMap V3 by nao-pon
+		//document.getElementById("maparea").style.visibility = "visible"; 
+		//document.getElementById("map").style.height = gn_mheight; 
+		document.getElementById("maparea").style.position = "static"; 
+		document.getElementById("maparea").style.top = ""; 
 		if(document.getElementById("geo"))document.getElementById("geo").style.visibility = "visible"; 
 	}
 
