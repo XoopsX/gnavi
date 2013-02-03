@@ -32,6 +32,8 @@ define( "_MD_GNAV_ITM_DEL_FILE3" , "Delete Image3" ) ;
 define( "_MD_GNAV_ITM_EDIT_FILE1" , "&nbsp;&nbsp;<font color='#666666'>Change Image1</font>" ) ;
 define( "_MD_GNAV_ITM_EDIT_FILE2" , "&nbsp;&nbsp;<font color='#666666'>Change Image2</font>" ) ;
 define( "_MD_GNAV_ITM_EDIT_FILE3" , "&nbsp;&nbsp;<font color='#666666'>Change Image3</font>" ) ;
+define( "_MD_GNAV_GPS_PREVIEW"      , "GPS Preview" ) ;
+define( "_MD_GNAV_GPS_PREVIEW_DESC" , "Included GPS data in the photo, it sets to the map at preview" ) ;
 
 define( "_MD_GNAV_ITM_URL" , "Website URL" ) ;
 define( "_MD_GNAV_ITM_TEL" , "Telephone number" ) ;

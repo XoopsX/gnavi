@@ -921,6 +921,8 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 
 	global $gnavi_canresize,$photos_dir , $array_allowed_mimetypes , $gnavi_fsize , $gnavi_width , $gnavi_height , $array_allowed_exts;
 
+	$exifGeo = array();
+	
 	if( is_readable( $_FILES[$field]['tmp_name'] ) ) {
 		// new preview
 		if( $preview_name != ''){
@@ -935,6 +937,7 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 			$tmp_name = $uploader->getSavedFileName() ;
 			$preview_name = str_replace( 'tmp_' , 'tmp_prev_' , $tmp_name ) ;
 			gnavi_modify_photo( "$photos_dir/$tmp_name" , "$photos_dir/$preview_name" ) ;
+			$exifGeo = $uploader->getExifGeo() ;
 		} else {
 			@unlink( $uploader->getSavedDestination() ) ;
 			$preview_name='';
@@ -949,7 +952,7 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 	}else{
 		$preview_name='';
 	}
-	return $preview_name;
+	return array($preview_name, $exifGeo);
 }
 
 function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
@@ -958,6 +961,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 
 	$tmp_name='';
 	$ext='';
+	$exifGeo = array();
 
 	// Check if upload file name specified
 	if( empty( $field ) || $field == "" ) {
@@ -986,6 +990,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 			// Succeed to upload
 			$tmp_name = $uploader->getSavedFileName() ;
 			$ext = substr( strrchr( $tmp_name , '.' ) , 1 ) ;
+			$exifGeo = $uploader->getExifGeo() ;
 		} else {
 			// Fail to upload (sizeover etc.)
 			$errmsg .= "<br />".$uploader->getErrors() ;
@@ -996,7 +1001,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 		}
 	}
 
-	return array($tmp_name,$ext,$errmsg);
+	return array($tmp_name,$ext,$errmsg,$exifGeo);
 }
 
 function gnavi_get_icon($cattree,$cid,$cid1,$cid2,$cid3,$cid4,$mcid=0){

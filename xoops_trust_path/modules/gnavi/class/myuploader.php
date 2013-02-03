@@ -82,6 +82,9 @@ class MyXoopsMediaUploader
 
 	var $savedFileName;
 
+	var $exifData = array();
+	var $exifGeo = array();
+
 	/**
 	 * Constructor
 	 * 
@@ -233,7 +236,15 @@ class MyXoopsMediaUploader
 	function getSavedDestination(){
 		return $this->savedDestination;
 	}
-
+	
+	function getExif(){
+		return $this->exifData;
+	}
+	
+	function getExifGeo(){
+		return isset($this->exifData['GPS'])? $this->exifData['GPS'] : false;
+	}
+	
 	/**
 	 * Check the file and copy it to the destination
 	 * 
@@ -273,10 +284,14 @@ class MyXoopsMediaUploader
 		if (count($this->errors) > 0) {
 			return false;
 		}
+		
 		if (!$this->_copyFile($chmod)) {
 			$this->setErrors('Failed uploading file: '.$this->mediaName);
 			return false;
 		}
+		
+		$this->setExif();
+		
 		return true;
 	}
 
@@ -422,5 +437,163 @@ class MyXoopsMediaUploader
 			return $ret;
 		}
 	}
+	
+	function setExif() {
+		if (! extension_loaded('exif')) return false;
+		
+		$file = $this->savedDestination;
+
+		if (! $is = @getimagesize($file) or ($is[2] !== IMAGETYPE_JPEG and $is[2] !== IMAGETYPE_JPEG2000)) return false;
+		
+		$ret =& $this->exifData;
+		if ($ret['RAW'] = @ exif_read_data($file)) {
+			// set GPS
+			$ret['GPS'] = $this->calExifGeo();
+
+			if (isset($exif_data['Model']))
+				$ret['Camera'] = $exif_data['Model'];
+			
+			if (isset($exif_data['Make'])) {
+				if (strpos($ret['Camera'], $exif_data['Make']) !== 0){
+					$ret['Camera'] = $exif_data['Make'] . ' ' . $ret['Camera'];
+				}
+			}
+			
+			
+			if (isset($exif_data['DateTimeOriginal']))
+				$ret['Date'] = $exif_data['DateTimeOriginal'];
+			
+			if (isset($exif_data['ExposureTime']))
+				$ret['Exposure'] = $this->get_exif_numbar($exif_data['ExposureTime'], FALSE, 'fraction').' sec';
+			
+			if (isset($exif_data['ExposureBiasValue'])) {
+				$ret['Exposure'] .= ' (' . $this->get_exif_numbar($exif_data['ExposureBiasValue'], FALSE).' EV)';
+			}
+			
+			if (isset($exif_data['ApertureValue'])) {
+				$ret['Aperture'] = 'F '.$this->get_exif_numbar($exif_data['ApertureValue'], 'A');
+			} else if (isset($exif_data['FNumber'])) {
+				$ret['Aperture'] = 'F '.$this->get_exif_numbar($exif_data['FNumber']);
+			}
+			
+			if (isset($exif_data['FocalLength']))
+				$ret['Lens'] = $this->get_exif_numbar($exif_data['FocalLength']).' mm';
+			
+			if (isset($exif_data['FocalLengthIn35mmFilm']))
+				@$ret['Lens'] .= '(35mm:' . $this->get_exif_numbar($exif_data['FocalLengthIn35mmFilm']).')';
+			
+			if (isset($exif_data['MaxApertureValue']))
+				@$ret['Lens'] .= '/F '.$this->get_exif_numbar($exif_data['MaxApertureValue'], 'A');
+			
+			if (isset($exif_data['Flash'])){
+				if ($exif_data['Flash'] == 0) {$ret['Flash'] = "OFF";}
+				else if ($exif_data['Flash'] == 1) {$ret['Flash'] = "ON";}
+				else if ($exif_data['Flash'] == 5) {$ret['Flash'] = "Light(No Reflection)";}
+				else if ($exif_data['Flash'] == 7) {$ret['Flash'] = "Light(Reflection)";}
+				else if ($exif_data['Flash'] == 9) {$ret['Flash'] = "Always ON";}
+				else if ($exif_data['Flash'] == 16) {$ret['Flash'] = "Always OFF";}
+				else if ($exif_data['Flash'] == 24) {$ret['Flash'] = "Auto(None)";}
+				else if ($exif_data['Flash'] == 25) {$ret['Flash'] = "Auto(Light)";}
+				else {$ret['Flash'] = $exif_data['Flash'];}
+			}
+			
+			if (isset($exif_data['SubjectDistance'])) {
+				$ret['Distance'] = $exif_data['SubjectDistance'].' m';
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	function calExifGeo(){
+	
+		if (empty($this->exifData['RAW'])) return false;
+		
+		$exif = $this->exifData['RAW'];
+	
+		$Lat = @ $exif['GPSLatitude'];
+		$Lon = @ $exif['GPSLongitude'];
+		$LatRef = @ $exif['GPSLatitudeRef'];
+		$LonRef = @ $exif['GPSLongitudeRef'];
+		if (!$Lat || !$Lon || !$LatRef || !$LonRef) return false;
+	
+		// replace N,E,W,S to '' or '-'
+		$prefix = array( 'N' => '', 'S' => '-', 'E' => '', 'W' => '-' );
+	
+		$result = array();
+		if (is_array($Lat)){
+			foreach($Lat as $v){
+				if (strstr($v, '/')){
+					$x = explode('/', $v);
+					$result['Lat'][] = $x[0] / $x[1];
+				}
+			}
+			$result['Lat'] = $result['Lat'][0] + ($result['Lat'][1]/60) + ($result['Lat'][2]/(60*60));
+		} else {
+			$result['Lat'] = $Lat;
+		}
+		if (is_array($Lon)){
+			foreach($Lon as $v){
+				if (strstr($v, '/')){
+					$x = explode('/', $v);
+					$result['Lon'][] = $x[0] / $x[1];
+				}
+			}
+			$result['Lon'] = $result['Lon'][0] + ($result['Lon'][1]/60) + ($result['Lon'][2]/(60*60));
+		} else {
+			$result['Lon'] = $Lon;
+		}
+	
+		if (!$result['Lat'] && !$result['Lon']) return false;
+	
+		// TOKYO to WGS84
+		if (stristr($exif['GPSMapDatum'], 'tokyo')){
+			$result['Lat'] = $result['Lon'] - $result['Lon'] * 0.00010695  + $result['Lat'] * 0.000017464 + 0.0046017;
+			$result['Lon'] = $result['Lat'] - $result['Lon'] * 0.000046038 - $result['Lat'] * 0.000083043 + 0.010040;
+		}
+	
+		$result['Lat'] = (float)($prefix[$LatRef] . $result['Lat']);
+		$result['Lon'] = (float)($prefix[$LonRef] . $result['Lon']);
+		$result['Date'] = @ $exif['DateTimeOriginal'];
+		
+		return $result;
+	}
+	
+	function get_exif_numbar ($dat, $APEX=FALSE, $format='') {
+		if (preg_match('#^([\d.-]+)/([\d.-]+)$#',$dat,$match)) {
+			if ($match[2]) {
+				$dat = $match[1] / $match[2];
+			} else {
+				$dat = $match[1];
+			}
+		} else {
+			$dat = (float)$dat;
+		}
+		if ($APEX == 'T') {
+			$dat = pow(2, $dat);
+		} else if ($APEX) {
+			$dat = pow(sqrt(2), $dat);
+		}
+		if ($format !== 'long') {
+			if ($format === 'fraction' && $dat <= 1) {
+				$dat = '1/' . (int)(1/$dat);
+			} else {
+				$dat = round($dat * 100) / 100;
+			}
+		}
+		return $dat;
+	}
+	
+	function get_exif_ev ($exif_data) {
+		$ev = $this->get_exif_numbar($exif_data['ExposureBiasValue'], FALSE, TRUE);
+		//BrightnessValue+log2(ISOSpeedRatings/3.125)+ExposureBiasValue
+		//$bv = $this->get_exif_numbar($exif_data['BrightnessValue'], FALSE, TRUE);
+		//$sr = $this->get_exif_numbar($exif_data['ISOSpeedRatings'], FALSE, TRUE);
+		//$ev = $bv + log($sr/3.125, 2) + $ev;
+		return $ev;
+	}
+	
 }
 ?>

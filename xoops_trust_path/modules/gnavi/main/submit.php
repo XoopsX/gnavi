@@ -216,9 +216,10 @@ if( ! empty( $_POST['submit'] ) ) {
 
 	$errmsg='';
 	
-	list($tmp_name ,$ext ,$errmsg) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][0] ,$del_photo ,$preview_name , 1, $errmsg);
-	list($tmp_name1,$ext1,$errmsg) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][1] ,$del_photo1,$preview_name1, 2, $errmsg);
-	list($tmp_name2,$ext2,$errmsg) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][2] ,$del_photo2,$preview_name2, 3, $errmsg);
+	$exifGeo = array();
+	list($tmp_name ,$ext ,$errmsg,$exifGeo[0]) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][0] ,$del_photo ,$preview_name , 1, $errmsg);
+	list($tmp_name1,$ext1,$errmsg,$exifGeo[1]) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][1] ,$del_photo1,$preview_name1, 2, $errmsg);
+	list($tmp_name2,$ext2,$errmsg,$exifGeo[2]) = gnavi_submit_uploader(@$_POST["xoops_upload_file"][2] ,$del_photo2,$preview_name2, 3, $errmsg);
 
 	if($mode == G_INSERT && $ext=='' && !$gnavi_allownoimage) {
 		redirect_header( 'index.php?page=submit'.($lid ? '&lid='.$lid : '' ) , 2 , _MD_GNAV_MSG_NOIMAGESPECIFIED ) ;
@@ -232,6 +233,17 @@ if( ! empty( $_POST['submit'] ) ) {
 		exit ;
 	}
 
+	if ($p_set_latlng && !$lat && !$lng) {
+		foreach ($exifGeo as $_check) {
+			if (isset($_check['Lat'])) {
+				$lat = $_check['Lat'];
+				$lng = $_check['Lon'];
+				$zoom = $gnavi_defaultzoom;
+				break;
+			}
+		}
+	}
+	
 	$lid = gnavi_update_item($mode,$lid,
 						$title,$cid,$cid1,$cid2,$cid3,$cid4,
                        	$url,$tel,$fax,$zip,$address,$rss,$lat,$lng,$zoom,$mtype,$icd,
@@ -398,6 +410,12 @@ if(!empty( $_POST['preview'] ) || $mode==G_UPDATE) {
 			$date=time();
 			$hits=0;
 			$status=1;
+			if(!$gnavi_usegooglemap || !$p_set_latlng || ($lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng)){
+				$lat = 0 ;
+				$lng = 0 ;
+				$zoom = 0 ;
+				$mtype = '' ;
+			}
 		}else{
 			$result = $xoopsDB->query( "SELECT status,date,hits FROM $table_photos WHERE l.lid=$lid" ) ;
 			list($status,$date,$hits) = $xoopsDB->fetchRow( $result ) ;
@@ -449,10 +467,22 @@ if(!empty( $_POST['preview'] ) || $mode==G_UPDATE) {
 			if($p_ext2) $orgfile_name2=$lid."_2.".$p_ext2 ;
 		}
 
-		$preview_name  = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][0],$preview_name ,$del_photo ,$orgfile_name );
-		$preview_name1 = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][1],$preview_name1,$del_photo1,$orgfile_name1);
-		$preview_name2 = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][2],$preview_name2,$del_photo2,$orgfile_name2);
+		$exifGeo = array();
+		list($preview_name, $exifGeo[0]) = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][0],$preview_name ,$del_photo ,$orgfile_name );
+		list($preview_name1,$exifGeo[1]) = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][1],$preview_name1,$del_photo1,$orgfile_name1);
+		list($preview_name2,$exifGeo[2]) = gnavi_submit_uploader_pre(@$_POST['xoops_upload_file'][2],$preview_name2,$del_photo2,$orgfile_name2);
 
+		if ($p_set_latlng && !$lat && !$lng) {
+			foreach ($exifGeo as $_check) {
+				if (isset($_check['Lat'])) {
+					$lat = $_check['Lat'];
+					$lng = $_check['Lon'];
+					$zoom = $gnavi_defaultzoom;
+					break;
+				}
+			}
+		}
+		
 		$photo = gnavi_get_img_attribs_for_preview($photo,$preview_name,$preview_name1,$preview_name2);
 
 	}else{
@@ -774,6 +804,9 @@ $submit_tray = new XoopsFormElementTray( '' ) ;
 $submit_tray->addElement( $preview_button ) ;
 $submit_tray->addElement( $submit_button ) ;
 $submit_tray->addElement( $reset_button ) ;
+$preview_tray = new XoopsFormElementTray( _MD_GNAV_GPS_PREVIEW ) ;
+$preview_tray->addElement( $preview_button ) ;
+$preview_tray->addElement( new XoopsFormLabel( '' , _MD_GNAV_GPS_PREVIEW_DESC ) ) ;
 $lid_hidden = new XoopsFormHidden( "lid",$photo['lid']) ;
 
 
@@ -900,6 +933,7 @@ if($photo['ext2']){
 $form->addElement( $file_form2 ) ;
 $form->addElement( $caption2_text ) ;
 $form->addElement( $pixels_label ) ;
+$form->addElement( $preview_tray ) ;
 
 $form->insertBreak(_MD_GNAV_SMT_TITLE_INFO);
 
