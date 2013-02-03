@@ -121,7 +121,7 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor
 	gn_iz=".$photo['zoom'].";
 	gn_it='".$photo['mtype']."';
 	".$arricon."
-	if (!jQuery) {
+	if (typeof jQuery == 'undefined') {
 		(function(){
 			var _onload = window.onload;
 			window.onload = function() {
