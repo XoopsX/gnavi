@@ -93,7 +93,7 @@ function gn_feedLoader(){
       });
 
 	function df(a){
-		var d,y,m,d;
+		var d,y,m;
 		d = new Date(a);
 		y = d.getYear();
 		m = d.getMonth() + 1;
@@ -618,7 +618,7 @@ function var_dumpj(mt,cnt,pre){
 	for (i in mt){
 		 r +=(pre+i+" = "+mt[i])+"<hr>";
 		if(cnt>0 && typeof(mt[i])=="object"){
-			r +=var_dumpj(mt[i],pre+"+----",cnt-1)
+			r +=var_dumpj(mt[i],pre+"+----",cnt-1);
 		}
 	}
 	return r;	
