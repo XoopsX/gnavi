@@ -242,7 +242,7 @@ class MyXoopsMediaUploader
 	}
 	
 	function getExifGeo(){
-		return isset($this->exifData['GPS'])? $this->exifData['GPS'] : false;
+		return (isset($this->exifData['GPS']))? $this->exifData['GPS'] : array();
 	}
 	
 	/**
@@ -448,7 +448,11 @@ class MyXoopsMediaUploader
 		$ret =& $this->exifData;
 		if ($ret['RAW'] = @ exif_read_data($file)) {
 			// set GPS
-			$ret['GPS'] = $this->calExifGeo();
+			if ($gps = $this->calExifGeo()) {
+				$ret['GPS'] = $gps;
+			} else {
+				$ret['GPS'] = array();
+			}
 
 			if (isset($exif_data['Model']))
 				$ret['Camera'] = $exif_data['Model'];
