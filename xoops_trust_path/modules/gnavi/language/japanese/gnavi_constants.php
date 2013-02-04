@@ -40,7 +40,8 @@ define( "_GNAV_CAPTION_CATEGORY" , "カテゴリー" ) ;
 	// encoding conversion if possible and needed
 	function gnavi_callback_after_stripslashes_local( $text )
 	{
-		if( function_exists( 'mb_convert_encoding' ) && mb_internal_encoding() !=  mb_http_output() ) {
+		$mb_http_output = strtolower(mb_http_output());
+		if( $mb_http_output !== 'pass' && function_exists( 'mb_convert_encoding' ) && strtolower(mb_internal_encoding()) !==  $mb_http_output ) {
 			return mb_convert_encoding( $text , mb_internal_encoding() , mb_detect_order() ) ;
 		} else {
 			return $text ;
