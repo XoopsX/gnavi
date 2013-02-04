@@ -718,7 +718,15 @@ if( $gnavi_body_editor == 'common_fckeditor' && $canuse_editor ) {
 	$hidden_body_html = new XoopsFormHidden("body_html","1") ;
 } else {
 	$desc_tarea = new XoopsFormDhtmlTextArea(_MD_GNAV_ITM_DESC, "desc_text" , $myts->makeTareaData4Edit( $photo['description'] ) , 20 , 60 ) ;
-	$hidden_body_html = new XoopsFormHidden("body_html","0") ;
+	if (method_exists($desc_tarea, 'setEditor')) {
+		// XoopsFormDhtmlTextArea::setEditor
+		// https://github.com/xoopscube/legacy/pull/68 (xoopscube)
+		// https://github.com/XoopsX/legacy/pull/44 (XoopsX)
+		$desc_tarea->setEditor($canuse_editor? 'html' : 'bbcode');
+		$hidden_body_html = new XoopsFormHidden("body_html", $canuse_editor? '1' : '0') ;
+	} else {
+		$hidden_body_html = new XoopsFormHidden("body_html","0") ;
+	}
 }
 
 //---------------------------------------------------------------------------------
