@@ -7,6 +7,11 @@
 	border:solid 1px #6666FF;
 }
 
+#map img {
+	max-width: none;
+	max-height: none;
+}
+
 #gn_map {
 	width:100%;
 	background:#999999;
