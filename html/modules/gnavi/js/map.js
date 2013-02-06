@@ -47,7 +47,6 @@ function InitializeGmap(){
 
 	if(!document.getElementById('map'))return false;
 
-
 	// map original settings.
 
 	if(!gn_mt)gn_mt='ROADMAP';
@@ -105,9 +104,6 @@ function gn_feedLoader(){
 	}
 }
 
-
-
-
 function ShowItemGMap() {
 
 	// show map on individual article.
@@ -130,15 +126,15 @@ function ShowItemGMap() {
 		var p = gn_ic.split(",");
 		p.title = unescape(gn_lg['here']);
 		var iconimage = new google.maps.MarkerImage(p[0],
-				new google.maps.Size(eval(p[1]), eval(p[2])),
+				new google.maps.Size(p[1], p[2]),
 				new google.maps.Point(0,0),
-				new google.maps.Point(eval(p[6]), eval(p[7])));
+				new google.maps.Point(p[6], p[7]));
 
 		if(p[3]!=''){
 			var iconshadow = new google.maps.MarkerImage(p[3],
-					new google.maps.Size(eval(p[4]), eval(p[5])),
+					new google.maps.Size(p[4], p[5]),
 					new google.maps.Point(0,0),
-					new google.maps.Point(eval(p[6]), eval(p[7])));
+					new google.maps.Point(p[6], p[7]));
 			gn_mymk = new google.maps.Marker({
 				position:myLatlng,
 				// draggable : true,
@@ -148,8 +144,6 @@ function ShowItemGMap() {
 				title: p.title
 			});
 		}else{
-
-
 			gn_mymk = new google.maps.Marker({
 				position:myLatlng,
 				// draggable : true,
@@ -162,10 +156,7 @@ function ShowItemGMap() {
 
 	}
 
-
 }
-
-
 
 function ShowGMap() {
 // display many markers.
@@ -201,27 +192,21 @@ function ShowGMap() {
 		document.getElementById('sz').innerHTML  =newZoomLevel;
 	});
 
-
 	// addListener
 	google.maps.event.addListener(gn_map, 'maptypeid_changed', function() {
 		document.getElementById('mt').value = gn_map.getMapTypeId().toUpperCase();
 	});
-
 
 	// addListener
 	google.maps.event.addListener(gn_map, 'click', function(){
 		gn_infowindow.close(gn_map);
 	});
 
-
-
 	// setcenter
 	var c = new google.maps.LatLng(document.getElementById('lat').value,document.getElementById('lng').value);
 	gn_map.setCenter(c);
 	gn_map.setZoom(parseInt(document.getElementById('z').value));
 	if(gn_ep)right_click();
-
-
 }
 
 
@@ -265,8 +250,6 @@ function right_click(){
 			gn_infowindow.open(gn_map,mypoint);
 		});
 
-
-
 	});
 
 }
@@ -283,7 +266,7 @@ function searchSales(){
 			asynchronous: true,
 			onComplete: func2
 	};
-	var conn = new Ajax.Request( k, opt );
+	new Ajax.Request( k, opt );
 
 }
 
@@ -291,11 +274,12 @@ function func2(req){
 
 	// Initial setting markers.
 
+	var iconimage = [];
+	var iconshadow = [];
+
 	if(!gn_drkm){
 		// create icons
 		var nl = req.responseXML.getElementsByTagName( 'IconStyle' );
-		var iconimage = [];
-		var iconshadow = [];
 		for( var i = 0; i < nl.length; i++ ) {
 			var nli = nl[ i ];
 			var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
@@ -303,22 +287,21 @@ function func2(req){
 			var shadow = nli.getElementsByTagName( 'shadow' )[0].firstChild.nodeValue;
 			var param = nli.getElementsByTagName( 'param' )[0].firstChild.nodeValue;
 			var p = param.split(",");
-
+			
 			iconimage[icd] = new google.maps.MarkerImage(iimg,
-					new google.maps.Size(eval(p[0]), eval(p[1])),
+					new google.maps.Size(p[0], p[1]),
 					new google.maps.Point(0,0),
-					new google.maps.Point(eval(p[4]), eval(p[5])));
+					new google.maps.Point(p[4], p[5]));
 			if(shadow!='x'){
 				iconshadow[icd] = new google.maps.MarkerImage(shadow,
-						new google.maps.Size(eval(p[2]), eval(p[3])),
+						new google.maps.Size(p[2], p[3]),
 						new google.maps.Point(0,0),
-						new google.maps.Point(eval(p[4]), eval(p[5])));
+						new google.maps.Point(p[4], p[5]));
 			}
 
 		}
+		
 	}
-
-
 
 	var nl = req.responseXML.getElementsByTagName( 'Placemark' );
 
@@ -347,56 +330,65 @@ function func2(req){
 
 	document.getElementById("gn_mklist").innerHTML=lst;
 
-
-
-
-	for( var i = 0; i < nl.length; i++ ) {
-		var nli = nl[ i ];
-		var lid = eval(nli.getElementsByTagName( 'lid' )[0].firstChild.nodeValue);
-		var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
-		var coordinates = nli.getElementsByTagName( 'coordinates' )[0].firstChild.nodeValue;
-
-
-
-		var p = coordinates.split(",");
-		var ll=new google.maps.LatLng(eval(p[1]), eval(p[0]));
-
-
-		// setup marker in map
-		if(icd==0){
-			gn_mk[lid] = new google.maps.Marker({
-				position: ll,
-				map: gn_map
-			});
-		}else{
-			if(shadow!='x'){
+	if (nl.length > 0) {
+		var minLat = 999;
+		var minLng = 999;
+		var maxLat = 0;
+		var maxLng = 0;
+	
+		for( var i = 0; i < nl.length; i++ ) {
+			var nli = nl[ i ];
+			var lid = eval(nli.getElementsByTagName( 'lid' )[0].firstChild.nodeValue);
+			var icd = eval(nli.getElementsByTagName( 'icd' )[0].firstChild.nodeValue);
+			var coordinates = nli.getElementsByTagName( 'coordinates' )[0].firstChild.nodeValue;
+	
+			var p = coordinates.split(",");
+			var ll = new google.maps.LatLng(p[1], p[0]);
+	
+			minLat =  Math.min(minLat, p[1]);
+			minLng =  Math.min(minLng, p[0]);
+			maxLat =  Math.max(maxLat, p[1]);
+			maxLng =  Math.max(maxLng, p[0]);
+			
+			// setup marker in map
+			if (icd==0) {
 				gn_mk[lid] = new google.maps.Marker({
 					position: ll,
-					icon: iconimage[icd],
-					shadow : iconshadow[icd],
-					map: gn_map
+					map: (gn_drkm? null : gn_map)
 				});
-			}else{
-				gn_mk[lid] = new google.maps.Marker({
-					position: ll,
-					icon: iconimage[icd],
-					map: gn_map
-				});
+			} else {
+				if (typeof iconshadow[icd] !== 'undeined'){
+					gn_mk[lid] = new google.maps.Marker({
+						position: ll,
+						icon: iconimage[icd],
+						shadow : iconshadow[icd],
+						map: gn_map
+					});
+				} else if (typeof iconimage[icd] !== 'undeined') {
+					gn_mk[lid] = new google.maps.Marker({
+						position: ll,
+						icon: iconimage[icd],
+						map: gn_map
+					});
+				} else {
+					gn_mk[lid] = new google.maps.Marker({
+						position: ll,
+						map: (gn_drkm? null : gn_map)
+					});
+				}
+	
 			}
 
-		}
-
-		if(!gn_drkm){
 			showInfo(lid);
-
+	
 		}
-
+	
+		var bounds = new google.maps.LatLngBounds(
+				new google.maps.LatLng(maxLat, minLng),
+				new google.maps.LatLng(minLat, maxLng));
+		gn_map.fitBounds(bounds);
 
 	}
-
-
-
-
 }
 
 
@@ -414,17 +406,15 @@ function showInfo(lid){
 
 	google.maps.event.addListener(gn_mk[lid], 'click', hyoji);
 
-	if(gn_l>0){gn_infowindow.setContent(gn_desc[gn_l]);
-	gn_infowindow.open(gn_map,gn_mk[gn_l]);
+	if (gn_l>0) {
+		gn_infowindow.setContent(gn_desc[gn_l]);
+		gn_infowindow.open(gn_map,gn_mk[gn_l]);
 	}
-
-
 
 }
 
 function go(lid){
 	google.maps.event.trigger(gn_mk[lid], "click");
-
 }
 
 
@@ -524,7 +514,6 @@ function showAddress(address) {
 		gn_infowindow.close(gn_map);
 	});
 
-
 }
 
 function showAddress2(address) {
@@ -597,8 +586,6 @@ function ChangeMapArea(obj){
 	}
 
 }
-
-
 
 /*-----Ken's common func-----*/
 
