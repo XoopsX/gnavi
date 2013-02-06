@@ -372,7 +372,7 @@ $gmap = new XoopsFormLabel(_MD_GNAV_MAP, "
 <script type='text/javascript'>
 //<![CDATA[
 	$gnavi_lang_java
-	window.onload = InputGMap;
+	google.maps.event.addDomListener(window, 'load', function(){ InputGMap(); });
 //]]>
 </script>" ) ;
 
