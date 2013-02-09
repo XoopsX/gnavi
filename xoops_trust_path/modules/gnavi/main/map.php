@@ -231,7 +231,7 @@ if($GNAVI_MOBILE){
 	//for degug
 
 		$google_staticmap = $gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?center=$default_lat,$default_lng&zoom=$default_zoom&size=$gnavi_mobile_mapsize&maptype=$gnavi_mobile_maptype&key=$gnavi_googlemapapi_key";
+		$mymap="$google_staticmap?center=$default_lat,$default_lng&amp;zoom=$default_zoom&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
 
 		$gnavi_mobile_maekercolor="blue";
 
@@ -307,7 +307,7 @@ if($GNAVI_MOBILE){
 		}
 
 
-		if($markers)$markers="&markers=".$markers;
+		if($markers)$markers="&amp;markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 		$xoopsTpl->assign('markerlist',$markerlist);
 		//$xoopsTpl->assign('lang_category',"カテゴリー");

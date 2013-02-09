@@ -25,14 +25,14 @@
 			<{/if}>
 			<td  class="gn_head">
 				<{if $canratevote}>
-					<a href='<{$mod_url}>/index.php?page=vote&lid=<{$photo.lid}>'><{$lang_ratethisphoto}></a>
+					<a href='<{$mod_url}>/index.php?page=vote&amp;lid=<{$photo.lid}>'><{$lang_ratethisphoto}></a>
 				<{/if}>
 			</td>
 		</tr>
 	</table>
 <{/if}>
 
-<div style="text-align:right;"><span id="gn_print"><a href="index.php<{$link_option}>&page=print"><{$lang_print}></a></span></div>
+<div style="text-align:right;"><span id="gn_print"><a href="index.php<{$link_option}>&amp;page=print"><{$lang_print}></a></span></div>
 
 <{* ITEM NAVIGATION *}>
 <{if $photo_nav}><div class="gnn_navi" style="margin-top:15px;"><{$photo_nav}></div><{/if}>

@@ -42,7 +42,7 @@ if($gnavi_usegooglemap){
 	$xoopsTpl->assign( 'map' , _MD_GNAV_MAP_SHOW ) ;
 }
 
-$xoopsTpl->assign('cat_link',$mod_url."/index.php?".( $page_cat ? $page_cat.'&':''));
+$xoopsTpl->assign('cat_link',$mod_url."/index.php?".( $page_cat ? $page_cat.'&amp;':''));
 
 if( $global_perms & GNAV_GPERM_INSERTABLE ) $xoopsTpl->assign( 'lang_add_photo' , _MD_GNAV_CAT_ADDITEM ) ;
 
@@ -219,12 +219,12 @@ if( $cid > 0 ) {
 $xoopsTpl->assign( 'xoops_breadcrumbs' , $xoops_breadcrumbs) ;
 
 $xoopsTpl->assign( 'link_option' , ($get_append ? "?".$get_append : '' )) ;
-$mapget_append = $page_map ? ( $get_append ? $get_append.'&'.$page_map : $page_map ) : $get_append ;
+$mapget_append = $page_map ? ( $get_append ? $get_append.'&amp;'.$page_map : $page_map ) : $get_append ;
 $xoopsTpl->assign( 'maplink_option' , ($mapget_append ? "?".$mapget_append : '' )) ;
 
-$get_append = $page_cat ? ( $get_append ? $get_append.'&'.$page_cat : $page_cat ) : $get_append ;
-$get_append = $view == $gnavi_viewcattype ? $get_append : ( $get_append ? $get_append.'&' : '' )."view=".$view ;
-$xoopsTpl->assign( 'catlink_option' , ($get_append ? "&".$get_append : '' )) ;
+$get_append = $page_cat ? ( $get_append ? $get_append.'&amp;'.$page_cat : $page_cat ) : $get_append ;
+$get_append = $view == $gnavi_viewcattype ? $get_append : ( $get_append ? $get_append.'&amp;' : '' )."view=".$view ;
+$xoopsTpl->assign( 'catlink_option' , ($get_append ? "&amp;".$get_append : '' )) ;
 
 $xoopsTpl->assign( 'album_sub_title' , $pagetitle) ;
 $xoopsTpl->assign( 'xoops_pagetitle' , $pagetitle) ;
@@ -257,7 +257,7 @@ if( $photo_small_sum > 0 ) {
 		$xoopsTpl->assign( 'lang_cursortedby' , sprintf( _MD_GNAV_ODR_CURSORTEDBY , $gnavi_orders[$orderby][1] ) ) ;
 		$xoopsTpl->assign( 'my_order' , $orderby ) ;
 
-		$nav = new XoopsPageNav( $photo_small_sum , $num , $pos , 'pos' , "$get_append&num=$num&orderby=$orderby" ) ;
+		$nav = new XoopsPageNav( $photo_small_sum , $num , $pos , 'pos' , "$get_append&amp;num=$num&amp;orderby=$orderby" ) ;
 		$nav_html = $nav->renderNav(7) ;
 		$last = $pos + $num ;
 		if( $last > $photo_small_sum ) $last = $photo_small_sum ;

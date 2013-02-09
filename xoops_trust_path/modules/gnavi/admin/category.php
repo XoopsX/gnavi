@@ -196,7 +196,7 @@ if( $disp == "edit" && $cid > 0 ) {
 	$link_admission = $waiting > 0 ? sprintf( _MD_A_GNAVI_CAT_FMT_NEEDADMISSION , $waiting ) : '' ;
 
 	// Top links
-	echo "<p><a href='?page=category&disp=new&cid=0'>"._MD_A_GNAVI_CAT_LINK_MAKETOPCAT."</a> &nbsp;  &nbsp; <a href='index.php?page=admission' style='color:red;'>$link_admission</a></p>\n" ;
+	echo "<p><a href='?page=category&amp;disp=new&amp;cid=0'>"._MD_A_GNAVI_CAT_LINK_MAKETOPCAT."</a> &nbsp;  &nbsp; <a href='index.php?page=admission' style='color:red;'>$link_admission</a></p>\n" ;
 
 	// TH
 	echo "
@@ -236,16 +236,16 @@ if( $disp == "edit" && $cid > 0 ) {
 		echo "
 	  <tr>
 	    <td class='$oddeven' align='center'>$imgsrc4show</td>
-	    <td class='$oddeven' width='200'><a href='index.php?page=photomanager&cid=$cid'>$prefix&nbsp;".$myts->htmlSpecialChars($title)."</a></td>
+	    <td class='$oddeven' width='200'><a href='index.php?page=photomanager&amp;cid=$cid'>$prefix&nbsp;".$myts->htmlSpecialChars($title)."</a></td>
 	    <td class='$oddeven' nowrap='nowrap' align='center'>".$myts->htmlSpecialChars($weight)."</td>
 	    <td class='$oddeven' nowrap='nowrap' align='right'>
-	      <a href='index.php?page=photomanager&cid=$cid'>$photos_num</a>&nbsp;"._MD_A_GNAVI_C_DATA."&nbsp;&nbsp;
-	      [<a href='../index.php?page=submit&cid=$cid'>"._MD_A_GNAVI_CAT_LINK_ADDPHOTOS."</a>]</td>
+	      <a href='index.php?page=photomanager&amp;cid=$cid'>$photos_num</a>&nbsp;"._MD_A_GNAVI_C_DATA."&nbsp;&nbsp;
+	      [<a href='../index.php?page=submit&amp;cid=$cid'>"._MD_A_GNAVI_CAT_LINK_ADDPHOTOS."</a>]</td>
 	    <td class='$oddeven' align='center' nowrap='nowrap'>
 	      &nbsp;
-	      [<a href='?page=category&disp=edit&amp;cid=$cid'>"._MD_A_GNAVI_CAT_LINK_EDIT."</a>]
+	      [<a href='?page=category&amp;disp=edit&amp;cid=$cid'>"._MD_A_GNAVI_CAT_LINK_EDIT."</a>]
 	      &nbsp;
-	      [<a href='?page=category&disp=new&amp;cid=$cid'>"._MD_A_GNAVI_CAT_LINK_MAKESUBCAT."</a>]
+	      [<a href='?page=category&amp;disp=new&amp;cid=$cid'>"._MD_A_GNAVI_CAT_LINK_MAKESUBCAT."</a>]
 	      &nbsp;
 	      <input type='button' value='"._DELETE."' onclick='if($del_confirm){document.MainForm.delcat.value=\"$cid\"; submit();}' />
 	    </td>

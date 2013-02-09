@@ -11,7 +11,7 @@
 	<{if $photo.is_updatedphoto}>&nbsp;<img src='<{$mod_url}>/images/update.gif' border='0' alt='<{$lang_updated}>' title='<{$lang_updated}>' /><{/if}>
 	<{if $photo.is_popularphoto}>&nbsp;<img src='<{$mod_url}>/images/pop.gif' border='0' alt='<{$lang_popular}>' title='<{$lang_popular}>' /><{/if}>
 	<{if $map}><span>&nbsp;[<a href="index.php<{$maplink_option}>"><{$map}></a>]</span><{/if}>
-	<{if $photo.can_edit}><span>[<a href="index.php?page=submit&lid=<{$photo.lid}>"><{$lang_editthisphoto}></a>]</span><{/if}>
+	<{if $photo.can_edit}><span>[<a href="index.php?page=submit&amp;lid=<{$photo.lid}>"><{$lang_editthisphoto}></a>]</span><{/if}>
 </div>
 
 <{* INFO date,owner,hits *}>

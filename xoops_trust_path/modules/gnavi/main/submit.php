@@ -374,7 +374,7 @@ if( ! empty( $_POST['conf_delete'] ) ) {
 	$tpl->assign( $gnavi_assign_globals ) ;
 	$tpl->assign( 'photo' , $photo ) ;
 
-	$msg = "<form action='index.php?page=submit&lid=$lid' method='post'>
+	$msg = "<form action='index.php?page=submit&amp;lid=$lid' method='post'>
 			".$xoopsGTicket->getTicketHtml( __LINE__ )."
 			<table><tr><td><div style='font-size:15px;font-weight:bold;'>"._MD_GNAV_SMT_ASKDELETE."</div></td><td align='left'><input type='submit' name='do_delete' value='"._YES."' />&nbsp;<input type='submit' name='cancel_delete' value="._NO." /></td></tr></table>
 		</form>" ;

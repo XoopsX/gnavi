@@ -76,9 +76,9 @@ if( $cid > 0 ) {
 	$xoopsTpl->assign( 'catdescription' , $description ) ;
 }
 
-$get_append='cid='.$cid.'&lid='.$lid;
+$get_append='cid='.$cid.'&amp;lid='.$lid;
 $xoopsTpl->assign( 'link_option' , ($get_append ? "?".$get_append : '' )) ;
-$mapget_append = $get_append ? $get_append.'&page=map' : 'page=map' ;
+$mapget_append = $get_append ? $get_append.'&amp;page=map' : 'page=map' ;
 $xoopsTpl->assign( 'maplink_option' , ($mapget_append ? "?".$mapget_append : '' )) ;
 
 $xoopsTpl->assign( 'category_id' , $cid ) ;
@@ -185,32 +185,32 @@ if( $numrows > 1 ) {
 		if( $ids[$i-1] == $lid ) {
 			$photo_nav .= "<span>$i</span>&nbsp;&nbsp;";
 		} else {
-			$photo_nav .= "<a href='index.php?lid=".$ids[$i-1]."&cid=$cid'>$i</a>&nbsp;&nbsp;";
+			$photo_nav .= "<a href='index.php?lid=".$ids[$i-1]."&amp;cid=$cid'>$i</a>&nbsp;&nbsp;";
 		}
 	}
 
 	if( $start > 2 ){
-		$photo_nav = "<a href='index.php?lid=".$ids[0]."&cid=$cid'>1</a>&nbsp;..&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[0]."&amp;cid=$cid'>1</a>&nbsp;..&nbsp;&nbsp;".$photo_nav;
 	}elseif( $start == 2 ){
-		$photo_nav = "<a href='index.php?lid=".$ids[0]."&cid=$cid'>1</a>&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[0]."&amp;cid=$cid'>1</a>&nbsp;&nbsp;".$photo_nav;
 	}
 
 	if( $start+$nwin < $numrows ){
-		$photo_nav .= "..&nbsp;<a href='index.php?lid=".$ids[$numrows-1]."&cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "..&nbsp;<a href='index.php?lid=".$ids[$numrows-1]."&amp;cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
 	}elseif( $start+$nwin == $numrows ){
-		$photo_nav .= "<a href='index.php?lid=".$ids[$numrows-1]."&cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "<a href='index.php?lid=".$ids[$numrows-1]."&amp;cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
 	}
 
 	// prev mark
 	if( $ids[0] != $lid ) {
-		$photo_nav = "<a href='index.php?lid=".$ids[$pos-1]."&cid=$cid'>"._MD_GNAV_NAV_PREVIOUS."</a>&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[$pos-1]."&amp;cid=$cid'>"._MD_GNAV_NAV_PREVIOUS."</a>&nbsp;&nbsp;".$photo_nav;
 	}else{
 		$photo_nav =_MD_GNAV_NAV_PREVIOUS."&nbsp;&nbsp;".$photo_nav;
 	}
 
 	// next mark
 	if( $ids[$numrows-1] != $lid ) {
-		$photo_nav .= "<a href='index.php?lid=".$ids[$pos+1]."&cid=$cid'>"._MD_GNAV_NAV_NEXT."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "<a href='index.php?lid=".$ids[$pos+1]."&amp;cid=$cid'>"._MD_GNAV_NAV_NEXT."</a>&nbsp;&nbsp;" ;
 	}else{
 		$photo_nav .=_MD_GNAV_NAV_NEXT;
 	}
@@ -256,9 +256,9 @@ if($GNAVI_MOBILE){
 	if($GNAVI_MOBILE_MAP){
 		$gnavi_mobile_maekercolor="blue";
 		$google_staticmap=$gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?center=".$photo['lat'].",".$photo['lng']."&zoom=".$photo['zoom']."&size=$gnavi_mobile_mapsize&maptype=$gnavi_mobile_maptype&key=$gnavi_googlemapapi_key";
+		$mymap="$google_staticmap?center=".$photo['lat'].",".$photo['lng']."&amp;zoom=".$photo['zoom']."&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
 		$markers=$photo['lat'].",".$photo['lng'].",".$gnavi_mobile_maekercolor;
-		if($markers)$markers="&markers=".$markers;
+		if($markers)$markers="&amp;markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 	}
 
