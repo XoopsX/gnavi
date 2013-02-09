@@ -83,7 +83,7 @@ define( $constpref."_CFG_DESCUSEVOTE" , "³Æµ­»ö¤Ë¥æ¡¼¥¶¡¼¤¬É¾²Á¤ò¤Ä¤±¤ë¤³¤È¤¬¤Ç¤
 define( $constpref."_CFG_USEGMAP" , "GoogleMapµ¡Ç½¤òÍøÍÑ¤¹¤ë" ) ;
 define( $constpref."_CFG_DESCGMAP" , "¥³¥ó¥Æ¥ó¥Ä¤Ë¥Þ¥Ã¥×´ÉÍýµ¡Ç½¤òÄÉ²Ã¤·¤Þ¤¹¡£³Æ¥Ú¡¼¥¸¤Ë°ÌÃÖ¾ðÊó¤òÄÉ²Ã¤Ç¤­¤Þ¤¹¡£" ) ;
 define( $constpref."_CFG_GMAPKEY" , "GoogleMapAPI Key" ) ;
-define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMap¤ò»ÈÍÑ¤¹¤ëºÝ¤Ë¤ÏGoogleMapAPI Key¤¬É¬Í×¤Ë¤Ê¤ê¤Þ¤¹¡£²¼µ­URL¤«¤ékey¤ò¼èÆÀ¤·¤Æ¤¯¤À¤µ¤¤¡£<br /><a href='http://www.google.com/apis/maps/signup.html'>http://www.google.com/apis/maps/signup.html</a>" ) ;
+define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMap¤ò»ÈÍÑ¤¹¤ëºÝ¤Ë¤ÏGoogleMapAPI Key¤¬É¬Í×¤Ë¤Ê¤ê¤Þ¤¹¡£²¼µ­URL¤«¤ékey¤ò¼èÆÀ¤·¤Æ¤¯¤À¤µ¤¤¡£<br /><a href='https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja'>https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja</a>" ) ;
 define( $constpref."_CFG_DEFLAT" , "GoogleMap¤Î½é´üÉ½¼¨¡§°ÞÅÙ" ) ;
 define( $constpref."_CFG_DESCDEFLAT" , "" ) ;
 define( $constpref."_CFG_DEFLNG" , "GoogleMap¤Î½é´üÉ½¼¨¡§·ÐÅÙ" ) ;
