@@ -127,7 +127,7 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor
 }
 
 if($gnavi_use_rss>0 && $photo['rss']!=""){
-$xoops_module_header .="<script src='http://www.google.com/jsapi' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header .="<script src='http://www.google.com/jsapi?key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
 	var gn_feedlink='".$photo['rss']."';
