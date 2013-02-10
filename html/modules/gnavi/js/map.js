@@ -587,6 +587,24 @@ function ChangeMapArea(obj){
 
 }
 
+function drawCameraMarker(lat, lng, title){
+    var c = new google.maps.LatLng(lat, lng);
+    var markerCenter = new google.maps.Marker({
+        position: c,
+        map: gn_map,
+        title: title + c,
+        icon: 'http://maps.google.com/mapfiles/ms/micons/camera.png',
+        //shadow: 'http://maps.google.com/mapfiles/ms/micons/camera.shadow.png',
+        draggable: false
+    });
+}
+
+function setMapCenter(lat, lng) {
+    var c = new google.maps.LatLng(lat, lng);
+    gn_map.setCenter(c);
+    window.location.hash = 'map';
+}
+
 /*-----Ken's common func-----*/
 
 function mround(value){

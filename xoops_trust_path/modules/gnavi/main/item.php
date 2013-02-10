@@ -31,7 +31,7 @@ if( $global_perms & GNAV_GPERM_INSERTABLE ) $xoopsTpl->assign( 'lang_add_photo' 
 // update hit count
 $xoopsDB->queryF( "UPDATE $table_photos SET hits=hits+1 WHERE lid='$lid' AND status>0" ) ;
 
-$prs = $xoopsDB->query( "SELECT l.lid, l.cid,l.cid1,l.cid2,l.cid3,l.cid4, l.title, l.poster_name,l.icd, l.ext, l.res_x, l.res_y,l.ext1, l.res_x1, l.res_y1,l.ext2, l.res_x2, l.res_y2, l.caption,l.caption1,l.caption2, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.submitter,l.url,l.tel,l.fax,l.zip,l.address,l.rss,l.lat,l.lng,l.zoom,l.mtype,t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_text t ON l.lid=t.lid WHERE l.lid=$lid AND status>0" ) ;
+$prs = $xoopsDB->query( "SELECT l.lid, l.cid,l.cid1,l.cid2,l.cid3,l.cid4, l.title, l.poster_name,l.icd, l.ext, l.res_x, l.res_y,l.ext1, l.res_x1, l.res_y1,l.ext2, l.res_x2, l.res_y2, l.caption,l.caption1,l.caption2, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.submitter,l.url,l.tel,l.fax,l.zip,l.address,l.rss,l.lat,l.lng,l.zoom,l.mtype,e.exif,t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_text t ON l.lid=t.lid LEFT JOIN $table_exif e ON l.lid=e.lid WHERE l.lid=$lid AND status>0" ) ;
 $photo = $xoopsDB->fetchArray( $prs ) ;
 if( $photo == false ) {
 	redirect_header( $mod_url.'/' , 3 , _MD_GNAV_MSG_NOMATCH ) ;

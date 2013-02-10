@@ -69,6 +69,7 @@ CREATE TABLE photos (
   zoom int(2) NOT NULL default '0',
   mtype varchar(30) NOT NULL default '',
   icd int(5) unsigned NOT NULL default '0',
+  exif BLOB NOT NULL,
 
   PRIMARY KEY (lid),
   KEY (cid),
@@ -129,4 +130,14 @@ CREATE TABLE votedata (
   KEY (ratinguser),
   KEY (ratinghostname)
 ) ENGINE=MyISAM;
+# --------------------------------------------------------
 
+#
+# Table structure for table `gnavi_exif`
+#
+
+CREATE TABLE exif (
+  `lid` int(11) NOT NULL,
+  `exif` mediumblob NOT NULL,
+  UNIQUE KEY `lid` (`lid`)
+) ENGINE=MyISAM

@@ -639,7 +639,7 @@ function gnavi_update_item($mode,$lid,
 		$sql  = "UPDATE $table_photos SET ";
         $sql .= "title='".addSlashes($title)."',cid='$cid',cid1='$cid1',cid2='$cid2',cid3='$cid3',cid4='$cid4',";
         $sql .= "url='".addSlashes($url)."',tel='".addSlashes($tel)."',fax='".addSlashes($fax)."',zip='".addSlashes($zip)."',address='".addSlashes($address)."',rss='".addSlashes($rss)."',lat=$lat,lng=$lng,zoom=$zoom,mtype='".addSlashes($mtype)."',icd=$icd,";
-		$sql .= "submitter='$submitter',poster_name='".addSlashes($poster_name)."' $set_status $set_date WHERE lid='$lid' $whr_status" ;
+        $sql .= "submitter='$submitter',poster_name='".addSlashes($poster_name)."' $set_status $set_date WHERE lid='$lid' $whr_status" ;
 
 		$xoopsDB->query( $sql ) or die( "DB error: UPDATE photo table" ) ;
 
@@ -653,10 +653,10 @@ function gnavi_update_item($mode,$lid,
 function gnavi_update_desc($mode,$lid,$cid,$title,$submitter,$valid,
 							$ext,$ext1,$ext2,$resx,$resy,$resx1,$resy1,$resx2,$resy2,
 							$caption,$caption1,$caption2,
-                            $desc,$arrowhtml,$addinfo){
+                            $desc,$arrowhtml,$addinfo, $exif){
 
 	global $xoopsDB,$gnavi_addposts;
-	global $table_photos , $table_text , $table_cat , $mod_url , $isadmin ;
+	global $table_photos , $table_text , $table_cat , $table_exif , $mod_url , $isadmin ;
 	$myts =& GNaviTextSanitizer::getInstance() ;
 
 	$caption  = $ext =='' ? '' : $caption  ;
@@ -672,6 +672,10 @@ function gnavi_update_desc($mode,$lid,$cid,$title,$submitter,$valid,
 
 		$xoopsDB->query( $sql ) or die( "DB error: INSERT desc table" ) ;
 
+		$sql = "INSERT INTO $table_exif (lid, exif) VALUES ($lid,'".addSlashes(serialize($exif))."')" ;
+
+		$xoopsDB->query( $sql ) or die( "DB error: INSERT exif table" ) ;
+		
 		// Update User's Posts (Should be modified when need admission.)
 		$user_handler =& xoops_gethandler('user') ;
 		$submitter_obj =& $user_handler->get( $submitter ) ;
@@ -688,6 +692,9 @@ function gnavi_update_desc($mode,$lid,$cid,$title,$submitter,$valid,
 
 		$sql="UPDATE $table_text SET description='".addSlashes($desc)."',arrowhtml=$arrowhtml,addinfo='".addSlashes($addinfo)."' WHERE lid='$lid'";
 		$xoopsDB->query( $sql ) or die( "DB error: UPDATE text table" ) ;
+
+		$sql="UPDATE $table_exif SET exif='".addSlashes(serialize($exif))."' WHERE lid='$lid'";
+		$xoopsDB->query( $sql ) or die( "DB error: UPDATE exif table" ) ;
 
 	}
 
@@ -808,7 +815,7 @@ function gnavi_delete_photos( $whr )
 {
 	global $xoopsDB ;
 	global $photos_dir , $thumbs_dir , $gnavi_mid ;
-	global $table_photos , $table_text , $table_votedata ;
+	global $table_photos , $table_text , $table_votedata , $table_exif ;
 
 	$prs = $xoopsDB->query("SELECT lid, ext, ext1, ext2 FROM $table_photos WHERE $whr" ) ;
 	while( list( $lid , $ext , $ext1 , $ext2 ) = $xoopsDB->fetchRow( $prs ) ) {
@@ -819,6 +826,7 @@ function gnavi_delete_photos( $whr )
 		$xoopsDB->query( "DELETE FROM $table_votedata WHERE lid=$lid" ) or die( "DB error: DELETE votedata table." ) ;
 		$xoopsDB->query( "DELETE FROM $table_text WHERE lid=$lid" ) or die( "DB error: DELETE text table." ) ;
 		$xoopsDB->query( "DELETE FROM $table_photos WHERE lid=$lid" ) or die( "DB error: DELETE photo table." ) ;
+		$xoopsDB->query( "DELETE FROM $table_exif WHERE lid=$lid" ) or die( "DB error: DELETE exif table." ) ;
 
 		if($ext){
 			@unlink( "$photos_dir/$lid.$ext" ) ;
@@ -917,11 +925,9 @@ function gnavi_get_cat_options( $order = 'title' , $preset = 0 , $prefix = '--' 
 }
 
 
-function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name){
+function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name,$exif){
 
 	global $gnavi_canresize,$photos_dir , $array_allowed_mimetypes , $gnavi_fsize , $gnavi_width , $gnavi_height , $array_allowed_exts;
-
-	$exifGeo = array();
 	
 	if( is_readable( $_FILES[$field]['tmp_name'] ) ) {
 		// new preview
@@ -934,13 +940,14 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 		else $uploader = new MyXoopsMediaUploader( $photos_dir , $array_allowed_mimetypes , $gnavi_fsize , $gnavi_width , $gnavi_height , $array_allowed_exts ) ;
 		$uploader->setPrefix( 'tmp_' ) ;
 		if( $uploader->fetchMedia( $field ) && $uploader->upload() ) {
+			$exif = $uploader->getExif() ;
 			$tmp_name = $uploader->getSavedFileName() ;
 			$preview_name = str_replace( 'tmp_' , 'tmp_prev_' , $tmp_name ) ;
 			gnavi_modify_photo( "$photos_dir/$tmp_name" , "$photos_dir/$preview_name" ) ;
-			$exifGeo = $uploader->getExifGeo() ;
 		} else {
 			@unlink( $uploader->getSavedDestination() ) ;
 			$preview_name='';
+			$exif = array();
 		}
 	} else if( $preview_name != '' && is_readable( "$photos_dir/$preview_name" ) ) {
 		if($del_photo==1){
@@ -948,20 +955,21 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 				@unlink( "$photos_dir/$preview_name" ) ;
 			}
 			$preview_name='';
+			$exif = array();
 		}
 	}else{
 		$preview_name='';
+		$exif = array();
 	}
-	return array($preview_name, $exifGeo);
+	return array($preview_name, $exif);
 }
 
-function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
+function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg, $exif){
 
 	global $gnavi_canresize,$photos_dir , $array_allowed_mimetypes , $gnavi_fsize , $gnavi_width , $gnavi_height , $array_allowed_exts;
 
 	$tmp_name='';
 	$ext='';
-	$exifGeo = array();
 
 	// Check if upload file name specified
 	if( empty( $field ) || $field == "" ) {
@@ -990,7 +998,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 			// Succeed to upload
 			$tmp_name = $uploader->getSavedFileName() ;
 			$ext = substr( strrchr( $tmp_name , '.' ) , 1 ) ;
-			$exifGeo = $uploader->getExifGeo() ;
+			$exif = $uploader->getExif() ;
 		} else {
 			// Fail to upload (sizeover etc.)
 			$errmsg .= "<br />".$uploader->getErrors() ;
@@ -1001,7 +1009,7 @@ function gnavi_submit_uploader($field ,$del_photo,$preview_name, $num, $errmsg){
 		}
 	}
 
-	return array($tmp_name,$ext,$errmsg,$exifGeo);
+	return array($tmp_name,$ext,$errmsg,$exif);
 }
 
 function gnavi_get_icon($cattree,$cid,$cid1,$cid2,$cid3,$cid4,$mcid=0){

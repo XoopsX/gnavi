@@ -74,6 +74,7 @@
 	$table_icon = $xoopsDB->prefix( "{$mydirname}_icons" ) ;
 	$table_text = $xoopsDB->prefix( "{$mydirname}_text" ) ;
 	$table_votedata = $xoopsDB->prefix( "{$mydirname}_votedata" ) ;
+	$table_exif = $xoopsDB->prefix( "{$mydirname}_exif" ) ;
 	$table_comments = $xoopsDB->prefix( "xoopscomments" ) ;
 
 	// Pipe environment check

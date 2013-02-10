@@ -69,6 +69,11 @@ function gnavi_onupdate_base( $module , $mydirname )
 			$db->queryF( "UPDATE {$_tbl} SET mtype='TERRAIN' WHERE mtype LIKE 'G%PHYSICAL_MAP'" );
 		}
 	}
+	
+	$check_sql = "SELECT lid FROM ".$db->prefix("{$mydirname}_exif")." LIMIT 1" ;
+	if(  ! $db->query( $check_sql) ) {
+		$db->queryF( 'CREATE TABLE '.$db->prefix("{$mydirname}_exif").' (lid int(11) NOT NULL, exif mediumblob NOT NULL, UNIQUE KEY lid (lid)) ENGINE=MyISAM' ) ;
+	}
 
 	// TEMPLATES (all templates have been already removed by modulesadmin)
 	$tplfile_handler =& xoops_gethandler( 'tplfile' ) ;
