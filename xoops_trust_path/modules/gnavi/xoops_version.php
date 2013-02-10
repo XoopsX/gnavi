@@ -11,6 +11,7 @@ $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
 $modversion['name'] = $mydirname ;
 $modversion['version'] = 0.97 ;
+$modversion['detailed_version'] = '0.97.0' ;
 $modversion['description'] = constant($constpref.'_DESC') ;
 $modversion['credits'] = "Original: GIJOE<br />(http://www.peak.ne.jp/)<br />Daniel Branco<br />(http://bluetopia.homeip.net)<br />Kazumi Ono<br />(http://www.mywebaddons.com/)<br />The XOOPS Project" ;
 $modversion['author'] = "KENTARO<br />(http://xoops.iko-ze.net/)" ;
