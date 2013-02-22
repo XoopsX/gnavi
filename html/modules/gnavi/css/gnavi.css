@@ -12,6 +12,10 @@
 	max-height: none !important;
 }
 
+#map div {
+	max-width: none !important;
+}
+
 #gn_map {
 	width:100%;
 	background:#999999;
