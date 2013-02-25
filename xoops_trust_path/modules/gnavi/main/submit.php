@@ -257,7 +257,7 @@ if( ! empty( $_POST['submit'] ) ) {
 		exit ;
 	}
 
-	if ($p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
+	if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
 		foreach ($exif as $_check) {
 			if (!empty($_check['GPS']) && isset($_check['GPS']['Lat'])) {
 				$lat = $_check['GPS']['Lat'];
@@ -497,7 +497,7 @@ if(!empty( $_POST['preview'] ) || $mode==G_UPDATE) {
 
 		$_SESSION['GNAVI_PREVIEW_EXIF'] = base64_encode(serialize($exif));
 		//adump($_SESSION['GNAVI_PREVIEW_EXIF']);
-		if ($p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
+		if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
 			foreach ($exif as $_check) {
 				if (!empty($_check['GPS']) && isset($_check['GPS']['Lat'])) {
 					$lat = $_check['GPS']['Lat'];
@@ -843,9 +843,13 @@ $submit_tray = new XoopsFormElementTray( '' ) ;
 $submit_tray->addElement( $preview_button ) ;
 $submit_tray->addElement( $submit_button ) ;
 $submit_tray->addElement( $reset_button ) ;
-$preview_tray = new XoopsFormElementTray( _MD_GNAV_GPS_PREVIEW ) ;
-$preview_tray->addElement( $preview_button ) ;
-$preview_tray->addElement( new XoopsFormLabel( '' , _MD_GNAV_GPS_PREVIEW_DESC ) ) ;
+if (@ $gnavi_configs['gnavi_use_gps']) {
+	$preview_tray = new XoopsFormElementTray( _MD_GNAV_GPS_PREVIEW ) ;
+	$preview_tray->addElement( $preview_button ) ;
+	$preview_tray->addElement( new XoopsFormLabel( '' , _MD_GNAV_GPS_PREVIEW_DESC ) ) ;
+} else {
+	$preview_tray = null;
+}
 $lid_hidden = new XoopsFormHidden( "lid",$photo['lid']) ;
 
 
@@ -962,7 +966,7 @@ if($photo['ext2']){
 $form->addElement( $file_form2 ) ;
 $form->addElement( $caption2_text ) ;
 $form->addElement( $pixels_label ) ;
-$form->addElement( $preview_tray ) ;
+if ($preview_tray) $form->addElement( $preview_tray ) ;
 
 $form->insertBreak(_MD_GNAV_SMT_TITLE_INFO);
 

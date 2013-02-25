@@ -97,6 +97,10 @@ define( $constpref."_CFG_USE_RSS" , "Display RSS feed in the article page." ) ;
 define( $constpref."_CFG_DESC_USE_RSS" , "Input num of Feed lines.<br />When this function is made effective, the textbox to input RSS link is displayed on the submit pages. The outline is displayed in the article page.<br />Powerd By <a href='http://code.google.com/intl/ja/apis/ajaxfeeds/'>GoogleAjaxFeedAPI</a>" ) ;
 define( $constpref."_CFG_PE_APPKEY" , "Use PlaceEngineAPI" ) ;
 define( $constpref."_CFG_DESC_PE_APPKEY" , "PlaceEngine is service to which the present place is presumed with Wifi. Please acquire the application key in the following address to make this function effective and input it to the right. <br /><a href='http://www.placeengine.com/appk' target='_blank'>http://www.placeengine.com/appk</a><br />*Please fill it in to the address of the module on the item of URL. <br />(example:http://xoops.iko-ze.net/modules/gnavi)<br />(Powerd By <a href='http://www.koozyt.com/'>Koozyt</a>)" ) ;
+define( $constpref."_CFG_USE_GPS" , "Use GPS Info" ) ;
+define( $constpref."_CFG_DESC_USE_GPS" , "The position is reflected in a map when GPS information is embedded in the photograph." ) ;
+define( $constpref."_CFG_USE_EXIF" , "Use EXIF Info" ) ;
+define( $constpref."_CFG_DESC_USE_EXIF" , "When EXIF information is embedded in the photograph, the information is displayed on the detailed view." ) ;
 
 
 define( $constpref."_CFG_MOBILEMAPSIZE" , "GoogleMap size displayed with portable terminal¡ÊwidthxHeight¡Ë" ) ;

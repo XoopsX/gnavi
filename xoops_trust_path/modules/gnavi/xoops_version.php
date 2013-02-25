@@ -547,6 +547,24 @@ $modversion['config'][] = array(
 	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
+		'name'			=> 'gnavi_use_gps' ,
+		'title'			=> $constpref.'_CFG_USE_GPS' ,
+		'description'	=> $constpref.'_CFG_DESC_USE_GPS',
+		'formtype'		=> 'yesno' ,
+		'valuetype'		=> 'int' ,
+		'default'		=> '0' ,
+		'options'		=> array()
+) ;
+$modversion['config'][] = array(
+		'name'			=> 'gnavi_use_exif' ,
+		'title'			=> $constpref.'_CFG_USE_EXIF' ,
+		'description'	=> $constpref.'_CFG_DESC_USE_EXIF',
+		'formtype'		=> 'yesno' ,
+		'valuetype'		=> 'int' ,
+		'default'		=> '0' ,
+		'options'		=> array()
+) ;
+$modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_mapsize' ,
 	'title'			=> $constpref.'_CFG_MOBILEMAPSIZE' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEMAPSIZE' ,

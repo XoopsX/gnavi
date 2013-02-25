@@ -97,6 +97,10 @@ define( $constpref."_CFG_USE_RSS" , "記事に外部取得したRSSフィード�
 define( $constpref."_CFG_DESC_USE_RSS" , "表示するフィードの数を入力して下さい<br />この機能を追加すると入力ページにRSSリンクを入力するテキストボックスが表示され、記事ページ内には概要が表示されます。(Powerd By <a href='http://code.google.com/intl/ja/apis/ajaxfeeds/'>GoogleAjaxFeedAPI</a>)" ) ;
 define( $constpref."_CFG_PE_APPKEY" , "PlaceEngineAPIを使用する" ) ;
 define( $constpref."_CFG_DESC_PE_APPKEY" , "PlaceEngineは、Wifiで現在地を推定するサービスです。この機能を有効にするには下記アドレスでアプリケーションキーを取得して右に入力して下さい。<br /><a href='http://www.placeengine.com/appk' target='_blank'>http://www.placeengine.com/appk</a><br />※URLの項目にはモジュールのアドレスまで記入して下さい<br />(例:http://xoops.iko-ze.net/modules/gnavi)<br />(Powerd By <a href='http://www.koozyt.com/'>Koozyt</a>)" ) ;
+define( $constpref."_CFG_USE_GPS" , "GPS 情報を使用する" ) ;
+define( $constpref."_CFG_DESC_USE_GPS" , "写真に GPS 情報が埋め込まれている場合にその位置を地図に反映します。" ) ;
+define( $constpref."_CFG_USE_EXIF" , "EXIF 情報を表示する" ) ;
+define( $constpref."_CFG_DESC_USE_EXIF" , "写真に EXIF 情報が埋め込まれている場合に詳細画面にその情報を表示します。" ) ;
 
 define( $constpref."_CFG_MOBILEMAPSIZE" , "携帯端末で表示するGoogleMapサイズ（widthxHeight）" ) ;
 define( $constpref."_CFG_DESCMOBILEMAPSIZE" , "240x180 のように入力して下さい。未入力の場合携帯用Mapを作成しません。" ) ;

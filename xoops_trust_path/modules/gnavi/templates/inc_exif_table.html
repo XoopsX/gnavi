@@ -9,7 +9,7 @@
     <td><{$key}></td>
     <td>
     <a href="#" onclick="setMapCenter('<{$val.Lat}>', '<{$val.Lon}>');return false;"><{$smarty.const._MD_GNAV_MAP_LAT}>:<{$val.Lat}>, <{$smarty.const._MD_GNAV_MAP_LNG}>:<{$val.Lon}></a>
-    <script>google.maps.event.addDomListener(window, 'load', function(){drawCameraMarker('<{$val.Lat}>', '<{$val.Lon}>', '<{$photo.caption}>');});</script>
+    <script type="text/javascript">google.maps.event.addDomListener(window, 'load', function(){drawCameraMarker('<{$val.Lat}>', '<{$val.Lon}>', '<{$photo.caption}>');});</script>
   	</td>
   	</tr>
    <{/if}>
@@ -22,5 +22,5 @@
  <{/if}>
 <{/foreach}>
 </table>
-<script>document.getElementById('gnavi_exif_<{$photo.lid}>_<{$photo_num}>').toggle();</script>
+<script type="text/javascript">$('gnavi_exif_<{$photo.lid}>_<{$photo_num}>').toggle();</script>
 <{/if}>
