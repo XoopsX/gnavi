@@ -215,7 +215,7 @@ if( ! empty( $_POST['submit'] ) ) {
 			$valid = 2 ;
 		}
 
-		$prs = $xoopsDB->query( "SELECT l.ext,l.ext1,l.ext2,e.exif FROM $table_photos l LEFT JOIN $table_exif e ON l.lid=e.lid WHERE lid=$lid") ;
+		$prs = $xoopsDB->query( "SELECT l.ext,l.ext1,l.ext2,e.exif FROM $table_photos l LEFT JOIN $table_exif e ON l.lid=e.lid WHERE l.lid=$lid") ;
 		list($p_ext,$p_ext1,$p_ext2,$p_exif) = $xoopsDB->fetchRow( $prs ) ;
 		$p_exif = @ unserialize($p_exif);
 		if (! $p_exif) {
