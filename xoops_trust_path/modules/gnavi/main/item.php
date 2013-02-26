@@ -38,11 +38,6 @@ if( $photo == false ) {
 	exit ;
 }
 $photo = gnavi_get_array_for_photo_assign( $photo ) ;
-if (! @$gnavi_configs['gnavi_use_exif']) {
-	$photo['exif'] = array_pad(array(), 3, null);
-} else if (! @$gnavi_configs['gnavi_use_gps']) {
-	unset($photo['exif'][0]['GPS'],$photo['exif'][1]['GPS'],$photo['exif'][2]['GPS']);
-}
 $photo = gnavi_photo_assign($photo);
 $xoopsTpl->assign( 'lang_rating' , _MD_GNAV_RAT_RATINGI ) ;
 // <title></title>

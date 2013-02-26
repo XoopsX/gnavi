@@ -274,6 +274,8 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 	$exif = @unserialize($exif);
 	if (! $exif) {
 		$exif = array_pad(array(), 3, array());
+	} else {
+		$exif = gnavi_exif_reform_by_config($exif);
 	}
 	
 	return array(
@@ -350,6 +352,22 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 	) ;
 }
 
+/**
+ * gnavi_exif_reform_by_config
+ * 
+ * @param array $exif
+ * @return array
+ */
+function gnavi_exif_reform_by_config($exif) {
+	global $gnavi_configs;
+	if (! @$gnavi_configs['gnavi_use_gps']) {
+		unset($exif[0]['GPS'], $exif[1]['GPS'], $exif[2]['GPS']);
+	}
+	if (! @$gnavi_configs['gnavi_use_exif']) {
+		$exif = array_pad(array(), 3, array());
+	}
+	return $exif;
+}
 
 
 
@@ -487,7 +505,7 @@ function gnavi_get_img_attribs_for_preview($photo, $preview_name,$preview_name1,
 	list($photo['imgsrc_photo1'],$photo['ahref_photo1']) = gnavi_get_img_urls($preview_name1);
 	list($photo['imgsrc_photo2'],$photo['ahref_photo2']) = gnavi_get_img_urls($preview_name2);
 	
-	$photo['exif'] = $exif;
+	$photo['exif'] = gnavi_exif_reform_by_config($exif);
 
 	return $photo;
 
