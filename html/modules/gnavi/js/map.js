@@ -39,6 +39,7 @@ var gn_infowindow=null;
 var myLatlng=null;
 var mypoint=null;
 var mypoint2=null;
+var gn_autozoom=false;
 
 
 /*-----Gnavi functions-----*/
@@ -331,10 +332,10 @@ function func2(req){
 	document.getElementById("gn_mklist").innerHTML=lst;
 
 	if (nl.length > 0) {
-		var minLat = 999;
-		var minLng = 999;
-		var maxLat = 0;
-		var maxLng = 0;
+		var minLat = 90;
+		var minLng = 180;
+		var maxLat = -90;
+		var maxLng = -180;
 	
 		for( var i = 0; i < nl.length; i++ ) {
 			var nli = nl[ i ];
@@ -344,11 +345,13 @@ function func2(req){
 	
 			var p = coordinates.split(",");
 			var ll = new google.maps.LatLng(p[1], p[0]);
-	
-			minLat =  Math.min(minLat, p[1]);
-			minLng =  Math.min(minLng, p[0]);
-			maxLat =  Math.max(maxLat, p[1]);
-			maxLng =  Math.max(maxLng, p[0]);
+			
+			if (gn_autozoom) {
+				minLat =  Math.min(minLat, p[1]);
+				minLng =  Math.min(minLng, p[0]);
+				maxLat =  Math.max(maxLat, p[1]);
+				maxLng =  Math.max(maxLng, p[0]);
+			}
 			
 			// setup marker in map
 			if (icd==0) {
@@ -383,10 +386,12 @@ function func2(req){
 	
 		}
 	
-		var bounds = new google.maps.LatLngBounds(
-				new google.maps.LatLng(maxLat, minLng),
-				new google.maps.LatLng(minLat, maxLng));
-		gn_map.fitBounds(bounds);
+		if (gn_autozoom) {
+			var bounds = new google.maps.LatLngBounds(
+					new google.maps.LatLng(maxLat, minLng),
+					new google.maps.LatLng(minLat, maxLng));
+			gn_map.fitBounds(bounds);
+		}
 
 	}
 }

@@ -502,6 +502,15 @@ $modversion['config'][] = array(
 							'TERRAIN'=>'TERRAIN')
 ) ;
 $modversion['config'][] = array(
+	'name'			=> 'gnavi_map_autozoom' ,
+	'title'			=> $constpref.'_CFG_AUTOZOOM' ,
+	'description'	=> $constpref.'_CFG_DESCAUTOZOOM',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
+) ;
+$modversion['config'][] = array(
 	'name'			=> 'gnavi_map_draw' ,
 	'title'			=> $constpref.'_MAP_DRAW' ,
 	'description'	=> $constpref.'_DESC_MAP_DRAW',
@@ -547,22 +556,22 @@ $modversion['config'][] = array(
 	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
-		'name'			=> 'gnavi_use_gps' ,
-		'title'			=> $constpref.'_CFG_USE_GPS' ,
-		'description'	=> $constpref.'_CFG_DESC_USE_GPS',
-		'formtype'		=> 'yesno' ,
-		'valuetype'		=> 'int' ,
-		'default'		=> '0' ,
-		'options'		=> array()
+	'name'			=> 'gnavi_use_gps' ,
+	'title'			=> $constpref.'_CFG_USE_GPS' ,
+	'description'	=> $constpref.'_CFG_DESC_USE_GPS',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
-		'name'			=> 'gnavi_use_exif' ,
-		'title'			=> $constpref.'_CFG_USE_EXIF' ,
-		'description'	=> $constpref.'_CFG_DESC_USE_EXIF',
-		'formtype'		=> 'yesno' ,
-		'valuetype'		=> 'int' ,
-		'default'		=> '0' ,
-		'options'		=> array()
+	'name'			=> 'gnavi_use_exif' ,
+	'title'			=> $constpref.'_CFG_USE_EXIF' ,
+	'description'	=> $constpref.'_CFG_DESC_USE_EXIF',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_mapsize' ,
