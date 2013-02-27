@@ -255,9 +255,9 @@ if($GNAVI_MOBILE){
 
 	if($GNAVI_MOBILE_MAP){
 		$gnavi_mobile_maekercolor="blue";
-		$google_staticmap=$gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?censor=false&amp;center=".$photo['lat'].",".$photo['lng']."&amp;zoom=".$photo['zoom']."&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
-		$markers=$photo['lat'].",".$photo['lng'].",".$gnavi_mobile_maekercolor;
+		$google_staticmap=$gnavi_googlemap_url."/maps/api/staticmap";
+		$mymap="$google_staticmap?sensor=false&amp;center=".$photo['lat'].",".$photo['lng']."&amp;zoom=".$photo['zoom']."&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
+		$markers="color:{$gnavi_mobile_maekercolor}%7c{$photo['lat']},{$photo['lng']}";
 		if($markers)$markers="&amp;markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 	}

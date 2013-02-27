@@ -231,8 +231,8 @@ if($GNAVI_MOBILE){
 	if($GNAVI_MOBILE_MAP){
 	//for degug
 
-		$google_staticmap = $gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?censor=false&amp;center=$default_lat,$default_lng&amp;zoom=$default_zoom&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
+		$google_staticmap = $gnavi_googlemap_url."/maps/api/staticmap";
+		$mymap="$google_staticmap?sensor=false&amp;center=$default_lat,$default_lng&amp;zoom=$default_zoom&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
 
 		$gnavi_mobile_maekercolor="blue";
 
@@ -279,15 +279,15 @@ if($GNAVI_MOBILE){
 
 		$markers="";
 		$markerlist=array();
-		$alphabet="abcdefghijklmnopqrstuvwxyz";
+		$alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$i=0;
 		while( $rs = $xoopsDB->fetchArray( $prs ) ) {
 			$title = strip_tags($myts->displayTarea($rs['title'], 1 , 1 , 1 , 1 , 1 , 1 ));
 			$title = xoops_substr($title,0,20);
 	        $abc = substr($alphabet,$i,1);
 
-			if($markers)$markers.="%7C";
-			$markers.=$rs['lat'].",".$rs['lng'].",".$gnavi_mobile_maekercolor.$abc;
+			if($markers)$markers.="&amp;markers=";
+			$markers.="color:$gnavi_mobile_maekercolor%7Clabel:{$abc}%7C{$rs['lat']},{$rs['lng']}";
 
 			$markerlist[]=array(
 							'abc' => strtoupper($abc),
