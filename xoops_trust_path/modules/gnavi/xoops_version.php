@@ -587,8 +587,8 @@ $modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_agent' ,
 	'title'			=> $constpref.'_CFG_MOBILEAGENT' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEAGENT' ,
-	'formtype'		=> '' ,
-	'valuetype'		=> 'textbox' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
 	'default'		=> '/(DoCoMo|J-PHONE|Vodafone|MOT|SoftBank|KDDI|UP.Browser|PDXGW|DDIPOCKET|WILLCOM|EMULATOR|emulator)/' ,
 	'options'		=> array()
 ) ;
@@ -596,8 +596,8 @@ $modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_encording' ,
 	'title'			=> $constpref.'_CFG_MOBILEENCORDING' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEENCORDING' ,
-	'formtype'		=> '' ,
-	'valuetype'		=> 'textbox' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
 	'default'		=> ($langman->language=='japanese'||$langman->language=='ja_utf8' ? 'SJIS' : '') ,
 	'options'		=> array()
 ) ;
