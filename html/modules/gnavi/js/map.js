@@ -126,16 +126,18 @@ function ShowItemGMap() {
 	}else{
 		var p = gn_ic.split(",");
 		p.title = unescape(gn_lg['here']);
-		var iconimage = new google.maps.MarkerImage(p[0],
-				new google.maps.Size(p[1], p[2]),
-				new google.maps.Point(0,0),
-				new google.maps.Point(p[6], p[7]));
+		var iconimage = {
+			size: new google.maps.Size(parseInt(p[1]), parseInt(p[2])),
+			anchor: new google.maps.Point(parseInt(p[6]), parseInt(p[7])),
+			url: p[0]
+		};
 
 		if(p[3]!=''){
-			var iconshadow = new google.maps.MarkerImage(p[3],
-					new google.maps.Size(p[4], p[5]),
-					new google.maps.Point(0,0),
-					new google.maps.Point(p[6], p[7]));
+			var iconshadow = {
+				size: new google.maps.Size(parseInt(p[4]), parseInt(p[5])),
+				anchor: new google.maps.Point(parseInt(p[6]), parseInt(p[7])),
+				url: p[3]
+			}
 			gn_mymk = new google.maps.Marker({
 				position:myLatlng,
 				// draggable : true,
@@ -220,15 +222,16 @@ function right_click(){
 		if(mypoint){mypoint.setMap(null);}
 
 
-		var righticon = new google.maps.MarkerImage('http://www.google.com/mapfiles/gadget/arrowSmall80.png',
-				new google.maps.Size(31, 27),
-				new google.maps.Point(0,0),
-				new google.maps.Point(8, 27));
-		var righticonsh = new google.maps.MarkerImage('http://www.google.com/mapfiles/gadget/arrowshadowSmall80.png',
-				new google.maps.Size(31, 27),
-				new google.maps.Point(0,0),
-				new google.maps.Point(8, 27));
-
+		var righticon = {
+			size: new google.maps.Size(31, 27),
+			anchor: new google.maps.Point(8, 27),
+			url: 'http://www.google.com/mapfiles/gadget/arrowSmall80.png'
+		};
+		var righticonsh = {
+			size: new google.maps.Size(31, 27),
+			anchor: new google.maps.Point(8, 27),
+			url: 'http://www.google.com/mapfiles/gadget/arrowshadowSmall80.png'
+		};
 
 		mypoint = new google.maps.Marker({
 			position:point.latLng,
@@ -289,17 +292,18 @@ function func2(req){
 			var param = nli.getElementsByTagName( 'param' )[0].firstChild.nodeValue;
 			var p = param.split(",");
 			
-			iconimage[icd] = new google.maps.MarkerImage(iimg,
-					new google.maps.Size(p[0], p[1]),
-					new google.maps.Point(0,0),
-					new google.maps.Point(p[4], p[5]));
+			iconimage[icd] = {
+				size: new google.maps.Size(parseInt(p[0]), parseInt(p[1])),
+				anchor: new google.maps.Point(parseInt(p[4]), parseInt(p[5])),
+				url: iimg
+			};
 			if(shadow!='x'){
-				iconshadow[icd] = new google.maps.MarkerImage(shadow,
-						new google.maps.Size(p[2], p[3]),
-						new google.maps.Point(0,0),
-						new google.maps.Point(p[4], p[5]));
+				iconshadow[icd] = {
+					size: new google.maps.Size(parseInt(p[2]), parseInt(p[3])),
+					anchor: new google.maps.Point(parseInt(p[4]), parseInt(p[5])),
+					url: shadow
+				};
 			}
-
 		}
 		
 	}
@@ -360,14 +364,14 @@ function func2(req){
 					map: (gn_drkm? null : gn_map)
 				});
 			} else {
-				if (typeof iconshadow[icd] !== 'undeined'){
+				if (!! iconshadow[icd]){
 					gn_mk[lid] = new google.maps.Marker({
 						position: ll,
 						icon: iconimage[icd],
 						shadow : iconshadow[icd],
 						map: gn_map
 					});
-				} else if (typeof iconimage[icd] !== 'undeined') {
+				} else if (!! iconimage[icd]) {
 					gn_mk[lid] = new google.maps.Marker({
 						position: ll,
 						icon: iconimage[icd],
