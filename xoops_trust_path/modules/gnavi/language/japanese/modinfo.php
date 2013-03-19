@@ -117,6 +117,9 @@ define( $constpref."_CFG_DESCMOBILEUSEQRC" , "１以上の値を入力すると記事に携帯で
 define( $constpref.'_COM_DIRNAME','コメント統合するd3forumのdirname');
 define( $constpref.'_COM_FORUM_ID','コメント統合するフォーラムの番号');
 define( $constpref.'_COM_VIEW','コメント統合の表示方法');
+define( $constpref.'_COM_ORDER','コメント統合の表示順序');
+define( $constpref.'_COM_ORDERDSC','コメント統合を選択した場合の、コメントの新しい順／古い順を指定できます。');
+define( $constpref.'_COM_POSTSNUM','コメント統合のフラット表示における最大表示件数');
 
 define( $constpref.'_MAP_DRAW','マーカーをGeoXMLで描画');
 define( $constpref.'_DESC_MAP_DRAW','（推奨：いいえ）地図表示をKMLで描画させます。処理が重い場合などに試してみてください。多少違った動きになります。');
