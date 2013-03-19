@@ -121,10 +121,6 @@ define( $constpref.'_COM_VIEW','View of Comment-integration');
 define($constpref.'_COM_ORDER','Order of comment integration');
 define($constpref.'_COM_ORDERDSC','When you set comment integration, select display order of comment posts');
 define($constpref.'_COM_POSTSNUM','Max posts displayed in comment integration');
-define($constpref.'_COM_ANCHOR','entry anchor of comment integration');
-define($constpref.'_COM_ANCHORDSC','Default forum entry anchor is "post_path".<br />If you use "post_id" for multiple-topics for one entry , <br /> you have to edit d3forum template and here both.');
-define($constpref.'_USE_COM_ANCHOR_UNIQUEPATH','Use d3forum default "post_path"');
-define($constpref.'_USE_COM_ANCHOR_POSTNUM','Use "post_id"');
 
 define( $constpref.'_MAP_DRAW','Draw in the marker with GeoXML.');
 define( $constpref.'_DESC_MAP_DRAW','(recommendation: No)It is made to draw in the map display by KML. Please try when processing is heavy etc.It becomes somewhat different movement. ');
