@@ -189,4 +189,74 @@ define( "_MD_GNAV_MSG_FILEREADERROR" , "画像読込失敗：なんらかの理�
 define( "_MD_GNAV_MB_LT" , "＜" ) ;
 define( "_MD_GNAV_MB_GT" , "＞" ) ;
 
+// EXIF
+define('_MD_GNAV_EXIF_UNKNOWN', '不明');
+
+define('_MD_GNAV_DATE', '撮影日時');
+define('_MD_GNAV_CAMERA', 'カメラ機材');
+define('_MD_GNAV_LENS', '焦点距離/開放F値');
+define('_MD_GNAV_EXPOSURE', 'シャッター速度');
+define('_MD_GNAV_APERTURE', '絞り値');
+define('_MD_GNAV_EXP.BIAS', '露出補正');
+define('_MD_GNAV_ISO', 'ISO感度');
+
+define('_MD_GNAV_METERINGMODE', '測光モード');
+define('_MD_GNAV_METERINGMODE_1', '平均測光');
+define('_MD_GNAV_METERINGMODE_2', '中央部重点測光');
+define('_MD_GNAV_METERINGMODE_3', 'スポット測光');
+define('_MD_GNAV_METERINGMODE_4', 'マルチスポット測光');
+define('_MD_GNAV_METERINGMODE_5', 'マルチパターン測光');
+define('_MD_GNAV_METERINGMODE_6', '部分測光');
+define('_MD_GNAV_METERINGMODE_255', 'その他');
+
+define('_MD_GNAV_EXPOSUREMODE', '露出モード');
+define('_MD_GNAV_EXPOSUREMODE_0', '自動露出');
+define('_MD_GNAV_EXPOSUREMODE_1', 'マニュアル露出');
+define('_MD_GNAV_EXPOSUREMODE_2', 'オートブラケット');
+	
+define('_MD_GNAV_EXPOSUREPROGRAM', '露出プログラム');
+define('_MD_GNAV_EXPOSUREPROGRAM_0', '未定義');
+define('_MD_GNAV_EXPOSUREPROGRAM_1', 'マニュアル露出');
+define('_MD_GNAV_EXPOSUREPROGRAM_2', 'プログラムオート');
+define('_MD_GNAV_EXPOSUREPROGRAM_3', '露出優先オート');
+define('_MD_GNAV_EXPOSUREPROGRAM_4', 'シャッター速度優先オート');
+define('_MD_GNAV_EXPOSUREPROGRAM_5', 'クリエイティブモード (被写界深度優先)');
+define('_MD_GNAV_EXPOSUREPROGRAM_6', 'スポーツモード (高速シャッター優先)');
+define('_MD_GNAV_EXPOSUREPROGRAM_7', 'ポートレイトモード (背景にピントを合わせないクローズアップのためのモード)');
+define('_MD_GNAV_EXPOSUREPROGRAM_8', '風景モード (背景にピントを合わせる風景のためのモード)');
+	
+define('_MD_GNAV_WHITEBALANCE', 'ホワイトバランス');
+define('_MD_GNAV_WHITEBALANCE_0', 'オートホワイトバランス');
+define('_MD_GNAV_WHITEBALANCE_1', 'マニュアルホワイトバランス');
+	
+define('_MD_GNAV_SCENECAPTURETYPE', '撮影シーンタイプ');
+define('_MD_GNAV_SCENECAPTURETYPE_0', '標準タイプ');
+define('_MD_GNAV_SCENECAPTURETYPE_1', '風景タイプ');
+define('_MD_GNAV_SCENECAPTURETYPE_2', 'ポートレイトタイプ');
+define('_MD_GNAV_SCENECAPTURETYPE_3', '夜景タイプ');
+
+define('_MD_GNAV_FLASH', 'フラッシュ');
+define('_MD_GNAV_FLASH_0', 'フラッシュ非発光');
+define('_MD_GNAV_FLASH_1', 'フラッシュ発光');
+define('_MD_GNAV_FLASH_5', '自動調光なし');
+define('_MD_GNAV_FLASH_7', '自動調光あり');
+define('_MD_GNAV_FLASH_9', 'フラッシュ強制発光');
+define('_MD_GNAV_FLASH_13', 'フラッシュ強制発光, 自動調光なし');
+define('_MD_GNAV_FLASH_15', 'フラッシュ強制発光, 自動調光あり');
+define('_MD_GNAV_FLASH_16', 'フラッシュ発光禁止');
+define('_MD_GNAV_FLASH_24', 'オートフラッシュ（非発光）');
+define('_MD_GNAV_FLASH_25', 'オートフラッシュ（発光）');
+define('_MD_GNAV_FLASH_29', 'オートフラッシュ（発光）, 自動調光なし');
+define('_MD_GNAV_FLASH_31', 'オートフラッシュ（発光）, 自動調光あり');
+define('_MD_GNAV_FLASH_32', 'フラッシュ機能なし');
+define('_MD_GNAV_FLASH_65', 'フラッシュ発光, 赤目軽減モード');
+define('_MD_GNAV_FLASH_69', 'フラッシュ発光, 自動調光なし, 赤目軽減モード');
+define('_MD_GNAV_FLASH_71', 'フラッシュ発光, 自動調光あり, 赤目軽減モード');
+define('_MD_GNAV_FLASH_73', 'フラッシュ強制発光, 赤目軽減モード');
+define('_MD_GNAV_FLASH_77', 'フラッシュ強制発光, 自動調光なし, 赤目軽減モード');
+define('_MD_GNAV_FLASH_79', 'フラッシュ強制発光, 自動調光あり, 赤目軽減モード');
+define('_MD_GNAV_FLASH_89', 'オートフラッシュ（発光）, 赤目軽減モード');
+define('_MD_GNAV_FLASH_93', 'オートフラッシュ（発光）, 自動調光なし, 赤目軽減モード');
+define('_MD_GNAV_FLASH_95', 'オートフラッシュ（発光）, 自動調光あり, 赤目軽減モード');
+
 ?>

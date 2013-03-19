@@ -70,17 +70,23 @@ class GnaviExif
 				$ret['ISO'] = $this->get_exif_numbar($exif_data['ISOSpeedRatings'], FALSE);
 			}
 			
-			if (isset($exif_data['Flash'])){
-				if ($exif_data['Flash'] == 0) {$ret['Flash'] = "OFF";}
-				else if ($exif_data['Flash'] == 1) {$ret['Flash'] = "ON";}
-				else if ($exif_data['Flash'] == 5) {$ret['Flash'] = "Light(No Reflection)";}
-				else if ($exif_data['Flash'] == 7) {$ret['Flash'] = "Light(Reflection)";}
-				else if ($exif_data['Flash'] == 9) {$ret['Flash'] = "Always ON";}
-				else if ($exif_data['Flash'] == 16) {$ret['Flash'] = "Always OFF";}
-				else if ($exif_data['Flash'] == 24) {$ret['Flash'] = "Auto(None)";}
-				else if ($exif_data['Flash'] == 25) {$ret['Flash'] = "Auto(Light)";}
-				else {$ret['Flash'] = $exif_data['Flash'];}
-			}
+			// ExposureMode
+			$this->setKnownExifTag($ret, $exif_data, 'ExposureMode');
+			
+			// ExposureProgram
+			$this->setKnownExifTag($ret, $exif_data, 'ExposureProgram');
+						
+			// MeteringMode
+			$this->setKnownExifTag($ret, $exif_data, 'MeteringMode');
+			
+			// WhiteBalance
+			$this->setKnownExifTag($ret, $exif_data, 'WhiteBalance');
+			
+			// SceneCaptureType
+			$this->setKnownExifTag($ret, $exif_data, 'SceneCaptureType');
+			
+			// Flash
+			$this->setKnownExifTag($ret, $exif_data, 'Flash');
 				
 			if (isset($exif_data['SubjectDistance'])) {
 				$ret['Distance'] = $exif_data['SubjectDistance'].' m';
@@ -178,5 +184,16 @@ class GnaviExif
 		//$sr = $this->get_exif_numbar($exif_data['ISOSpeedRatings'], FALSE, TRUE);
 		//$ev = $bv + log($sr/3.125, 2) + $ev;
 		return $ev;
+	}
+	
+	function setKnownExifTag(& $ret, $exif_data, $exifKey) {
+		if (! isset($exif_data[$exifKey])) return;
+		$_exifval = intval($exif_data[$exifKey]);
+		$val_const = '_MD_GNAV_'.strtoupper($exifKey) . '_' . $_exifval;
+		if (defined($val_const)) {
+			$ret[$exifKey] = $val_const;
+		} else {
+			$ret[$exifKey] = '_MD_GNAV_EXIF_UNKNOWN';
+		}
 	}
 }

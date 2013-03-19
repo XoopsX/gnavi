@@ -185,8 +185,25 @@ function gnavi_photo_assign($photo)
 	$photo['captionstyle2']= "style='width:".( $min_captionw > $photo['flawidth2'] ? $min_captionw : $photo['flawidth2'] )."px;'" ;
 
 	for($i=0; $i<3; $i++) {
-		if (isset($photo['exif']) && is_array($photo['exif'][$i]))
+		if (isset($photo['exif']) && is_array($photo['exif'][$i])) {
 			unset($photo['exif'][$i]['RAW']);
+			$_tmp = array();
+			foreach($photo['exif'][$i] as $_key => $_val) {
+				if ($_key !== 'GPS') {
+					if ($_key === 'Date') {
+						$_val = preg_replace('/^([0-9]{4}):([0-1][0-9]):([0-3][0-9])/', '$1/$2/$3', $_val);
+					} else {
+						if (substr($_val, 0, 9) === '_MD_GNAV_') {
+							$_val = constant($_val);
+						}
+					}
+					$_tmp[constant('_MD_GNAV_' . strtoupper($_key))] = $_val;
+				} else {
+					$_tmp['GPS'] = $_val;
+				}
+			}
+			$photo['exif'][$i] = $_tmp;
+		}
 	}
 	
 	return $photo;

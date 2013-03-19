@@ -189,4 +189,74 @@ define( "_MD_GNAV_MSG_FILEREADERROR" , "Error: Photos are not readable." ) ;
 define( "_MD_GNAV_MB_LT" , "" ) ;
 define( "_MD_GNAV_MB_GT" , "" ) ;
 
+// EXIF
+define('_MD_GNAV_EXIF_UNKNOWN', 'Unknown');
+
+define('_MD_GNAV_METERINGMODE', 'Metering mode');
+define('_MD_GNAV_METERINGMODE_1', 'Average');
+define('_MD_GNAV_METERINGMODE_2', 'CenterWeightedAverage');
+define('_MD_GNAV_METERINGMODE_3', 'Spot');
+define('_MD_GNAV_METERINGMODE_4', 'MultiSpot');
+define('_MD_GNAV_METERINGMODE_5', 'Pattern');
+define('_MD_GNAV_METERINGMODE_6', 'Partial');
+define('_MD_GNAV_METERINGMODE_255', 'Other');
+
+define('_MD_GNAV_DATE', 'Date');
+define('_MD_GNAV_CAMERA', 'Camera');
+define('_MD_GNAV_LENS', 'Lens');
+define('_MD_GNAV_EXPOSURE', 'Shutter speed');
+define('_MD_GNAV_APERTURE', 'F-number');
+define('_MD_GNAV_EXP.BIAS', 'Exposure compensation');
+define('_MD_GNAV_ISO', 'ISO speed');
+
+define('_MD_GNAV_EXPOSUREMODE', 'Exposure mode');
+define('_MD_GNAV_EXPOSUREMODE_0', 'Auto exposure');
+define('_MD_GNAV_EXPOSUREMODE_1', 'Manual exposure');
+define('_MD_GNAV_EXPOSUREMODE_2', 'Auto bracket');
+
+define('_MD_GNAV_EXPOSUREPROGRAM', 'Exposure program');
+define('_MD_GNAV_EXPOSUREPROGRAM_0', 'Not defined');
+define('_MD_GNAV_EXPOSUREPROGRAM_1', 'Manual');
+define('_MD_GNAV_EXPOSUREPROGRAM_2', 'Normal program');
+define('_MD_GNAV_EXPOSUREPROGRAM_3', 'Aperture priority');
+define('_MD_GNAV_EXPOSUREPROGRAM_4', 'Shutter priority');
+define('_MD_GNAV_EXPOSUREPROGRAM_5', 'Creative program (biased toward depth of field)');
+define('_MD_GNAV_EXPOSUREPROGRAM_6', 'Action program (biased toward fast shutter speed)');
+define('_MD_GNAV_EXPOSUREPROGRAM_7', 'Portrait mode (for closeup photos with the background out of focus)');
+define('_MD_GNAV_EXPOSUREPROGRAM_8', 'Landscape mode (for landscape photos with the background in focus)');
+
+define('_MD_GNAV_WHITEBALANCE', 'White balance');
+define('_MD_GNAV_WHITEBALANCE_0', 'Auto white balance');
+define('_MD_GNAV_WHITEBALANCE_1', 'Manual white balance');
+
+define('_MD_GNAV_SCENECAPTURETYPE', 'Scene capture type');
+define('_MD_GNAV_SCENECAPTURETYPE_0', 'Standard');
+define('_MD_GNAV_SCENECAPTURETYPE_1', 'Landscape');
+define('_MD_GNAV_SCENECAPTURETYPE_2', 'Portrait');
+define('_MD_GNAV_SCENECAPTURETYPE_3', 'Night scene');
+
+define('_MD_GNAV_FLASH', 'Flash');
+define('_MD_GNAV_FLASH_0', 'Flash did not fire');
+define('_MD_GNAV_FLASH_1', 'Flash fired');
+define('_MD_GNAV_FLASH_5', 'Strobe return light not detected');
+define('_MD_GNAV_FLASH_7', 'Strobe return light detected');
+define('_MD_GNAV_FLASH_9', 'Flash fired, compulsory flash mode');
+define('_MD_GNAV_FLASH_13', 'Flash fired, compulsory flash mode, return light not detected');
+define('_MD_GNAV_FLASH_15', 'Flash fired, compulsory flash mode, return light detected');
+define('_MD_GNAV_FLASH_16', 'Flash did not fire, compulsory flash mode');
+define('_MD_GNAV_FLASH_24', 'Flash did not fire, auto mode');
+define('_MD_GNAV_FLASH_25', 'Flash fired, auto mode');
+define('_MD_GNAV_FLASH_29', 'Flash fired, auto mode, return light not detected');
+define('_MD_GNAV_FLASH_31', 'Flash fired, auto mode, return light detected');
+define('_MD_GNAV_FLASH_32', 'No flash function');
+define('_MD_GNAV_FLASH_65', 'Flash fired, red-eye reduction mode');
+define('_MD_GNAV_FLASH_69', 'Flash fired, red-eye reduction mode, return light not detected');
+define('_MD_GNAV_FLASH_71', 'Flash fired, red-eye reduction mode, return light detected');
+define('_MD_GNAV_FLASH_73', 'Flash fired, compulsory flash mode, red-eye reduction mode');
+define('_MD_GNAV_FLASH_77', 'Flash fired, compulsory flash mode, red-eye reduction mode, return light not detected');
+define('_MD_GNAV_FLASH_79', 'Flash fired, compulsory flash mode, red-eye reduction mode, return light detected');
+define('_MD_GNAV_FLASH_89', 'Flash fired, auto mode, red-eye reduction mode');
+define('_MD_GNAV_FLASH_93', 'Flash fired, auto mode, return light not detected, red-eye reduction mode');
+define('_MD_GNAV_FLASH_95', 'Flash fired, auto mode, return light detected, red-eye reduction mode ');
+
 ?>
