@@ -635,16 +635,6 @@ $modversion['config'][] = array(
 	'valuetype'		=> 'int' ,
 	'default'		=> '10'
 ) ;
-$modversion['config'][] = array(
-	'name'			=> 'comment_anchor_type' ,
-	'title'			=> $constpref.'_COM_ANCHOR' ,
-	'description'		=> $constpref.'_COM_ANCHORDSC' ,
-	'formtype'		=> 'select' ,
-	'valuetype'		=> 'text' ,
-	'default'		=> '0' ,
-	'options'		=> array( $constpref.'_USE_COM_ANCHOR_UNIQUEPATH' => 0, 
-		  					  $constpref.'_USE_COM_ANCHOR_POSTNUM' => 1) 
-) ;
 
 
 // Notification
