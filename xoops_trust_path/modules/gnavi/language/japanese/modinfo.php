@@ -111,13 +111,18 @@ define( $constpref."_CFG_DESCMOBILEUSEQRC" , "１以上の値を入力すると記事に携帯で
 define( $constpref.'_COM_DIRNAME','コメント統合するd3forumのdirname');
 define( $constpref.'_COM_FORUM_ID','コメント統合するフォーラムの番号');
 define( $constpref.'_COM_VIEW','コメント統合の表示方法');
+define( $constpref.'_COM_ORDER','コメント統合の表示順序');
+define( $constpref.'_COM_ORDERDSC','コメント統合を選択した場合の、コメントの新しい順／古い順を指定できます。');
+define( $constpref.'_COM_POSTSNUM','コメント統合のフラット表示における最大表示件数');
+define( $constpref.'_COM_ANCHOR','コメント統合の記事アンカー');
+define( $constpref.'_COM_ANCHORDSC','コメント記事アンカーのデフォルトは「post_path」です。<br />コメントスレッドを分割しても関連性を保てる「post_id」を使う場合、<br />d3forum側のテンプレートを編集し、ここで変更します。（相互連動はしません。）');
+define( $constpref.'_USE_COM_ANCHOR_UNIQUEPATH','d3forumデフォルトの「post_path」を使う');
+define( $constpref.'_USE_COM_ANCHOR_POSTNUM','「post_id」を使う');
 
 define( $constpref.'_MAP_DRAW','マーカーをGeoXMLで描画');
 define( $constpref.'_DESC_MAP_DRAW','（推奨：いいえ）地図表示をKMLで描画させます。処理が重い場合などに試してみてください。多少違った動きになります。');
 define( $constpref.'_INCLUDE_KML','外部 KML ファイルの表示');
 define( $constpref.'_DESC_INCLUDE_KML','GoogleEarthで表示可能なKMLファイル(.kml,.kmz)を指定できます。この情報は常に表示されます。<br />１行につき１件ずつ、"http://"から始まるURLで入力してください。<br />入力例）<br />http://xoops.iko-ze.net/modules/gnavi/kml.php');
-
-
 
 
 define( $constpref."_OPT_USENAME" , "ハンドル名" ) ;

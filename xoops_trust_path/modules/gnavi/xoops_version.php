@@ -618,6 +618,33 @@ $modversion['config'][] = array(
 	'default'		=> 'listposts_flat' ,
 	'options'		=> array( '_FLAT' => 'listposts_flat' , '_THREADED' => 'listtopics' )
 ) ;
+$modversion['config'][] = array(
+	'name'			=> 'comment_order' ,
+	'title'			=> $constpref.'_COM_ORDER' ,
+	'description'		=> $constpref.'_COM_ORDERDSC' ,
+	'formtype'		=> 'select' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> 'desc' ,
+	'options'		=> array( '_OLDESTFIRST' => 'asc' , '_NEWESTFIRST' => 'desc' )
+) ;
+$modversion['config'][] = array(
+	'name'			=> 'comment_posts_num' ,
+	'title'			=> $constpref.'_COM_POSTSNUM' ,
+	'description'		=> '' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '10'
+) ;
+$modversion['config'][] = array(
+	'name'			=> 'comment_anchor_type' ,
+	'title'			=> $constpref.'_COM_ANCHOR' ,
+	'description'		=> $constpref.'_COM_ANCHORDSC' ,
+	'formtype'		=> 'select' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> '0' ,
+	'options'		=> array( $constpref.'_USE_COM_ANCHOR_UNIQUEPATH' => 0, 
+		  					  $constpref.'_USE_COM_ANCHOR_POSTNUM' => 1) 
+) ;
 
 
 // Notification
