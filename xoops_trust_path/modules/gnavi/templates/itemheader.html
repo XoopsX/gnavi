@@ -11,7 +11,7 @@
 	<{if $photo.is_updatedphoto}>&nbsp;<img src='<{$mod_url}>/images/update.gif' border='0' alt='<{$lang_updated}>' title='<{$lang_updated}>' /><{/if}>
 	<{if $photo.is_popularphoto}>&nbsp;<img src='<{$mod_url}>/images/pop.gif' border='0' alt='<{$lang_popular}>' title='<{$lang_popular}>' /><{/if}>
 	<{if $map}><span>&nbsp;[<a href="index.php<{$maplink_option}>"><{$map}></a>]</span><{/if}>
-	<{if $photo.can_edit}><span>[<a href="index.php?page=submit&lid=<{$photo.lid}>"><{$lang_editthisphoto}></a>]</span><{/if}>
+	<{if $photo.can_edit}><span>[<a href="index.php?page=submit&amp;lid=<{$photo.lid}>"><{$lang_editthisphoto}></a>]</span><{/if}>
 </div>
 
 <{* INFO date,owner,hits *}>
@@ -43,6 +43,11 @@
 	<{elseif $photo.img==2}><img src="<{$photo.imgsrc_photo}>" alt="<{$photo.caption}>" <{$photo.width_height}> />
 	<{else}><a href="<{$photo.ahref_photo}>" target="_blank"><img src="<{$photo.imgsrc_photo}>" alt="<{$photo.caption}>" /></a><{/if}>
 	<{if $photo.caption}><div class="gn_caption" <{$photo.captionstyle}>><{$photo.caption}></div><{/if}>
+	<{if $photo.exif.0}>
+	<{assign var="photo_num" value=0}>
+	<{assign var="item_exif" value=$photo.exif.0}>
+	<{include file="db:`$mydirname`_inc_exif_table.html"}>
+	<{/if}>
 </div><{/if}>
 
 <{* FILE2 *}>
@@ -51,6 +56,11 @@
 	<{elseif $photo.img1==2}><img src="<{$photo.imgsrc_photo1}>" alt="<{$photo.caption1}>" <{$photo.width_height1}> />
 	<{else}><a href="<{$photo.ahref_photo1}>" target="_blank"><img src="<{$photo.imgsrc_photo1}>" alt="<{$photo.caption1}>" /></a><{/if}>
 	<{if $photo.caption1}><div class="gn_caption" <{$photo.captionstyle1}>><{$photo.caption1}></div><{/if}>
+	<{if $photo.exif.1}>
+	<{assign var="photo_num" value=1}>
+	<{assign var="item_exif" value=$photo.exif.1}>
+	<{include file="db:`$mydirname`_inc_exif_table.html"}>
+	<{/if}>
 </div><{/if}>
 
 <{* FILE3 *}>
@@ -59,6 +69,11 @@
 	<{elseif $photo.img2==2}><img src="<{$photo.imgsrc_photo2}>" alt="<{$photo.caption2}>" <{$photo.width_height2}> />
 	<{else}><a href="<{$photo.ahref_photo2}>" target="_blank"><img src="<{$photo.imgsrc_photo2}>" alt="<{$photo.caption2}>" /></a><{/if}>
 	<{if $photo.caption2}><div class="gn_caption" <{$photo.captionstyle2}>><{$photo.caption2}></div><{/if}>
+	<{if $photo.exif.2}>
+	<{assign var="photo_num" value=2}>
+	<{assign var="item_exif" value=$photo.exif.2}>
+	<{include file="db:`$mydirname`_inc_exif_table.html"}>
+	<{/if}>
 </div><{/if}>
 
 <div style="clear:both;"></div>

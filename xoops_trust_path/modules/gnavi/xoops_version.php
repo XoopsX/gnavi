@@ -11,10 +11,10 @@ $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
 $modversion['name'] = $mydirname ;
 $modversion['version'] = 0.97 ;
-$modversion['detailed_version'] = '0.97.0' ;
+$modversion['detailed_version'] = '0.97.5' ;
 $modversion['description'] = constant($constpref.'_DESC') ;
 $modversion['credits'] = "Original: GIJOE<br />(http://www.peak.ne.jp/)<br />Daniel Branco<br />(http://bluetopia.homeip.net)<br />Kazumi Ono<br />(http://www.mywebaddons.com/)<br />The XOOPS Project" ;
-$modversion['author'] = "KENTARO<br />(http://xoops.iko-ze.net/)" ;
+$modversion['author'] = "KENTARO (http://xoops.iko-ze.net/)<br />XOOPS X (ten) Distribution Project (https://github.com/XoopsX/gnavi)" ;
 $modversion['help'] = "" ;
 $modversion['license'] = "GPL" ;
 $modversion['official'] = 0 ;
@@ -495,18 +495,20 @@ $modversion['config'][] = array(
 	'description'	=> $constpref.'_CFG_DESCDEFMTYPE' ,
 	'formtype'		=> 'select' ,
 	'valuetype'		=> 'text' ,
-	'default'		=> 'G_NORMAL_MAP' ,
-	'options'		=> array('G_NORMAL_MAP'=>'G_NORMAL_MAP',
-							'G_SATELLITE_MAP'=>'G_SATELLITE_MAP',
-							'G_HYBRID_MAP'=>'G_HYBRID_MAP',
-							'G_PHYSICAL_MAP'=>'G_PHYSICAL_MAP',
-							'G_HYBRID_PHYSICAL_MAP'=>'G_HYBRID_PHYSICAL_MAP',
-							'G_MOON_ELEVATION_MAP'=>'G_MOON_ELEVATION_MAP',
-							'G_MOON_VISIBLE_MAP'=>'G_MOON_VISIBLE_MAP',
-							'G_MARS_ELEVATION_MAP'=>'G_MARS_ELEVATION_MAP',
-							'G_MARS_VISIBLE_MAP'=>'G_MARS_VISIBLE_MAP',
-							'G_MARS_INFRARED_MAP'=>'G_MARS_INFRARED_MAP',
-							'G_SKY_VISIBLE_MAP'=>'G_SKY_VISIBLE_MAP')
+	'default'		=> 'ROADMAP' ,
+	'options'		=> array('ROADMAP'=>'ROADMAP',
+							'SATELLITE'=>'SATELLITE',
+							'HYBRID'=>'HYBRID',
+							'TERRAIN'=>'TERRAIN')
+) ;
+$modversion['config'][] = array(
+	'name'			=> 'gnavi_map_autozoom' ,
+	'title'			=> $constpref.'_CFG_AUTOZOOM' ,
+	'description'	=> $constpref.'_CFG_DESCAUTOZOOM',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
 	'name'			=> 'gnavi_map_draw' ,
@@ -554,6 +556,24 @@ $modversion['config'][] = array(
 	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
+	'name'			=> 'gnavi_use_gps' ,
+	'title'			=> $constpref.'_CFG_USE_GPS' ,
+	'description'	=> $constpref.'_CFG_DESC_USE_GPS',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
+) ;
+$modversion['config'][] = array(
+	'name'			=> 'gnavi_use_exif' ,
+	'title'			=> $constpref.'_CFG_USE_EXIF' ,
+	'description'	=> $constpref.'_CFG_DESC_USE_EXIF',
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
+) ;
+$modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_mapsize' ,
 	'title'			=> $constpref.'_CFG_MOBILEMAPSIZE' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEMAPSIZE' ,
@@ -567,8 +587,8 @@ $modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_agent' ,
 	'title'			=> $constpref.'_CFG_MOBILEAGENT' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEAGENT' ,
-	'formtype'		=> '' ,
-	'valuetype'		=> 'textbox' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
 	'default'		=> '/(DoCoMo|J-PHONE|Vodafone|MOT|SoftBank|KDDI|UP.Browser|PDXGW|DDIPOCKET|WILLCOM|EMULATOR|emulator)/' ,
 	'options'		=> array()
 ) ;
@@ -576,8 +596,8 @@ $modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_encording' ,
 	'title'			=> $constpref.'_CFG_MOBILEENCORDING' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEENCORDING' ,
-	'formtype'		=> '' ,
-	'valuetype'		=> 'textbox' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
 	'default'		=> ($langman->language=='japanese'||$langman->language=='ja_utf8' ? 'SJIS' : '') ,
 	'options'		=> array()
 ) ;

@@ -18,7 +18,7 @@
 <{* PAGE NAVIGATION *}>
 <{if !$indexpage}><span id="gnn_up"><a href="<{$mod_url}>/index.php<{if $parent_id}>?cid=<{$parent_id}><{/if}>"><{$lang_movepid}></a></span><{/if}>
 <{if $map}><span id="gnn_map"><a href="index.php<{$maplink_option}>"><{$map}></a></span><{/if}>
-<{if $lang_add_photo}><span id="gnn_edit"><a href="index.php?page=submit<{if $category_id}>&cid=<{$category_id}><{/if}>"><{$lang_add_photo}></a></span><{/if}>
+<{if $lang_add_photo}><span id="gnn_edit"><a href="index.php?page=submit<{if $category_id}>&amp;cid=<{$category_id}><{/if}>"><{$lang_add_photo}></a></span><{/if}>
 <{if $am_cat_edit}><span id="gnn_edit"><a href="admin/index.php?page=category"><{$am_cat_edit}></a></span><{/if}>
 
 <br style="clear:both; "/>

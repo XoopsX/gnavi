@@ -110,7 +110,7 @@ $prs = $xoopsDB->query( "SELECT l.lid, l.title, l.submitter, l.ext, l.res_x, l.r
 
 // Page Navigation
 include XOOPS_ROOT_PATH.'/class/pagenav.php';
-$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "num=$num&cid=$cid&txt=" . urlencode($txt) ) ;
+$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "num=$num&amp;cid=$cid&amp;txt=" . urlencode($txt) ) ;
 $nav_html = $nav->renderNav(7) ;
 
 // Information of page navigating
@@ -178,7 +178,7 @@ echo "
   $photonavinfo
   <a href='../index.php?page=submitcid=$cid'><img src='../images/pictadd.gif' alt='"._MD_A_GNAVI_CAT_LINK_ADDPHOTOS."' title='"._MD_A_GNAVI_CAT_LINK_ADDPHOTOS."' /></a>
 </p>
-<form name='MainForm' action='?page=photomanager&num=$num&cid=$cid' method='POST' style='margin-top:0px;'>
+<form name='MainForm' action='?page=photomanager&amp;num=$num&amp;cid=$cid' method='POST' style='margin-top:0px;'>
 ".$xoopsGTicket->getTicketHtml( __LINE__ )."
 <table width='100%' border='0' cellspacing='0' cellpadding='4'>
 <tr>
@@ -215,7 +215,7 @@ while( list( $lid , $title , $submitter , $ext , $w , $h , $status ) = $xoopsDB-
 
 	$bgcolor = $status ? "#FFFFFF" : "#FFEEEE" ;
 
-	$editbutton = "<a href='".XOOPS_URL."/modules/$mydirname/index.php?page=submit&lid=$lid' target='_blank'><img src='".XOOPS_URL."/modules/$mydirname/images/editicon.gif' border='0' alt='"._MD_GNAV_SMT_EDITITEM."' title='"._MD_GNAV_SMT_EDITITEM."' /></a>  ";
+	$editbutton = "<a href='".XOOPS_URL."/modules/$mydirname/index.php?page=submit&amp;lid=$lid' target='_blank'><img src='".XOOPS_URL."/modules/$mydirname/images/editicon.gif' border='0' alt='"._MD_GNAV_SMT_EDITITEM."' title='"._MD_GNAV_SMT_EDITITEM."' /></a>  ";
 	$deadlinkbutton = is_readable( "$photos_dir/{$lid}.{$ext}" ) ? "" : "<img src='".XOOPS_URL."/modules/$mydirname/images/deadlink.gif' border='0' alt='"._MD_A_GNAVI_DEADLINKMAINPHOTO."' title='"._MD_A_GNAVI_DEADLINKMAINPHOTO."' />" ;
 
 	if( $col == 0 ) echo "\t<tr>\n" ;

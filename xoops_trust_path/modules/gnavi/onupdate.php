@@ -58,6 +58,23 @@ function gnavi_onupdate_base( $module , $mydirname )
 		$db->queryF( "ALTER TABLE ".$db->prefix("{$mydirname}_photos")." ADD rss varchar(255) NOT NULL default ''" ) ;
 	}
 
+	// GMap V3 support, convert mtype by nao-pon
+	foreach(array('photos', 'cat') as $_tbl) {
+		$_tbl = $db->prefix("{$mydirname}_{$_tbl}");
+		$check_sql = "SELECT mtype FROM {$_tbl} WHERE mtype LIKE 'G_%'" ;
+		if ($res = $db->query( $check_sql) and $db->getRowsNum($res)) {
+			$db->queryF( "UPDATE {$_tbl} SET mtype='ROADMAP' WHERE mtype='G_NORMAL_MAP' OR mtype='G_SKY_VISIBLE_MAP' OR mtype LIKE 'G_M%'" );
+			$db->queryF( "UPDATE {$_tbl} SET mtype='SATELLITE' WHERE mtype='G_SATELLITE_MAP'" );
+			$db->queryF( "UPDATE {$_tbl} SET mtype='HYBRID' WHERE mtype='G_HYBRID_MAP'" );
+			$db->queryF( "UPDATE {$_tbl} SET mtype='TERRAIN' WHERE mtype LIKE 'G%PHYSICAL_MAP'" );
+		}
+	}
+	
+	$check_sql = "SELECT lid FROM ".$db->prefix("{$mydirname}_exif")." LIMIT 1" ;
+	if(  ! $db->query( $check_sql) ) {
+		$db->queryF( 'CREATE TABLE '.$db->prefix("{$mydirname}_exif").' (lid int(11) NOT NULL, exif mediumblob NOT NULL, UNIQUE KEY lid (lid)) ENGINE=MyISAM' ) ;
+	}
+
 	// TEMPLATES (all templates have been already removed by modulesadmin)
 	$tplfile_handler =& xoops_gethandler( 'tplfile' ) ;
 

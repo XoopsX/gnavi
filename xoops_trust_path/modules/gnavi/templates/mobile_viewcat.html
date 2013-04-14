@@ -34,7 +34,7 @@
 	<{if !$indexpage || $map}>
 		<TABLE WIDTH=100% BGCOLOR="#EFEFEF"><TR>
 			<{if $map}><TD><FONT SIZE=1>&nbsp;<A HREF="index.php<{$maplink_option}><{$agent}>"><{$map}></A></FONT></TD><{/if}>
-			<{if !$indexpage}><TD align=right><FONT SIZE=1><A HREF="<{$mod_url}>/index.php?<{if $parent_id}>&cid=<{$parent_id}><{/if}><{$agent}>"><{$lng_mobile_updir}></A>&nbsp;</FONT></TD><{/if}>
+			<{if !$indexpage}><TD align=right><FONT SIZE=1><A HREF="<{$mod_url}>/index.php?<{if $parent_id}>&amp;cid=<{$parent_id}><{/if}><{$agent}>"><{$lng_mobile_updir}></A>&nbsp;</FONT></TD><{/if}>
 		</TR></TABLE>
 	<{/if}>
 
@@ -54,7 +54,7 @@
 		<FONT COLOR=#ff9999>
 			<UL>
 				<{foreach from=$photos item=photo}>
-					<LI><A HREF='<{$mod_url}>/index.php?lid=<{$photo.lid}><{if $category_id}>&cid=<{$category_id}><{/if}><{$agent}>'><{$photo.title}></A>
+					<LI><A HREF='<{$mod_url}>/index.php?lid=<{$photo.lid}><{if $category_id}>&amp;cid=<{$category_id}><{/if}><{$agent}>'><{$photo.title}></A>
 				<{/foreach}>
 			</UL>
 		</FONT>

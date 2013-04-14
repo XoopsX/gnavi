@@ -205,7 +205,7 @@ $xoopsTpl->assign('default_lng',$default_lng);
 $xoopsTpl->assign('default_zoom',$default_zoom);
 $xoopsTpl->assign('default_mtype',$default_mtype);
 
-$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v=2&amp;key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<script src='".$gnavi_googlemap_url."/maps/api/js?sensor=false' type='text/javascript' charset='utf-8'></script>
 <link rel='stylesheet' type='text/css' href='css/gnavi.css'/>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script src='js/prototype.js'></script>
@@ -218,7 +218,8 @@ $xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\
 	gn_l=$lid;
 	gn_ep = ".( $global_perms & GNAV_GPERM_INSERTABLE )." ;
 	gn_drkm = $gnavi_map_draw ;
-	window.onload = ShowGMap;
+	gn_autozoom = ".(@ $gnavi_configs['gnavi_map_autozoom']? 'true' : 'false')."
+	google.maps.event.addDomListener(window, 'load', function(){ ShowGMap(); });
 	".($gnavi_pe_appkey==""?"":"gn_pekey='".$gnavi_pe_appkey."';")."
 //]]>
 </script>";
@@ -230,8 +231,8 @@ if($GNAVI_MOBILE){
 	if($GNAVI_MOBILE_MAP){
 	//for degug
 
-		$google_staticmap = $gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?center=$default_lat,$default_lng&zoom=$default_zoom&size=$gnavi_mobile_mapsize&maptype=$gnavi_mobile_maptype&key=$gnavi_googlemapapi_key";
+		$google_staticmap = $gnavi_googlemap_url."/maps/api/staticmap";
+		$mymap="$google_staticmap?sensor=false&amp;center=$default_lat,$default_lng&amp;zoom=$default_zoom&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
 
 		$gnavi_mobile_maekercolor="blue";
 
@@ -278,15 +279,15 @@ if($GNAVI_MOBILE){
 
 		$markers="";
 		$markerlist=array();
-		$alphabet="abcdefghijklmnopqrstuvwxyz";
+		$alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		$i=0;
 		while( $rs = $xoopsDB->fetchArray( $prs ) ) {
 			$title = strip_tags($myts->displayTarea($rs['title'], 1 , 1 , 1 , 1 , 1 , 1 ));
 			$title = xoops_substr($title,0,20);
 	        $abc = substr($alphabet,$i,1);
 
-			if($markers)$markers.="%7C";
-			$markers.=$rs['lat'].",".$rs['lng'].",".$gnavi_mobile_maekercolor.$abc;
+			if($markers)$markers.="&amp;markers=";
+			$markers.="color:$gnavi_mobile_maekercolor%7Clabel:{$abc}%7C{$rs['lat']},{$rs['lng']}";
 
 			$markerlist[]=array(
 							'abc' => strtoupper($abc),
@@ -307,7 +308,7 @@ if($GNAVI_MOBILE){
 		}
 
 
-		if($markers)$markers="&markers=".$markers;
+		if($markers)$markers="&amp;markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 		$xoopsTpl->assign('markerlist',$markerlist);
 		//$xoopsTpl->assign('lang_category',"カテゴリー");

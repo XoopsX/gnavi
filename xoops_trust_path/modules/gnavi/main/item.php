@@ -31,7 +31,7 @@ if( $global_perms & GNAV_GPERM_INSERTABLE ) $xoopsTpl->assign( 'lang_add_photo' 
 // update hit count
 $xoopsDB->queryF( "UPDATE $table_photos SET hits=hits+1 WHERE lid='$lid' AND status>0" ) ;
 
-$prs = $xoopsDB->query( "SELECT l.lid, l.cid,l.cid1,l.cid2,l.cid3,l.cid4, l.title, l.poster_name,l.icd, l.ext, l.res_x, l.res_y,l.ext1, l.res_x1, l.res_y1,l.ext2, l.res_x2, l.res_y2, l.caption,l.caption1,l.caption2, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.submitter,l.url,l.tel,l.fax,l.zip,l.address,l.rss,l.lat,l.lng,l.zoom,l.mtype,t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_text t ON l.lid=t.lid WHERE l.lid=$lid AND status>0" ) ;
+$prs = $xoopsDB->query( "SELECT l.lid, l.cid,l.cid1,l.cid2,l.cid3,l.cid4, l.title, l.poster_name,l.icd, l.ext, l.res_x, l.res_y,l.ext1, l.res_x1, l.res_y1,l.ext2, l.res_x2, l.res_y2, l.caption,l.caption1,l.caption2, l.status, l.date, l.hits, l.rating, l.votes, l.comments, l.submitter,l.url,l.tel,l.fax,l.zip,l.address,l.rss,l.lat,l.lng,l.zoom,l.mtype,e.exif,t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_text t ON l.lid=t.lid LEFT JOIN $table_exif e ON l.lid=e.lid WHERE l.lid=$lid AND status>0" ) ;
 $photo = $xoopsDB->fetchArray( $prs ) ;
 if( $photo == false ) {
 	redirect_header( $mod_url.'/' , 3 , _MD_GNAV_MSG_NOMATCH ) ;
@@ -76,9 +76,9 @@ if( $cid > 0 ) {
 	$xoopsTpl->assign( 'catdescription' , $description ) ;
 }
 
-$get_append='cid='.$cid.'&lid='.$lid;
+$get_append='cid='.$cid.'&amp;lid='.$lid;
 $xoopsTpl->assign( 'link_option' , ($get_append ? "?".$get_append : '' )) ;
-$mapget_append = $get_append ? $get_append.'&page=map' : 'page=map' ;
+$mapget_append = $get_append ? $get_append.'&amp;page=map' : 'page=map' ;
 $xoopsTpl->assign( 'maplink_option' , ($mapget_append ? "?".$mapget_append : '' )) ;
 
 $xoopsTpl->assign( 'category_id' , $cid ) ;
@@ -110,7 +110,7 @@ $arricon = gnavi_get_gicon($icon);
 $xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 if($gnavi_usegooglemap && (floatval($photo['lng'])<>0 || floatval($photo['lat'])<>0 )){
 $xoopsTpl->assign( 'map' , _MD_GNAV_MAP_SHOW ) ;
-$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;v=2&amp;key=$gnavi_googlemapapi_key' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?sensor=false' type='text/javascript' charset='utf-8'></script>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
@@ -121,7 +121,7 @@ $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps?file=api&amp;
 	gn_iz=".$photo['zoom'].";
 	gn_it='".$photo['mtype']."';
 	".$arricon."
-	window.onload = ShowItemGMap;
+	google.maps.event.addDomListener(window, 'load', function(){ ShowItemGMap(); });
 //]]>
 </script>";
 }
@@ -185,32 +185,32 @@ if( $numrows > 1 ) {
 		if( $ids[$i-1] == $lid ) {
 			$photo_nav .= "<span>$i</span>&nbsp;&nbsp;";
 		} else {
-			$photo_nav .= "<a href='index.php?lid=".$ids[$i-1]."&cid=$cid'>$i</a>&nbsp;&nbsp;";
+			$photo_nav .= "<a href='index.php?lid=".$ids[$i-1]."&amp;cid=$cid'>$i</a>&nbsp;&nbsp;";
 		}
 	}
 
 	if( $start > 2 ){
-		$photo_nav = "<a href='index.php?lid=".$ids[0]."&cid=$cid'>1</a>&nbsp;..&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[0]."&amp;cid=$cid'>1</a>&nbsp;..&nbsp;&nbsp;".$photo_nav;
 	}elseif( $start == 2 ){
-		$photo_nav = "<a href='index.php?lid=".$ids[0]."&cid=$cid'>1</a>&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[0]."&amp;cid=$cid'>1</a>&nbsp;&nbsp;".$photo_nav;
 	}
 
 	if( $start+$nwin < $numrows ){
-		$photo_nav .= "..&nbsp;<a href='index.php?lid=".$ids[$numrows-1]."&cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "..&nbsp;<a href='index.php?lid=".$ids[$numrows-1]."&amp;cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
 	}elseif( $start+$nwin == $numrows ){
-		$photo_nav .= "<a href='index.php?lid=".$ids[$numrows-1]."&cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "<a href='index.php?lid=".$ids[$numrows-1]."&amp;cid=$cid'>".$numrows."</a>&nbsp;&nbsp;" ;
 	}
 
 	// prev mark
 	if( $ids[0] != $lid ) {
-		$photo_nav = "<a href='index.php?lid=".$ids[$pos-1]."&cid=$cid'>"._MD_GNAV_NAV_PREVIOUS."</a>&nbsp;&nbsp;".$photo_nav;
+		$photo_nav = "<a href='index.php?lid=".$ids[$pos-1]."&amp;cid=$cid'>"._MD_GNAV_NAV_PREVIOUS."</a>&nbsp;&nbsp;".$photo_nav;
 	}else{
 		$photo_nav =_MD_GNAV_NAV_PREVIOUS."&nbsp;&nbsp;".$photo_nav;
 	}
 
 	// next mark
 	if( $ids[$numrows-1] != $lid ) {
-		$photo_nav .= "<a href='index.php?lid=".$ids[$pos+1]."&cid=$cid'>"._MD_GNAV_NAV_NEXT."</a>&nbsp;&nbsp;" ;
+		$photo_nav .= "<a href='index.php?lid=".$ids[$pos+1]."&amp;cid=$cid'>"._MD_GNAV_NAV_NEXT."</a>&nbsp;&nbsp;" ;
 	}else{
 		$photo_nav .=_MD_GNAV_NAV_NEXT;
 	}
@@ -255,10 +255,10 @@ if($GNAVI_MOBILE){
 
 	if($GNAVI_MOBILE_MAP){
 		$gnavi_mobile_maekercolor="blue";
-		$google_staticmap=$gnavi_googlemap_url."/staticmap";
-		$mymap="$google_staticmap?center=".$photo['lat'].",".$photo['lng']."&zoom=".$photo['zoom']."&size=$gnavi_mobile_mapsize&maptype=$gnavi_mobile_maptype&key=$gnavi_googlemapapi_key";
-		$markers=$photo['lat'].",".$photo['lng'].",".$gnavi_mobile_maekercolor;
-		if($markers)$markers="&markers=".$markers;
+		$google_staticmap=$gnavi_googlemap_url."/maps/api/staticmap";
+		$mymap="$google_staticmap?sensor=false&amp;center=".$photo['lat'].",".$photo['lng']."&amp;zoom=".$photo['zoom']."&amp;size=$gnavi_mobile_mapsize&amp;maptype=$gnavi_mobile_maptype&amp;key=$gnavi_googlemapapi_key";
+		$markers="color:{$gnavi_mobile_maekercolor}%7c{$photo['lat']},{$photo['lng']}";
+		if($markers)$markers="&amp;markers=".$markers;
 		$xoopsTpl->assign('mymap',$mymap.$markers);
 	}
 

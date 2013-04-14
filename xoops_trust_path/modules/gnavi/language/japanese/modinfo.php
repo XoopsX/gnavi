@@ -83,7 +83,7 @@ define( $constpref."_CFG_DESCUSEVOTE" , "³Æµ­»ö¤Ë¥æ¡¼¥¶¡¼¤¬É¾²Á¤ò¤Ä¤±¤ë¤³¤È¤¬¤Ç¤
 define( $constpref."_CFG_USEGMAP" , "GoogleMapµ¡Ç½¤òÍøÍÑ¤¹¤ë" ) ;
 define( $constpref."_CFG_DESCGMAP" , "¥³¥ó¥Æ¥ó¥Ä¤Ë¥Ş¥Ã¥×´ÉÍıµ¡Ç½¤òÄÉ²Ã¤·¤Ş¤¹¡£³Æ¥Ú¡¼¥¸¤Ë°ÌÃÖ¾ğÊó¤òÄÉ²Ã¤Ç¤­¤Ş¤¹¡£" ) ;
 define( $constpref."_CFG_GMAPKEY" , "GoogleMapAPI Key" ) ;
-define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMap¤ò»ÈÍÑ¤¹¤ëºİ¤Ë¤ÏGoogleMapAPI Key¤¬É¬Í×¤Ë¤Ê¤ê¤Ş¤¹¡£²¼µ­URL¤«¤ékey¤ò¼èÆÀ¤·¤Æ¤¯¤À¤µ¤¤¡£<br /><a href='http://www.google.com/apis/maps/signup.html'>http://www.google.com/apis/maps/signup.html</a>" ) ;
+define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMap¤ò»ÈÍÑ¤¹¤ëºİ¤Ë¤ÏGoogleMapAPI Key¤¬É¬Í×¤Ë¤Ê¤ê¤Ş¤¹¡£²¼µ­URL¤«¤ékey¤ò¼èÆÀ¤·¤Æ¤¯¤À¤µ¤¤¡£<br /><a href='https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja'>https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja</a>" ) ;
 define( $constpref."_CFG_DEFLAT" , "GoogleMap¤Î½é´üÉ½¼¨¡§°ŞÅÙ" ) ;
 define( $constpref."_CFG_DESCDEFLAT" , "" ) ;
 define( $constpref."_CFG_DEFLNG" , "GoogleMap¤Î½é´üÉ½¼¨¡§·ĞÅÙ" ) ;
@@ -91,12 +91,18 @@ define( $constpref."_CFG_DESCDEFLNG" , "" ) ;
 define( $constpref."_CFG_DEFZOOM" , "GoogleMap¤Î½é´üÉ½¼¨¡§¥º¡¼¥à" ) ;
 define( $constpref."_CFG_DESCDEFZOOM" , "" ) ;
 define( $constpref."_CFG_DEFMTYPE" , "GoogleMap¤Î½é´üÉ½¼¨¡§ÃÏ¿Ş¤Î¼ïÎà" ) ;
-define( $constpref."_CFG_DESCDEFMTYPE" , "±ÒÀ±¼Ì¿¿¤äÃÏ·Á¿Ş¤òÁªÂò¤Ç¤­¤Ş¤¹¡£¤µ¤é¤Ë²ĞÀ±¤ä·î¡¢À±¶õ¤Î¥Ş¥Ã¥×¤âÁªÂò¤Ç¤­¤Ş¤¹¡£" ) ;
+define( $constpref."_CFG_DESCDEFMTYPE" , "±ÒÀ±¼Ì¿¿¤äÃÏ·Á¿Ş¤òÁªÂò¤Ç¤­¤Ş¤¹¡£" ) ;
+define( $constpref."_CFG_AUTOZOOM" , "ÃÏ¿ŞÉ½¼¨»ş¤Î¥ª¡¼¥È¥º¡¼¥à" ) ;
+define( $constpref."_CFG_DESCAUTOZOOM" , "¤¹¤Ù¤Æ¤Î¥Ş¡¼¥«¡¼¤¬¼ı¤Ş¤ë¥º¡¼¥àÃÍ¤Ë¼«Æ°Ä´À°¤·¤Ş¤¹¡£" ) ;
 define( $constpref."_ICON_BYLID" , "µ­»öËè¤Ë¥¢¥¤¥³¥ó¤ò»ØÄê¤Ç¤­¤ë¡£¡ÊÄÌ¾ï¤Ï¥«¥Æ¥´¥êËè¡Ë" ) ;
 define( $constpref."_CFG_USE_RSS" , "µ­»ö¤Ë³°Éô¼èÆÀ¤·¤¿RSS¥Õ¥£¡¼¥É¤òÉ½¼¨¤¹¤ë" ) ;
 define( $constpref."_CFG_DESC_USE_RSS" , "É½¼¨¤¹¤ë¥Õ¥£¡¼¥É¤Î¿ô¤òÆşÎÏ¤·¤Æ²¼¤µ¤¤<br />¤³¤Îµ¡Ç½¤òÄÉ²Ã¤¹¤ë¤ÈÆşÎÏ¥Ú¡¼¥¸¤ËRSS¥ê¥ó¥¯¤òÆşÎÏ¤¹¤ë¥Æ¥­¥¹¥È¥Ü¥Ã¥¯¥¹¤¬É½¼¨¤µ¤ì¡¢µ­»ö¥Ú¡¼¥¸Æâ¤Ë¤Ï³µÍ×¤¬É½¼¨¤µ¤ì¤Ş¤¹¡£(Powerd By <a href='http://code.google.com/intl/ja/apis/ajaxfeeds/'>GoogleAjaxFeedAPI</a>)" ) ;
 define( $constpref."_CFG_PE_APPKEY" , "PlaceEngineAPI¤ò»ÈÍÑ¤¹¤ë" ) ;
 define( $constpref."_CFG_DESC_PE_APPKEY" , "PlaceEngine¤Ï¡¢Wifi¤Ç¸½ºßÃÏ¤ò¿äÄê¤¹¤ë¥µ¡¼¥Ó¥¹¤Ç¤¹¡£¤³¤Îµ¡Ç½¤òÍ­¸ú¤Ë¤¹¤ë¤Ë¤Ï²¼µ­¥¢¥É¥ì¥¹¤Ç¥¢¥×¥ê¥±¡¼¥·¥ç¥ó¥­¡¼¤ò¼èÆÀ¤·¤Æ±¦¤ËÆşÎÏ¤·¤Æ²¼¤µ¤¤¡£<br /><a href='http://www.placeengine.com/appk' target='_blank'>http://www.placeengine.com/appk</a><br />¢¨URL¤Î¹àÌÜ¤Ë¤Ï¥â¥¸¥å¡¼¥ë¤Î¥¢¥É¥ì¥¹¤Ş¤Çµ­Æş¤·¤Æ²¼¤µ¤¤<br />(Îã:http://xoops.iko-ze.net/modules/gnavi)<br />(Powerd By <a href='http://www.koozyt.com/'>Koozyt</a>)" ) ;
+define( $constpref."_CFG_USE_GPS" , "GPS ¾ğÊó¤ò»ÈÍÑ¤¹¤ë" ) ;
+define( $constpref."_CFG_DESC_USE_GPS" , "¼Ì¿¿¤Ë GPS ¾ğÊó¤¬Ëä¤á¹ş¤Ş¤ì¤Æ¤¤¤ë¾ì¹ç¤Ë¤½¤Î°ÌÃÖ¤òÃÏ¿Ş¤ËÈ¿±Ç¤·¤Ş¤¹¡£" ) ;
+define( $constpref."_CFG_USE_EXIF" , "EXIF ¾ğÊó¤òÉ½¼¨¤¹¤ë" ) ;
+define( $constpref."_CFG_DESC_USE_EXIF" , "¼Ì¿¿¤Ë EXIF ¾ğÊó¤¬Ëä¤á¹ş¤Ş¤ì¤Æ¤¤¤ë¾ì¹ç¤Ë¾ÜºÙ²èÌÌ¤Ë¤½¤Î¾ğÊó¤òÉ½¼¨¤·¤Ş¤¹¡£" ) ;
 
 define( $constpref."_CFG_MOBILEMAPSIZE" , "·ÈÂÓÃ¼Ëö¤ÇÉ½¼¨¤¹¤ëGoogleMap¥µ¥¤¥º¡ÊwidthxHeight¡Ë" ) ;
 define( $constpref."_CFG_DESCMOBILEMAPSIZE" , "240x180 ¤Î¤è¤¦¤ËÆşÎÏ¤·¤Æ²¼¤µ¤¤¡£Ì¤ÆşÎÏ¤Î¾ì¹ç·ÈÂÓÍÑMap¤òºîÀ®¤·¤Ş¤»¤ó¡£" ) ;
