@@ -1,5 +1,7 @@
 <?php
 
+require_once XOOPS_TRUST_PATH.'/modules/d3forum/class/D3commentAbstract.class.php' ;
+
 // a class for d3forum comment integration
 class GnaviD3commentContent extends D3commentAbstract {
 
@@ -57,6 +59,20 @@ function onUpdate( $mode , $link_id , $forum_id , $topic_id , $post_id = 0 )
 	$db->queryF( "UPDATE ".$db->prefix($mydirname."_photos")." SET comments = $count WHERE lid=$content_id" ) ;
 
 	return true ;
+}
+
+// set forum_dirname from config.comment_dirname
+function setD3forumDirname( $d3forum_dirname = '' )
+{
+	if( ! empty($this->mod_config['comment_dirname'] ) ) {
+    		$this->d3forum_dirname = $this->mod_config['comment_dirname'] ;
+	} elseif( ! empty( $params['comment_dirname'] ) ) {
+		$this->d3forum_dirname = $params['comment_dirname'] ;
+	} elseif( $d3forum_dirname ) {
+		$this->d3forum_dirname = $d3forum_dirname ;
+	} else {
+		$this->d3forum_dirname = 'd3forum' ;
+	}
 }
 
 

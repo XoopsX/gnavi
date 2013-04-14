@@ -41,7 +41,7 @@
 <{if $comment_dirname && $comment_forum_id}>
 <{* ::Use d3forum for Comments.:: *}>
 
-	<{d3forum_comment dirname=$comment_dirname forum_id=$comment_forum_id class="GnaviD3commentContent" mytrustdirname="gnavi" id=$photo.lid subject=$photo.title subject_escaped=1 view=$comment_view}>
+	<{d3comment mydirname=$mydirname forum_id=$comment_forum_id class="GnaviD3commentContent" id=$photo.lid subject=$photo.title subject_escaped=1 view=$comment_view}>
 
 <{else}>
 <{* ::Use Xoops Normal Comments. If you no need,can delete this stage.:: *}>
