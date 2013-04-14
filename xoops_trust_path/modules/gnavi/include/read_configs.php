@@ -74,12 +74,13 @@
 	$table_icon = $xoopsDB->prefix( "{$mydirname}_icons" ) ;
 	$table_text = $xoopsDB->prefix( "{$mydirname}_text" ) ;
 	$table_votedata = $xoopsDB->prefix( "{$mydirname}_votedata" ) ;
+	$table_exif = $xoopsDB->prefix( "{$mydirname}_exif" ) ;
 	$table_comments = $xoopsDB->prefix( "xoopscomments" ) ;
 
 	// Pipe environment check
 	if( $gnavi_imagingpipe || function_exists( 'imagerotate' ) ) $gnavi_canrotate = true ;
 	else $gnavi_canrotate = false ;
-	if( $gnavi_imagingpipe || $gnavi_forcegd2 ) $gnavi_canresize = true ;
+	if( $gnavi_imagingpipe || $gnavi_forcegd2 || (version_compare(PHP_VERSION, '4.3.0', '>=') && function_exists('imagecreatetruecolor')) ) $gnavi_canresize = true ;
 	else $gnavi_canresize = false ;
 
 	// Normal Extensions of Image

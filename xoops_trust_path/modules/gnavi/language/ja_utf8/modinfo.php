@@ -83,7 +83,7 @@ define( $constpref."_CFG_DESCUSEVOTE" , "各記事にユーザーが評価をつ
 define( $constpref."_CFG_USEGMAP" , "GoogleMap機能を利用する" ) ;
 define( $constpref."_CFG_DESCGMAP" , "コンテンツにマップ管理機能を追加します。各ページに位置情報を追加できます。" ) ;
 define( $constpref."_CFG_GMAPKEY" , "GoogleMapAPI Key" ) ;
-define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMapを使用する際にはGoogleMapAPI Keyが必要になります。下記URLからkeyを取得してください。<br /><a href='http://www.google.com/apis/maps/signup.html'>http://www.google.com/apis/maps/signup.html</a>" ) ;
+define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMapを使用する際にはGoogleMapAPI Keyが必要になります。下記URLからkeyを取得してください。<br /><a href='https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja'>https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja</a>" ) ;
 define( $constpref."_CFG_DEFLAT" , "GoogleMapの初期表示：緯度" ) ;
 define( $constpref."_CFG_DESCDEFLAT" , "" ) ;
 define( $constpref."_CFG_DEFLNG" , "GoogleMapの初期表示：経度" ) ;
@@ -91,12 +91,18 @@ define( $constpref."_CFG_DESCDEFLNG" , "" ) ;
 define( $constpref."_CFG_DEFZOOM" , "GoogleMapの初期表示：ズーム" ) ;
 define( $constpref."_CFG_DESCDEFZOOM" , "" ) ;
 define( $constpref."_CFG_DEFMTYPE" , "GoogleMapの初期表示：地図の種類" ) ;
-define( $constpref."_CFG_DESCDEFMTYPE" , "衛星写真や地形図を選択できます。さらに火星や月、星空のマップも選択できます。" ) ;
+define( $constpref."_CFG_DESCDEFMTYPE" , "衛星写真や地形図を選択できます。" ) ;
+define( $constpref."_CFG_AUTOZOOM" , "地図表示時のオートズーム" ) ;
+define( $constpref."_CFG_DESCAUTOZOOM" , "すべてのマーカーが収まるズーム値に自動調整します。" ) ;
 define( $constpref."_ICON_BYLID" , "記事毎にアイコンを指定できる。（通常はカテゴリ毎）" ) ;
 define( $constpref."_CFG_USE_RSS" , "記事に外部取得したRSSフィードを表示する" ) ;
 define( $constpref."_CFG_DESC_USE_RSS" , "表示するフィードの数を入力して下さい<br />この機能を追加すると入力ページにRSSリンクを入力するテキストボックスが表示され、記事ページ内には概要が表示されます。(Powerd By <a href='http://code.google.com/intl/ja/apis/ajaxfeeds/'>GoogleAjaxFeedAPI</a>)" ) ;
 define( $constpref."_CFG_PE_APPKEY" , "PlaceEngineAPIを使用する" ) ;
 define( $constpref."_CFG_DESC_PE_APPKEY" , "PlaceEngineは、Wifiで現在地を推定するサービスです。この機能を有効にするには下記アドレスでアプリケーションキーを取得して右に入力して下さい。<br /><a href='http://www.placeengine.com/appk' target='_blank'>http://www.placeengine.com/appk</a><br />※URLの項目にはモジュールのアドレスまで記入して下さい<br />(例:http://xoops.iko-ze.net/modules/gnavi)<br />(Powerd By <a href='http://www.koozyt.com/'>Koozyt</a>)" ) ;
+define( $constpref."_CFG_USE_GPS" , "GPS 情報を使用する" ) ;
+define( $constpref."_CFG_DESC_USE_GPS" , "写真に GPS 情報が埋め込まれている場合にその位置を地図に反映します。" ) ;
+define( $constpref."_CFG_USE_EXIF" , "EXIF 情報を表示する" ) ;
+define( $constpref."_CFG_DESC_USE_EXIF" , "写真に EXIF 情報が埋め込まれている場合に詳細画面にその情報を表示します。" ) ;
 
 define( $constpref."_CFG_MOBILEMAPSIZE" , "携帯端末で表示するGoogleMapサイズ（widthxHeight）" ) ;
 define( $constpref."_CFG_DESCMOBILEMAPSIZE" , "240x180 のように入力して下さい。未入力の場合携帯用Mapを作成しません。" ) ;

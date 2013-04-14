@@ -82,6 +82,9 @@ class MyXoopsMediaUploader
 
 	var $savedFileName;
 
+	var $exifData = array();
+	var $exifGeo = array();
+
 	/**
 	 * Constructor
 	 * 
@@ -233,7 +236,15 @@ class MyXoopsMediaUploader
 	function getSavedDestination(){
 		return $this->savedDestination;
 	}
-
+	
+	function getExif(){
+		return $this->exifData;
+	}
+	
+	function getExifGeo(){
+		return (isset($this->exifData['GPS']))? $this->exifData['GPS'] : array();
+	}
+	
 	/**
 	 * Check the file and copy it to the destination
 	 * 
@@ -273,10 +284,14 @@ class MyXoopsMediaUploader
 		if (count($this->errors) > 0) {
 			return false;
 		}
+		
 		if (!$this->_copyFile($chmod)) {
 			$this->setErrors('Failed uploading file: '.$this->mediaName);
 			return false;
 		}
+		
+		$this->setExif();
+		
 		return true;
 	}
 
@@ -422,5 +437,19 @@ class MyXoopsMediaUploader
 			return $ret;
 		}
 	}
+	
+	function setExif() {
+		
+		if (! extension_loaded('exif')) return false;
+		
+		include_once dirname(__FILE__) . '/GnaviExif.class.php';
+		
+		$exif = new GnaviExif($this->savedDestination);
+		
+		if (! $this->exifData = $exif->parseExif()) {
+			$this->exifData = array();
+		}
+	}
+
 }
 ?>

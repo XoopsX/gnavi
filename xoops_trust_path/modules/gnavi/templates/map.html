@@ -11,9 +11,9 @@
 <{if $category_desc}><div style="margin:0 10px 10px 10px;"><{$category_desc}></div><{/if}>
 
 <{* PAGE NAVIGATION *}>
-<{if !$indexpage}><span id="gnn_up"><a href="<{$mod_url}>/index.php?page=map<{if $parent_id}>&cid=<{$parent_id}><{/if}>"><{$lang_movepid}></a></span><{/if}>
+<{if !$indexpage}><span id="gnn_up"><a href="<{$mod_url}>/index.php?page=map<{if $parent_id}>&amp;cid=<{$parent_id}><{/if}>"><{$lang_movepid}></a></span><{/if}>
 <span id="gnn_map"><a href="index.php<{$catlink_option}>"><{$rowlist}></a></span>
-<{if $lang_add_photo}><span id="gnn_edit"><a href="index.php?page=submit<{if $category_id}>&cid=<{$category_id}><{/if}>"><{$lang_add_photo}></a></span><{/if}>
+<{if $lang_add_photo}><span id="gnn_edit"><a href="index.php?page=submit<{if $category_id}>&amp;cid=<{$category_id}><{/if}>"><{$lang_add_photo}></a></span><{/if}>
 
 <br style="clear:both; "/>
 

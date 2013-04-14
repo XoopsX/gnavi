@@ -87,7 +87,7 @@ list( $numrows ) = $xoopsDB->fetchRow( $rs ) ;
 $prs = $xoopsDB->query( "SELECT l.lid, l.cid, l.title, l.submitter, l.ext, t.description,t.arrowhtml,t.addinfo FROM $table_photos l LEFT JOIN $table_cat c ON l.cid=c.cid LEFT JOIN $table_text t ON l.lid=t.lid WHERE $whr ORDER BY l.lid DESC LIMIT $pos,$num" ) ;
 
 // Page Navigation
-$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "num=$num&txt=" . urlencode($txt) ) ;
+$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "num=$num&amp;txt=" . urlencode($txt) ) ;
 $nav_html = $nav->renderNav(7) ;
 
 
@@ -130,7 +130,7 @@ while( list( $lid , $cid , $title , $submitter , $ext , $description ) = $xoopsD
 	$title = $myts->makeTboxData4Show( $title ) ;
 	$description = $myts->displayTarea( $description , 0 , 1 , 1 , 0 , 1 , 1 ) ;
 	$cat = $cattree->getNicePathFromId( $cid , "title", "../index.php?" ) ;
-	$editbutton = "<a href='".XOOPS_URL."/modules/$mydirname/index.php?page=submit&lid=$lid' target='_blank'><img src='".XOOPS_URL."/modules/$mydirname/images/editicon.gif' border='0' alt='"._MD_GNAV_SMT_EDITITEM."' title='"._MD_GNAV_SMT_EDITITEM."' /></a>  ";
+	$editbutton = "<a href='".XOOPS_URL."/modules/$mydirname/index.php?page=submit&amp;lid=$lid' target='_blank'><img src='".XOOPS_URL."/modules/$mydirname/images/editicon.gif' border='0' alt='"._MD_GNAV_SMT_EDITITEM."' title='"._MD_GNAV_SMT_EDITITEM."' /></a>  ";
 
 	echo "
   <tr>

@@ -3,17 +3,10 @@
 $gnavi_googlemap_url="http://maps.google.com";
 //$gnavi_googlemap_url="http://ditu.google.com"; Chinese GoogleMap
 
-$gnavi_maptypes=array('G_NORMAL_MAP',
-					'G_SATELLITE_MAP',
-					'G_HYBRID_MAP',
-					'G_PHYSICAL_MAP',
-					'G_HYBRID_PHYSICAL_MAP',
-					'G_MOON_ELEVATION_MAP',
-					'G_MOON_VISIBLE_MAP',
-					'G_MARS_ELEVATION_MAP',
-					'G_MARS_VISIBLE_MAP',
-					'G_MARS_INFRARED_MAP',
-					'G_SKY_VISIBLE_MAP');
+$gnavi_maptypes=array('ROADMAP',
+					'SATELLITE',
+					'HYBRID',
+					'TERRAIN');
 
 //javascripts language
 $gnavi_lang_java  = "here:escape('"._MD_GNAV_JAVA_HERE."')";

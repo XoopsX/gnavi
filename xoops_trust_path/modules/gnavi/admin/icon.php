@@ -52,7 +52,7 @@ if( ! is_dir( $icon_dir ) ) {
 
 // GPCS vars
 $action = isset( $_POST[ 'action' ] ) ? $_POST[ 'action' ] : '' ;
-//¢­¢­¢­¢­¢­¢­
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 // Initializations
 $myts =& MyTextSanitizer::getInstance();
@@ -252,7 +252,7 @@ if( $disp == "edit" && $icd > 0 ) {
 
 } else {
 	// Top links
-	echo "<p><a href='?page=icon&disp=new&icd=0'>"._MD_A_GNAVI_CAT_LINK_MAKEICO."</a></p>\n" ;
+	echo "<p><a href='?page=icon&amp;disp=new&amp;icd=0'>"._MD_A_GNAVI_CAT_LINK_MAKEICO."</a></p>\n" ;
 
 	// TH
 	echo "
@@ -292,7 +292,7 @@ if( $disp == "edit" && $icd > 0 ) {
 	    <td class='$oddeven' style='vertical-align:middle;' align='center'>$infoWindowAnchor_x,$infoWindowAnchor_y</td>
 	    <td class='$oddeven' style='vertical-align:middle;' align='center'>
 	      &nbsp;
-	      [<a href='?page=icon&disp=edit&amp;icd=$icd'>"._MD_A_GNAVI_CAT_LINK_EDIT."</a>]
+	      [<a href='?page=icon&amp;disp=edit&amp;icd=$icd'>"._MD_A_GNAVI_CAT_LINK_EDIT."</a>]
 	      &nbsp;
 	      <input type='button' value='"._DELETE."' onclick='if($del_confirm){document.MainForm.delcat.value=\"$icd\"; submit();}' />
 	    </td>

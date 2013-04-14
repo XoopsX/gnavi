@@ -184,7 +184,28 @@ function gnavi_photo_assign($photo)
 	$photo['captionstyle1']= "style='width:".( $min_captionw > $photo['flawidth1'] ? $min_captionw : $photo['flawidth1'] )."px;'" ;
 	$photo['captionstyle2']= "style='width:".( $min_captionw > $photo['flawidth2'] ? $min_captionw : $photo['flawidth2'] )."px;'" ;
 
-
+	for($i=0; $i<3; $i++) {
+		if (isset($photo['exif']) && is_array($photo['exif'][$i])) {
+			unset($photo['exif'][$i]['RAW']);
+			$_tmp = array();
+			foreach($photo['exif'][$i] as $_key => $_val) {
+				if ($_key !== 'GPS') {
+					if ($_key === 'Date') {
+						$_val = preg_replace('/^([0-9]{4}):([0-1][0-9]):([0-3][0-9])/', '$1/$2/$3', $_val);
+					} else {
+						if (substr($_val, 0, 9) === '_MD_GNAV_') {
+							$_val = constant($_val);
+						}
+					}
+					$_tmp[constant('_MD_GNAV_' . strtoupper($_key))] = $_val;
+				} else {
+					$_tmp['GPS'] = $_val;
+				}
+			}
+			$photo['exif'][$i] = $_tmp;
+		}
+	}
+	
 	return $photo;
 
 }
@@ -204,7 +225,23 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 	list($imgsrc_photo ,$ahref_photo ,$imgsrc_thumb ,$ahref_thumb,$is_normal_image ) = gnavi_get_img_urls("$lid.$ext");
 	list($imgsrc_photo1,$ahref_photo1,$imgsrc_thumb1,$ahref_thumb1,$is_normal_image1) = gnavi_get_img_urls($lid."_1.".$ext1);
 	list($imgsrc_photo2,$ahref_photo2,$imgsrc_thumb2,$ahref_thumb2,$is_normal_image2) = gnavi_get_img_urls($lid."_2.".$ext2);
-
+	// set exif if not set in data
+	if (array_key_exists('exif', $fetched_result_array) && ! $exif) {
+		global $xoopsDB, $table_exif, $photos_dir;
+		$exif = array_pad(array(), 3, array());
+		include_once dirname(dirname(__FILE__)) . '/class/GnaviExif.class.php';
+		$Gexif = new GnaviExif();
+		if ($ext) $exif[0] = $Gexif->parseExif("$photos_dir/$lid.$ext");
+		if ($ext1) $exif[1] = $Gexif->parseExif("$photos_dir/{$lid}_1.$ext1");
+		if ($ext2) $exif[2] = $Gexif->parseExif("$photos_dir/{$lid}_2.$ext2");
+		$exif = serialize($exif);
+		$exif_s = addSlashes($exif);
+		$sql  = "INSERT INTO $table_exif ";
+		$sql .= "(lid, exif) VALUES ('{$lid}', '{$exif_s}')";
+		$xoopsDB->queryF( $sql ) or die( "DB error: INSERT exif table" ) ;
+	}
+			
+	
 	$arrow_html = $arrowhtml ? 1 : 0 ;
 	$arrow_br =  $arrowhtml ? 0 : 1 ;
 
@@ -251,8 +288,13 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 		$mykmls.="'".$photos_url."/".$lid."_2.".$ext2."'";
 	}
 
-
-
+	$exif = @unserialize($exif);
+	if (! $exif) {
+		$exif = array_pad(array(), 3, array());
+	} else {
+		$exif = gnavi_exif_reform_by_config($exif);
+	}
+	
 	return array(
 		'lid' => $lid ,
 		'mycat' => gnavi_get_mycat($cid,$cid1,$cid2,$cid3,$cid4) ,
@@ -322,10 +364,27 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 		'is_normal_image'=>$is_normal_image,
 		'is_newphoto' => ( $date > time() - 86400 * $gnavi_newdays && $status == 1 ) , 
 		'is_updatedphoto' => ( $date > time() - 86400 * $gnavi_newdays && $status == 2 ) , 
-		'is_popularphoto' => ( $hits >= $gnavi_popular ) 
+		'is_popularphoto' => ( $hits >= $gnavi_popular ),
+		'exif' => $exif 
 	) ;
 }
 
+/**
+ * gnavi_exif_reform_by_config
+ * 
+ * @param array $exif
+ * @return array
+ */
+function gnavi_exif_reform_by_config($exif) {
+	global $gnavi_configs;
+	if (! @$gnavi_configs['gnavi_use_gps']) {
+		unset($exif[0]['GPS'], $exif[1]['GPS'], $exif[2]['GPS']);
+	}
+	if (! @$gnavi_configs['gnavi_use_exif']) {
+		$exif = array_pad(array(), 3, array());
+	}
+	return $exif;
+}
 
 
 
@@ -419,7 +478,7 @@ function gnavi_get_mycat($cid,$cid1,$cid2,$cid3,$cid4){
 
 
 // get attributes of <img> for preview image
-function gnavi_get_img_attribs_for_preview($photo, $preview_name,$preview_name1,$preview_name2)
+function gnavi_get_img_attribs_for_preview($photo, $preview_name,$preview_name1,$preview_name2,$exif)
 {
 	global $photos_url , $mod_url , $mod_path , $gnavi_normal_exts , $gnavi_thumbsize,$photos_dir ;
 
@@ -462,6 +521,8 @@ function gnavi_get_img_attribs_for_preview($photo, $preview_name,$preview_name1,
 	list($photo['imgsrc_photo'],$photo['ahref_photo']) = gnavi_get_img_urls($preview_name);
 	list($photo['imgsrc_photo1'],$photo['ahref_photo1']) = gnavi_get_img_urls($preview_name1);
 	list($photo['imgsrc_photo2'],$photo['ahref_photo2']) = gnavi_get_img_urls($preview_name2);
+	
+	$photo['exif'] = gnavi_exif_reform_by_config($exif);
 
 	return $photo;
 
