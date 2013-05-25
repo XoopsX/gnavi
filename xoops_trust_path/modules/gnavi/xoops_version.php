@@ -10,8 +10,8 @@ $langman->read( 'modinfo.php' , $mydirname , $mytrustdirname , false ) ;
 $constpref = '_MI_' . strtoupper( $mydirname ) ;
 
 $modversion['name'] = $mydirname ;
-$modversion['version'] = 1.00 ;
-$modversion['detailed_version'] = '1.00.0' ;
+$modversion['version'] = 1.01 ;
+$modversion['detailed_version'] = '1.01.0' ;
 $modversion['description'] = constant($constpref.'_DESC') ;
 $modversion['credits'] = "Original: GIJOE<br />(http://www.peak.ne.jp/)<br />Daniel Branco<br />(http://bluetopia.homeip.net)<br />Kazumi Ono<br />(http://www.mywebaddons.com/)<br />The XOOPS Project" ;
 $modversion['author'] = "KENTARO (http://xoops.iko-ze.net/)<br />XOOPS X (ten) Distribution Project (https://github.com/XoopsX/gnavi)" ;
