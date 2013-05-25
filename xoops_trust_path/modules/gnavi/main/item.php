@@ -237,11 +237,16 @@ if ($gnavi_meta_description) {
 
 // comments
 if($GNAVI_MOBILE){
-	$description=strip_tags($photo['description']);
-	$more = empty( $_GET['more'] ) ? 0 : intval( $_GET['more'] ) ;
+	if (! $gnavi_mobile_full_desc) {
+		$description=strip_tags($photo['description']);
+		$more = empty( $_GET['more'] ) ? 0 : intval( $_GET['more'] ) ;
+		$xoopsTpl->assign( 'description' , xoops_substr($description,$more*512 ,512,"")) ;
+		if($more*512+512 < gnavi_strlen($description))$xoopsTpl->assign( 'more' , $more+1) ;
+	} else {
+		$xoopsTpl->assign( 'description' , $photo['description']);
+		$more = 0;
+	}
 	$xoopsTpl->assign( 'morepage' ,$more);
- 	$xoopsTpl->assign( 'description' , xoops_substr($description,$more*512 ,512,"")) ;
-	if($more*512+512 < gnavi_strlen($description))$xoopsTpl->assign( 'more' , $more+1) ;
 	$xoopsTpl->assign( 'moreprev' , $more-1) ;
 
 	$xoopsTpl->assign(array(

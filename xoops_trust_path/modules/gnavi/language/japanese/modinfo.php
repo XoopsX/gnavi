@@ -110,6 +110,8 @@ define( $constpref."_CFG_MOBILEAGENT" , "携帯端末判別用文字列（正規表現）" ) ;
 define( $constpref."_CFG_DESCMOBILEAGENT" , "エージェント情報から携帯端末を判別するための正規表現を記入して下さい。<BR>この機能は試験的な実装です。GETパラメータに「agent=mobile」を指定するとブラウザで携帯の画面を表示させることができます（デバグ用）。" ) ;
 define( $constpref."_CFG_MOBILEENCORDING" , "携帯ページの文字エンコード" ) ;
 define( $constpref."_CFG_DESCMOBILEENCORDING" , "携帯に出力するエンコードを指定して下さい。日本の場合は推奨 <B>SJIS</B> です。" ) ;
+define( $constpref."_CFG_MOBILEFULLDESC" , "携帯向け本文をPCと同じにする" ) ;
+define( $constpref."_CFG_DESCMOBILEFULLDESC" , "携帯に出力する本文を簡易表示とせず、すべて出力します。" ) ;
 define( $constpref."_CFG_MOBILEUSEQRC" , "QRコードを使用する（サイズを指定）" ) ;
 define( $constpref."_CFG_DESCMOBILEUSEQRC" , "１以上の値を入力すると記事に携帯で読み取るためのQRコードが作成されます。0で無効となり、入力値はQRコードのサイズとなります。（推奨値は <B>3</B> 又は <B>4</B> です。）<br />QRコードは「画像ファイルの保存先ディレクトリ」で指定したパス以下の「qr」というディレクトリに保存されます。QRコードの作成は記事の初期表示１回だけ行われます。そのため、ここでサイズを変更した場合は「qr」ディレクトリを削除して適用してください。" ) ;
 

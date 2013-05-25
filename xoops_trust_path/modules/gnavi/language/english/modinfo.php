@@ -104,13 +104,14 @@ define( $constpref."_CFG_DESC_USE_GPS" , "The position is reflected in a map whe
 define( $constpref."_CFG_USE_EXIF" , "Use EXIF Info" ) ;
 define( $constpref."_CFG_DESC_USE_EXIF" , "When EXIF information is embedded in the photograph, the information is displayed on the detailed view." ) ;
 
-
 define( $constpref."_CFG_MOBILEMAPSIZE" , "GoogleMap size displayed with portable terminal¡ÊwidthxHeight¡Ë" ) ;
 define( $constpref."_CFG_DESCMOBILEMAPSIZE" , "Please input it like 240x180. Portable Map is not made at the uninput. " ) ;
 define( $constpref."_CFG_MOBILEAGENT" , "Character string for portable terminal distinction(regular expression)" ) ;
 define( $constpref."_CFG_DESCMOBILEAGENT" , "Input the regular expression to distinguish the portable terminal from agent information. <BR>This function is an experimental mounting. When [agent=mobile] is specified for the GET parameter, a portable screen can be displayed by a browser (for debugging). " ) ;
 define( $constpref."_CFG_MOBILEENCORDING" , "Encode of character on portable page" ) ;
 define( $constpref."_CFG_DESCMOBILEENCORDING" , "Input the encode output to carrying. It might be important for the multi byte. " ) ;
+define( $constpref."_CFG_MOBILEFULLDESC" , "Full description for HP" ) ;
+define( $constpref."_CFG_DESCMOBILEFULLDESC" , "The text outputted to a handy phone is altogether outputted like PC display." ) ;
 define( $constpref."_CFG_MOBILEUSEQRC" , "Use QR code. (set size)" ) ;
 define( $constpref."_CFG_DESCMOBILEUSEQRC" , "The QR code to read to input the value of one or more in the article by carrying is made. It becomes invalid 0, and the input value becomes the size of the QR code. (The recommended value is <B>3</B> or <B>4</B>.)<br />The QR code is preserved in the directory of [qr] following passing specified by [Path to photos]. The QR code is made only initial displaying once of the article. Therefore, please delete and apply the [qr] directory when you change the size here. " ) ;
 
@@ -126,8 +127,6 @@ define( $constpref.'_MAP_DRAW','Draw in the marker with GeoXML.');
 define( $constpref.'_DESC_MAP_DRAW','(recommendation: No)It is made to draw in the map display by KML. Please try when processing is heavy etc.It becomes somewhat different movement. ');
 define( $constpref.'_INCLUDE_KML','Display of external KML file');
 define( $constpref.'_DESC_INCLUDE_KML','specify KML file (.kml,.kmz) that can be displayed with GoogleEarth. Please input it with one URL a line that starts from "http://". <br />Example¡Ë<br />http://xoops.iko-ze.net/modules/gnavi/kml.php');
-
-
 
 
 define( $constpref."_OPT_USENAME" , "Real Name" ) ;

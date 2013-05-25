@@ -602,6 +602,15 @@ $modversion['config'][] = array(
 	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
+	'name'			=> 'gnavi_mobile_full_desc' ,
+	'title'			=> $constpref.'_CFG_MOBILEFULLDESC' ,
+	'description'	=> $constpref.'_CFG_DESCMOBILEFULLDESC' ,
+	'formtype'		=> 'yesno' ,
+	'valuetype'		=> 'int' ,
+	'default'		=> '0' ,
+	'options'		=> array()
+) ;
+$modversion['config'][] = array(
 	'name'			=> 'gnavi_mobile_useqr' ,
 	'title'			=> $constpref.'_CFG_MOBILEUSEQRC' ,
 	'description'	=> $constpref.'_CFG_DESCMOBILEUSEQRC' ,
