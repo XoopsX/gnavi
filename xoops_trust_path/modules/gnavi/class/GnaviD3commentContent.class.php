@@ -64,12 +64,10 @@ function onUpdate( $mode , $link_id , $forum_id , $topic_id , $post_id = 0 )
 // set forum_dirname from config.comment_dirname
 function setD3forumDirname( $d3forum_dirname = '' )
 {
-	if( ! empty($this->mod_config['comment_dirname'] ) ) {
-    		$this->d3forum_dirname = $this->mod_config['comment_dirname'] ;
-	} elseif( ! empty( $params['comment_dirname'] ) ) {
-		$this->d3forum_dirname = $params['comment_dirname'] ;
-	} elseif( $d3forum_dirname ) {
+	if( $d3forum_dirname ) {
 		$this->d3forum_dirname = $d3forum_dirname ;
+	} else if( ! empty( $this->mod_config['gnavi_comment_dirname'] ) ) {
+		$this->d3forum_dirname = $this->mod_config['gnavi_comment_dirname'] ;
 	} else {
 		$this->d3forum_dirname = 'd3forum' ;
 	}
