@@ -37,18 +37,18 @@ function gnavi_global_search_base( $mydirname , $keywords , $andor , $limit , $o
 		switch( strtolower( $andor ) ) {
 			case "and" :
 				foreach( $keywords as $keyword ) {
-					$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%$keyword%' AND " ;
+					$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',l.tel,' ',l.fax,' ',l.zip,' ',l.address,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%$keyword%' AND " ;
 				}
 				$whr = substr( $whr , 0 , -5 ) ;
 				break ;
 			case "or" :
 				foreach( $keywords as $keyword ) {
-					$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%$keyword%' OR " ;
+					$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',l.tel,' ',l.fax,' ',l.zip,' ',l.address,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%$keyword%' OR " ;
 				}
 				$whr = substr( $whr , 0 , -4 ) ;
 				break ;
 			default :
-				$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%{$keywords[0]}%'" ;
+				$whr .= "CONCAT(l.title,' ',l.caption,' ',l.caption1,' ',l.caption2,' ',l.tel,' ',l.fax,' ',l.zip,' ',l.address,' ',t.description,' ',t.addinfo,' ',IFNULL(u.uname,''),' ',l.poster_name) LIKE '%{$keywords[0]}%'" ;
 				break ;
 		}
 		$whr .= ")" ;
