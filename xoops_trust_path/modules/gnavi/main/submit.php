@@ -722,7 +722,7 @@ $caption2_text = new XoopsFormText(_MD_GNAV_ITM_CAPTION3, "caption2" , 50 , 255 
 
 //----------------------------editor-------------------------------------------
 $desc_tarea = $hidden_body_html = new stdClass;
-// rlazy registering & call pre build delegate
+// lazy registering & call pre build delegate
 if (defined('XOOPS_CUBE_LEGACY')) {
 	$delegate = new XCube_Delegate();
 	$delegate->register(ucfirst($mydirname).'.Submit.BuildEditorForm');
