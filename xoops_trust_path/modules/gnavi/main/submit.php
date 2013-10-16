@@ -26,6 +26,11 @@ if( $count < 1 ) {
 	exit ;
 }
 
+// GPS Preview
+if (! empty($_POST['gps_preview'])) {
+	$_POST['preview'] = $_POST['gps_preview'];
+	$_POST['pchange'] = '0';
+}
 
 // check lid exists
 if( !empty( $_POST['submit'] ) || !empty( $_POST['preview'] ) || !empty( $_POST['conf_delete'] )) {
@@ -145,6 +150,7 @@ if( ! empty( $_POST['submit'] ) || ! empty( $_POST['preview'] )) {
 	$lng = floatval($myts->stripSlashesGPC( @$_POST["lng"] )) ;
 	$zoom = intval($myts->stripSlashesGPC( @$_POST["z"] )) ;
 	$mtype = !in_array($myts->stripSlashesGPC( @$_POST["mt"] ),$gnavi_maptypes) ? "" : $myts->stripSlashesGPC( @$_POST["mt"] ) ;	
+	$pchange = (bool)@$_POST['pchange'];
 
 	$addinfo = gnavi_addinfo_reg($myts->stripSlashesGPC( @$_POST["addinfo"] ));
 
@@ -257,7 +263,7 @@ if( ! empty( $_POST['submit'] ) ) {
 		exit ;
 	}
 
-	if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
+	if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && !$pchange) {
 		foreach ($exif as $_check) {
 			if (!empty($_check['GPS']) && isset($_check['GPS']['Lat'])) {
 				$lat = $_check['GPS']['Lat'];
@@ -497,7 +503,7 @@ if(!empty( $_POST['preview'] ) || $mode==G_UPDATE) {
 
 		$_SESSION['GNAVI_PREVIEW_EXIF'] = base64_encode(serialize($exif));
 		//adump($_SESSION['GNAVI_PREVIEW_EXIF']);
-		if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && $lat==$gnavi_defaultlat && $lng==$gnavi_defaultlng) {
+		if (@$gnavi_configs['gnavi_use_gps'] && $p_set_latlng && !$pchange) {
 			foreach ($exif as $_check) {
 				if (!empty($_check['GPS']) && isset($_check['GPS']['Lat'])) {
 					$lat = $_check['GPS']['Lat'];
@@ -715,50 +721,60 @@ $caption1_text = new XoopsFormText(_MD_GNAV_ITM_CAPTION2, "caption1" , 50 , 255 
 $caption2_text = new XoopsFormText(_MD_GNAV_ITM_CAPTION3, "caption2" , 50 , 255 , $myts->makeTboxData4Edit( $photo['caption2'] ) ) ;
 
 //----------------------------editor-------------------------------------------
-if( $gnavi_body_editor == 'common_fckeditor' && $canuse_editor ) {
+$desc_tarea = $hidden_body_html = new stdClass;
+// rlazy registering & call pre build delegate
+if (defined('XOOPS_CUBE_LEGACY')) {
+	$delegate = new XCube_Delegate();
+	$delegate->register(ucfirst($mydirname).'.Submit.BuildEditorForm');
+	$delegate->call(new XCube_Ref($desc_tarea), new XCube_Ref($hidden_body_html), $photo['description'], $canuse_editor);
+}
 
-	// FCKeditor in common/fckeditor/
-	$xoops_module_header .= '
-		<script type="text/javascript" src="'.XOOPS_URL.'/common/fckeditor/fckeditor.js"></script>
-		<script type="text/javascript"><!--
-			function fckeditor_exec() {
-				var oFCKeditor = new FCKeditor( "desc_text" , "100%" , "500" , "Default" );
-				
-				oFCKeditor.BasePath = "'.XOOPS_URL.'/common/fckeditor/";
-				
-				oFCKeditor.ReplaceTextarea();
-			}
-		// --></script>
-	' ;
-	$wysiwyg_body = '<textarea id="desc_text" name="desc_text">'.htmlspecialchars( $photo['description'] ,ENT_QUOTES).'</textarea><script>fckeditor_exec();</script>' ;
-	$desc_tarea =  new XoopsFormLabel( _MD_GNAV_ITM_DESC , $wysiwyg_body ) ;
-	$hidden_body_html = new XoopsFormHidden("body_html","1") ;
-
-} else if( $gnavi_body_editor == 'common_spaw' && file_exists( XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' ) && $canuse_editor ) {
-
-	// older spaw in common/spaw/
-	include XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' ;
-	ob_start() ;
-	$sw = new SPAW_Wysiwyg( "desc_text" ,  $photo['description']  ) ;
-	$sw->show() ;
-	$wysiwyg_body = ob_get_contents() ;
-	ob_end_clean() ;
-	$desc_tarea =  new XoopsFormLabel( _MD_GNAV_ITM_DESC , $wysiwyg_body ) ;
-	$hidden_body_html = new XoopsFormHidden("body_html","1") ;
-
-}else if ($gnavi_body_editor == 'pure_html' && $canuse_editor ){
-	$desc_tarea = new XoopsFormTextArea(_MD_GNAV_ITM_DESC, "desc_text" , $myts->makeTareaData4Edit( $photo['description'] ) , 20 , 60 ) ;
-	$hidden_body_html = new XoopsFormHidden("body_html","1") ;
-} else {
-	$desc_tarea = new XoopsFormDhtmlTextArea(_MD_GNAV_ITM_DESC, "desc_text" , $myts->makeTareaData4Edit( $photo['description'] ) , 20 , 60 ) ;
-	if (method_exists($desc_tarea, 'setEditor')) {
-		// XoopsFormDhtmlTextArea::setEditor
-		// https://github.com/xoopscube/legacy/pull/68 (xoopscube)
-		// https://github.com/XoopsX/legacy/pull/44 (XoopsX)
-		$desc_tarea->setEditor($canuse_editor? 'html' : 'bbcode');
-		$hidden_body_html = new XoopsFormHidden("body_html", $canuse_editor? '1' : '0') ;
+if (! ($desc_tarea instanceof XoopsFormElement) || ! ($hidden_body_html instanceof XoopsFormElement) ) {
+	if( $gnavi_body_editor == 'common_fckeditor' && $canuse_editor ) {
+	
+		// FCKeditor in common/fckeditor/
+		$xoops_module_header .= '
+			<script type="text/javascript" src="'.XOOPS_URL.'/common/fckeditor/fckeditor.js"></script>
+			<script type="text/javascript"><!--
+				function fckeditor_exec() {
+					var oFCKeditor = new FCKeditor( "desc_text" , "100%" , "500" , "Default" );
+					
+					oFCKeditor.BasePath = "'.XOOPS_URL.'/common/fckeditor/";
+					
+					oFCKeditor.ReplaceTextarea();
+				}
+			// --></script>
+		' ;
+		$wysiwyg_body = '<textarea id="desc_text" name="desc_text">'.htmlspecialchars( $photo['description'] ,ENT_QUOTES).'</textarea><script>fckeditor_exec();</script>' ;
+		$desc_tarea =  new XoopsFormLabel( _MD_GNAV_ITM_DESC , $wysiwyg_body ) ;
+		$hidden_body_html = new XoopsFormHidden("body_html","1") ;
+	
+	} else if( $gnavi_body_editor == 'common_spaw' && file_exists( XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' ) && $canuse_editor ) {
+	
+		// older spaw in common/spaw/
+		include XOOPS_ROOT_PATH.'/common/spaw/spaw_control.class.php' ;
+		ob_start() ;
+		$sw = new SPAW_Wysiwyg( "desc_text" ,  $photo['description']  ) ;
+		$sw->show() ;
+		$wysiwyg_body = ob_get_contents() ;
+		ob_end_clean() ;
+		$desc_tarea =  new XoopsFormLabel( _MD_GNAV_ITM_DESC , $wysiwyg_body ) ;
+		$hidden_body_html = new XoopsFormHidden("body_html","1") ;
+	
+	}else if ($gnavi_body_editor == 'pure_html' && $canuse_editor ){
+		$desc_tarea = new XoopsFormTextArea(_MD_GNAV_ITM_DESC, "desc_text" , $myts->makeTareaData4Edit( $photo['description'] ) , 20 , 60 ) ;
+		$hidden_body_html = new XoopsFormHidden("body_html","1") ;
 	} else {
-		$hidden_body_html = new XoopsFormHidden("body_html","0") ;
+		$desc_tarea = new XoopsFormDhtmlTextArea(_MD_GNAV_ITM_DESC, "desc_text" , $myts->makeTareaData4Edit( $photo['description'] ) , 20 , 60 ) ;
+		if (method_exists($desc_tarea, 'setEditor')) {
+			// XoopsFormDhtmlTextArea::setEditor
+			// https://github.com/xoopscube/legacy/pull/68 (xoopscube)
+			// https://github.com/XoopsX/legacy/pull/44 (XoopsX)
+			$desc_tarea->setEditor($canuse_editor? 'html' : 'bbcode');
+			$hidden_body_html = new XoopsFormHidden("body_html", $canuse_editor? '1' : '0') ;
+		} else {
+			$hidden_body_html = new XoopsFormHidden("body_html","0") ;
+		}
 	}
 }
 
@@ -838,6 +854,7 @@ $preview2_hidden = new XoopsFormHidden( "preview_name2" , htmlspecialchars( $pre
 
 $submit_button = new XoopsFormButton( "" , "submit" , _SUBMIT , "submit" ) ;
 $preview_button = new XoopsFormButton( "" , "preview" , _PREVIEW , "submit" ) ;
+$gps_preview_button = new XoopsFormButton( "" , "gps_preview" , _PREVIEW , "submit" ) ;
 $reset_button = new XoopsFormButton( "" , "reset" , ($mode == G_INSERT ? _MD_GNAV_SMT_CLEAR : _CANCEL ) , "reset" ) ;
 $submit_tray = new XoopsFormElementTray( '' ) ;
 $submit_tray->addElement( $preview_button ) ;
@@ -845,7 +862,7 @@ $submit_tray->addElement( $submit_button ) ;
 $submit_tray->addElement( $reset_button ) ;
 if (@ $gnavi_configs['gnavi_use_gps']) {
 	$preview_tray = new XoopsFormElementTray( _MD_GNAV_GPS_PREVIEW ) ;
-	$preview_tray->addElement( $preview_button ) ;
+	$preview_tray->addElement( $gps_preview_button ) ;
 	$preview_tray->addElement( new XoopsFormLabel( '' , _MD_GNAV_GPS_PREVIEW_DESC ) ) ;
 } else {
 	$preview_tray = null;
@@ -906,10 +923,11 @@ $gmap = new XoopsFormLabel(_MD_GNAV_MAP, "
 <div id='maparea'>
 <div id='map' style='width:100%;height:400px;'></div>
 <div id='gn_latlng'>"._MD_GNAV_MAP_LAT.":&nbsp;<span id='slat'>".$myts->makeTboxData4Edit($photo['lat'])."</span>&nbsp;&nbsp;&nbsp;"._MD_GNAV_MAP_LNG.":&nbsp;<span id='slng'>".$myts->makeTboxData4Edit($photo['lng'])."</span>&nbsp;&nbsp;&nbsp;"._MD_GNAV_MAP_ZOOM.":&nbsp;<span id='sz'>".$myts->makeTboxData4Edit($photo['zoom'])."</span></div>
-<input type='hidden' name='lat' id='lat' size='20' value='".$myts->makeTboxData4Edit($photo['lat'])."' />
-<input type='hidden' name='lng' id='lng' size='20' value='".$myts->makeTboxData4Edit($photo['lng'])."' />
-<input type='hidden' name='z' id='z' size='20' value='".$myts->makeTboxData4Edit($photo['zoom'])."' />
-<input type='hidden' name='mt' id='mt' size='30' value='".$myts->makeTboxData4Edit($photo['mtype'])."' />
+<input type='hidden' name='lat' id='lat' value='".$myts->makeTboxData4Edit($photo['lat'])."' />
+<input type='hidden' name='lng' id='lng' value='".$myts->makeTboxData4Edit($photo['lng'])."' />
+<input type='hidden' name='z' id='z' value='".$myts->makeTboxData4Edit($photo['zoom'])."' />
+<input type='hidden' name='mt' id='mt' value='".$myts->makeTboxData4Edit($photo['mtype'])."' />
+<input type='hidden' name='pchange' id='pchange' value='".($pchange?'1':'0')."' />
 </div>" ) ;
 if($gnavi_icon_by_lid){
 	$icon_select = new XoopsFormSelect(_MD_GNAV_MAP_ICON, 'icd', $photo['icd'], 1, false);

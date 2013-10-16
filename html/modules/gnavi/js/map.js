@@ -475,6 +475,7 @@ function InputGMap() {
 	google.maps.event.addListener(mypoint2, 'dragend', function(point) {
 		var p = mypoint2.getPosition(point);
 		DrawLatLngTxt(p);
+		document.getElementById('pchange').value = '1';
 	});
 
 
