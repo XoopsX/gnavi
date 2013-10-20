@@ -115,6 +115,7 @@ $del_photo1 = empty( $_POST['del_photo1'] ) ? 0 : intval( @$_POST['del_photo1'] 
 $del_photo2 = empty( $_POST['del_photo2'] ) ? 0 : intval( @$_POST['del_photo2'] ) ;
 $p_valid  = empty( $_POST['valid'] ) ? 0 : intval( $_POST['valid'] );
 $p_status = empty( $_POST['old_status'] ) ? 0 : intval( $_POST['old_status'] );
+$pchange = false;
 
 if( ! empty( $_POST['submit'] ) || ! empty( $_POST['preview'] )) {
 
