@@ -336,6 +336,15 @@ function display_edit_form( $cat_array , $form_title , $action)
 		$desc_tarea = new XoopsFormTextArea(_MD_A_GNAVI_CAT_TH_DESC, "description" , $myts->makeTareaData4Edit( $description ) , 20 , 60 ) ;
 	} else {
 		$desc_tarea = new XoopsFormDhtmlTextArea(_MD_A_GNAVI_CAT_TH_DESC, "description" , $myts->makeTareaData4Edit( $description ) , 20 , 60 ) ;
+		if (method_exists($desc_tarea, 'setEditor')) {
+			// XoopsFormDhtmlTextArea::setEditor
+			// https://github.com/xoopscube/legacy/pull/68 (xoopscube)
+			// https://github.com/XoopsX/legacy/pull/44 (XoopsX)
+			$desc_tarea->setEditor('html');
+			$hidden_body_html = new XoopsFormHidden('body_html', '1') ;
+		} else {
+			$hidden_body_html = new XoopsFormHidden('body_html', '0') ;
+		}
 	}
 
 	$form->addElement($desc_tarea) ;
