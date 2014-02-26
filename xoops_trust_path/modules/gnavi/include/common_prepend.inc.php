@@ -8,10 +8,6 @@ require_once dirname(dirname(__FILE__)).'/include/common_functions.php' ;
 require_once dirname(dirname(__FILE__)).'/include/common_javalang.inc.php' ;
 require_once XOOPS_ROOT_PATH."/class/xoopstree.php" ;
 
-// GET admin status
-$userid = is_object( @$xoopsUser ) ? $xoopsUser->getVar('uid') : 0 ;
-$isadmin = $userid > 0 ? $xoopsUser->isAdmin() : false ;
-
 // init xoops_breadcrumbs. this is your Xoops Top
 $xoops_breadcrumbs[] = array( 'url' => XOOPS_URL , 'name' => _MD_GNAV_WEBTOP );
 
