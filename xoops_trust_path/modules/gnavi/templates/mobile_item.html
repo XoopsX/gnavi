@@ -53,10 +53,12 @@
 	<{if $map}>
 		<hr color="#99ccff">
 
-		<table width=100% bgcolor="#99ccff"><tr>
+		<!--HypKTaiOptimized-->
+		<table width="100%" bgcolor="#99ccff"><tr>
 			<td ><{$lang_map}></td>
 			<td align="right">[<a href="index.php<{$maplink_option}><{$agent}>"><{$lng_mobile_show_area}></a>]</td>
 		</tr></table>
+		<!--/HypKTaiOptimized-->
 
 		<hr color="#99ccff">
 
@@ -68,7 +70,8 @@
 	<{*Show Infos*}>
 
 	<{if $photo.tel || $photo.fax || $photo.zip || $photo.address || $photo.addinfo}>
-	<table width=100% >
+	<!--HypKTaiOptimized-->
+	<table width="100%">
 		<{if $photo.tel}><tr><td bgcolor="#efefef"><font color="#990000"><{$lang_tel}></font></td></tr><tr><td><a href=tel:<{$photo.tel}>><{$photo.tel}></a></td></tr><{/if}>
 		<{if $photo.fax}><tr><td bgcolor="#efefef"><font color="#990000"><{$lang_fax}></font></td></tr><tr><td><{$photo.fax}></td></tr><{/if}>
 		<{if $photo.zip}><tr><td bgcolor="#efefef"><font color="#990000"><{$lang_zip}></font></td></tr><tr><td><{$photo.zip}></td></tr><{/if}>
@@ -77,6 +80,7 @@
 			<tr><td bgcolor="#efefef"><font color="#990000"><{$addinfo.title}></font></td></tr><tr><td><{$addinfo.desc}></td></tr>
 		<{/foreach}>
 	</table>
+	<!--/HypKTaiOptimized-->
 	<{/if}>
 
 	<hr color="#ffe566">
