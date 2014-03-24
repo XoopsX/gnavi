@@ -1261,6 +1261,18 @@ function gnavi_make_breadcrumbs($sel_id, $url , $arrcrumbs = array() )
 function gnavi_mobile_templete_disp($templete){
 	global $xoopsTpl,$gnavi_mobile_encording;
 
+	if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER) {
+		unset($GLOBALS['xoopsOption']['template_main']);
+		
+		$buffer = $xoopsTpl->fetch($templete);
+		$buffer = preg_replace('#</?(?:html|body)[^>]*>|<head.+?/head>#is', '', $buffer);
+		echo $buffer;
+		
+		include( XOOPS_ROOT_PATH . "/footer.php" ) ;
+		
+		return;
+	}
+
 	$out_text='';
 
     if (XOOPS_USE_MULTIBYTES == 1 && $gnavi_mobile_encording && $gnavi_mobile_encording!=_CHARSET) {
