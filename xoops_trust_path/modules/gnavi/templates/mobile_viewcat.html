@@ -1,99 +1,91 @@
-<HTML>
-<HEAD>
+<html>
+<head>
 	<meta http-equiv="content-type" content="text/HTML; charset=<{$charset}>" />
-	<TITLE><{$xoops_sitename}> - <{$xoops_pagetitle}></TITLE>
-</HEAD>
-<BODY>
+	<title><{$xoops_sitename}> - <{$xoops_pagetitle}></title>
+</head>
+<body>
 
-	<TABLE WIDTH=100% BGCOLOR="#FFE566"><TR>
-		<TD><{$album_sub_title}><{if !$indexpage}>(<{$photo_num_total}>)<{/if}></TD>
-	</TR></TABLE>
+	<div style="text-align:center;background-color:#ffe566;"><{$album_sub_title}><{if !$indexpage}>(<{$photo_num_total}>)<{/if}></div>
 
-	<HR COLOR="#FFE566">
+	<hr color="#ffe566">
 
 	<{if $indexpage}>
-		<TABLE WIDTH=100% BGCOLOR="#EFEFEF"><TR>
-			<TD><FONT SIZE=1><{$photo_num_total}></FONT></TD>
-		</TR></TABLE>
+		<div style="text-align:center;background-color:#efefef;"><font size=1><{$photo_num_total}></font></div>
 	<{/if}>
 
 	<{if $subcategories}>
 
-		<FONT COLOR=#009900>
-			<UL>
+		<font color="#009900">
+			<ul>
 				<{foreach from=$subcategories item=cat key=count}>
-					<LI><A HREF=<{$cat_link}>cid=<{$cat.cid}><{$agent}>><{$cat.title}></A>&nbsp;(<{$cat.photo_total_sum}>)
+					<li><a href=<{$cat_link}>cid=<{$cat.cid}><{$agent}>><{$cat.title}></a>&nbsp;(<{$cat.photo_total_sum}>)
 				<{/foreach}>
-			</UL>
-		</FONT>
+			</ul>
+		</font>
 
-		<HR COLOR="#EFEFEF">
+		<hr color="#efefef">
 
 	<{/if}>
 
 	<{if !$indexpage || $map}>
-		<TABLE WIDTH=100% BGCOLOR="#EFEFEF"><TR>
-			<{if $map}><TD><FONT SIZE=1>&nbsp;<A HREF="index.php<{$maplink_option}><{$agent}>"><{$map}></A></FONT></TD><{/if}>
-			<{if !$indexpage}><TD align=right><FONT SIZE=1><A HREF="<{$mod_url}>/index.php?<{if $parent_id}>&amp;cid=<{$parent_id}><{/if}><{$agent}>"><{$lng_mobile_updir}></A>&nbsp;</FONT></TD><{/if}>
-		</TR></TABLE>
+		<table width=100% bgcolor="#efefef"><tr>
+			<{if $map}><td><font size=1>&nbsp;<a href="index.php<{$maplink_option}><{$agent}>"><{$map}></a></font></td><{/if}>
+			<{if !$indexpage}><td align=right><font size=1><a href="<{$mod_url}>/index.php?<{if $parent_id}>&amp;cid=<{$parent_id}><{/if}><{$agent}>"><{$lng_mobile_updir}></a>&nbsp;</font></td><{/if}>
+		</tr></table>
 	<{/if}>
 
 	<{* PAGE NAVIGATION *}>
 
-	<HR COLOR="#99ccff">
+	<hr color="#99ccff">
 
-	<TABLE WIDTH=100% BGCOLOR="#99ccff"><TR><TD><{$lang_itemlist}></TD></TR></TABLE>
+	<div style="text-align:center;background-color:#99ccff;"><{$lang_itemlist}></div>
 
-	<HR COLOR="#99ccff">
+	<hr color="#99ccff">
 
 
 	<{if $photo_small_sum < 1 }>
 		<{$lang_nomatch}>
 	<{else}>
 
-		<FONT COLOR=#ff9999>
-			<UL>
+		<font color="#ff9999">
+			<ul>
 				<{foreach from=$photos item=photo}>
-					<LI><A HREF='<{$mod_url}>/index.php?lid=<{$photo.lid}><{if $category_id}>&amp;cid=<{$category_id}><{/if}><{$agent}>'><{$photo.title}></A>
+					<li><a href='<{$mod_url}>/index.php?lid=<{$photo.lid}><{if $category_id}>&amp;cid=<{$category_id}><{/if}><{$agent}>'><{$photo.title}></a>
 				<{/foreach}>
-			</UL>
-		</FONT>
+			</ul>
+		</font>
 
 
 		<{if $photo_small_sum > 1 }>
-			<HR COLOR="#FFE566">
+			<hr color="#ffe566">
 
-			<TABLE WIDTH=100%><TR><TD BGCOLOR="#EFEFEF"><FONT SIZE=1 COLOR=#990000><{$photonavinfo}></FONT></TD></TR></TABLE>
-			<FONT SIZE=1><{$photonav}></FONT>
+			<div style="text-align:center;background-color:#efefef;"><font size=1 color=#990000><{$photonavinfo}></font></div>
+			<font size=1><{$photonav}></font>
 
 		<{/if}>
 
 		<{if $photo_small_sum > 1 }>
-			<HR COLOR="#FFE566">
+			<hr color="#ffe566">
 
 			<{strip}>
-				<TABLE WIDTH=100%><TR><TD BGCOLOR="#EFEFEF"><FONT SIZE=1 COLOR=#990000><{$lang_sortby}></FONT></TD></TR></TABLE>
-				<FONT SIZE=1>
-					<A HREF="index.php?orderby=<{if $my_order=='titleD'}>titleA<{else}>titleD<{/if}><{$catlink_option}><{$agent}>"><{$lang_title}><{if $my_order=='titleD'}><IMG SRC=images/down.gif><{elseif $my_order=='titleA'}><IMG SRC=images/up.gif><{/if}></A>
-					|<A HREF="index.php?orderby=<{if $my_order=='dateD'}>dateA<{else}>dateD<{/if}><{$catlink_option}><{$agent}>"><{$lang_date}><{if $my_order=='dateD'}><IMG SRC=images/down.gif><{elseif $my_order=='dateA'}><IMG SRC=images/up.gif><{/if}></A>
+				<div style="text-align:center;background-color:#efefef;"><font size=1 color=#990000><{$lang_sortby}></font></div>
+				<font size=1>
+					<a href="index.php?orderby=<{if $my_order=='titleD'}>titleA<{else}>titleD<{/if}><{$catlink_option}><{$agent}>"><{$lang_title}><{if $my_order=='titleD'}><img src="images/down.gif"><{elseif $my_order=='titleA'}><img src="images/up.gif"><{/if}></a>
+					|<a href="index.php?orderby=<{if $my_order=='dateD'}>dateA<{else}>dateD<{/if}><{$catlink_option}><{$agent}>"><{$lang_date}><{if $my_order=='dateD'}><img src="images/down.gif"><{elseif $my_order=='dateA'}><img src="images/up.gif"><{/if}></a>
 					<{if $canrateview && $canvote }>
-						|<A HREF="index.php?orderby=<{if $my_order=='ratingD'}>ratingA<{else}>ratingD<{/if}><{$catlink_option}><{$agent}>"><{$lang_rating}><{if $my_order=='ratingD'}><IMG SRC=images/down.gif><{elseif $my_order=='ratingA'}><IMG SRC=images/up.gif><{/if}></A>
+						|<a href="index.php?orderby=<{if $my_order=='ratingD'}>ratingA<{else}>ratingD<{/if}><{$catlink_option}><{$agent}>"><{$lang_rating}><{if $my_order=='ratingD'}><img src="images/down.gif"><{elseif $my_order=='ratingA'}><img src="images/up.gif"><{/if}></a>
 					<{/if}>
-					|<A HREF="index.php?orderby=<{if $my_order=='hitsD'}>hitsA<{else}>hitsD<{/if}><{$catlink_option}><{$agent}>"><{$lang_popularity}><{if $my_order=='hitsD'}><IMG SRC=images/down.gif><{elseif $my_order=='hitsA'}><IMG SRC=images/up.gif><{/if}></A>
-				</FONT>
+					|<a href="index.php?orderby=<{if $my_order=='hitsD'}>hitsA<{else}>hitsD<{/if}><{$catlink_option}><{$agent}>"><{$lang_popularity}><{if $my_order=='hitsD'}><img src="images/down.gif"><{elseif $my_order=='hitsA'}><img src="images/up.gif"><{/if}></a>
+				</font>
 			<{/strip}>
 
 		<{/if}>
 
 	<{/if}>
 
-	<HR COLOR="#FFE566">
+	<hr color="#ffe566">
 
-	<TABLE WIDTH=100% BGCOLOR="#EFEFEF">
-		<TR>
-			<TD ALIGN=CENTER><FONT SIZE=1><A HREF=index.php><{$lang_top_link}></A></FONT></TD>
-		</TR>
-	</TABLE>
+	<div style="text-align:center;background-color:#efefef;"><font size=1><a href=index.php><{$lang_top_link}></a></font></div>
 
-</BODY>
-</HTML>
+</body>
+</html>
