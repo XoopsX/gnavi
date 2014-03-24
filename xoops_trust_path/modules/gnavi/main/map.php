@@ -68,6 +68,12 @@ if( $cid > 0 ) {
 	} else {
 		$arrow_html=0;
 		$arrow_br=1;
+		if ((@include_once(XOOPS_TRUST_PATH.'/libs/altsys/class/altsysUtils.class.php')) && is_callable('altsysUtils::isInstalledXclHtmleditor')) {
+			if (altsysUtils::isInstalledXclHtmleditor()) {
+				$arrow_html=1;
+				$arrow_br=0;
+			}
+		}
 	}
 	$xoopsTpl->assign( 'category_desc' , $myts->displayTarea( $description , $arrow_html , 1 , 1 , 1 , $arrow_br , 1 ) ) ;
 	$imgurl= preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/', $imgurl) ? $imgurl :"";
