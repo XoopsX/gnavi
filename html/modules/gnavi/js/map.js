@@ -325,7 +325,7 @@ function func2(req){
 		var u='';
 		if(gn_ulop) u = "&" + gn_ulop ;
 		gn_desc[lid]="<div style='width:250px;'><a href='"+gn_url+"/index.php?lid="+lid+u+"'>"+name+"</a><br />"+description+"</div>";
-
+		if (typeof jQuery != 'undefined' && jQuery.mobile) gn_desc[lid]=gn_desc[lid].replace(/<a /g, '<a data-ajax="false" ');
 	}
 
 	if(lst)
