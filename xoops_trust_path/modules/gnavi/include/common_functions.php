@@ -1110,8 +1110,8 @@ function gnavi_get_gicon($icd,$op=0){
 function gnavi_addinfo_reg($str){
 	$str=trim($str);
 	if( XOOPS_USE_MULTIBYTES ) {
-		$str = mbereg_replace(_MD_GNAV_MB_GT,">",$str);
-		$str = mbereg_replace(_MD_GNAV_MB_LT,"<",$str);
+		if (_MD_GNAV_MB_GT) $str = str_replace(_MD_GNAV_MB_GT, '>', $str);
+		if (_MD_GNAV_MB_LT) $str = str_replace(_MD_GNAV_MB_LT, '<', $str);
 	}
 
 	$strarray=explode("<",$str);
