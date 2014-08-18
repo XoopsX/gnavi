@@ -60,7 +60,13 @@ if( ! empty( $_POST['action'] ) && $_POST['action'] == 'delete' && isset( $_POST
 
 	// new_submitter
 	if( ! empty( $_POST['new_submitter'] ) ) {
-		$set .= "submitter='".intval( $_POST['new_submitter'] )."'," ;
+		$new_uid = intval( $_POST['new_submitter'] );
+		$set .= "submitter='".$new_uid."'," ;
+		$user_handler = xoops_gethandler('user');
+		$user = $user_handler->get($new_uid);
+		if (is_object($user)) {
+			$set .= "poster_name='".$myts->makeTboxData4Save( $user->uname('n') )."'," ;
+		}
 	}
 
 	// new_post_date
