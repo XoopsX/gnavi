@@ -116,7 +116,7 @@ $prs = $xoopsDB->query( "SELECT l.lid, l.title, l.submitter, l.ext, l.res_x, l.r
 
 // Page Navigation
 include XOOPS_ROOT_PATH.'/class/pagenav.php';
-$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "num=$num&amp;cid=$cid&amp;txt=" . urlencode($txt) ) ;
+$nav = new XoopsPageNav( $numrows , $num , $pos , 'pos' , "page=photomanager&num=$num&amp;cid=$cid&amp;txt=" . urlencode($txt) ) ;
 $nav_html = $nav->renderNav(7) ;
 
 // Information of page navigating
