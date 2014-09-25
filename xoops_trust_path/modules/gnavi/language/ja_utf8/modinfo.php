@@ -84,6 +84,8 @@ define( $constpref."_CFG_USEGMAP" , "GoogleMap機能を利用する" ) ;
 define( $constpref."_CFG_DESCGMAP" , "コンテンツにマップ管理機能を追加します。各ページに位置情報を追加できます。" ) ;
 define( $constpref."_CFG_GMAPKEY" , "GoogleMapAPI Key" ) ;
 define( $constpref."_CFG_DESCGMAPKEY" , "GoogleMapを使用する際にはGoogleMapAPI Keyが必要になります。下記URLからkeyを取得してください。<br /><a href='https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja'>https://developers.google.com/maps/documentation/javascript/tutorial?hl=ja</a>" ) ;
+define( $constpref."_CFG_GMAPAPIVER" , "GoogleMap API バージョン" ) ;
+define( $constpref."_CFG_DESCGMAPAPIVER" , "GoogleMap API の指定バージョン(通常は 3 でOK)" ) ;
 define( $constpref."_CFG_DEFLAT" , "GoogleMapの初期表示：緯度" ) ;
 define( $constpref."_CFG_DESCDEFLAT" , "" ) ;
 define( $constpref."_CFG_DEFLNG" , "GoogleMapの初期表示：経度" ) ;

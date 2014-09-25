@@ -463,6 +463,15 @@ $modversion['config'][] = array(
 	'options'		=> array()
 ) ;
 $modversion['config'][] = array(
+	'name'			=> 'gnavi_gmapapi_ver' ,
+	'title'			=> $constpref.'_CFG_GMAPAPIVER' ,
+	'description'	=> $constpref.'_CFG_DESCGMAPAPIVER' ,
+	'formtype'		=> 'textbox' ,
+	'valuetype'		=> 'text' ,
+	'default'		=> '3' ,
+	'options'		=> array()
+) ;
+$modversion['config'][] = array(
 	'name'			=> 'gnavi_defaultlat' ,
 	'title'			=> $constpref.'_CFG_DEFLAT' ,
 	'description'	=> $constpref.'_CFG_DESCDEFLAT' ,

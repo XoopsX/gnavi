@@ -33,6 +33,9 @@
 	foreach( $gnavi_configs as $key => $val ) {
 		if( strncmp( $key , "gnavi_" , 6 ) == 0 ) $$key = $val ;
 	}
+	if (!isset($gnavi_gmapapi_ver) || floatval($gnavi_gmapapi_ver) < 3) {
+		$gnavi_gmapapi_ver = '3';
+	}
 
 	// User Informations
 	if( empty( $xoopsUser ) ) {

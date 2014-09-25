@@ -84,6 +84,8 @@ define( $constpref."_CFG_USEGMAP" , "Use GoogleMap" ) ;
 define( $constpref."_CFG_DESCGMAP" , "The map management function is added to contents. The location information can be added to each page." ) ;
 define( $constpref."_CFG_GMAPKEY" , "GoogleMapAPI Key" ) ;
 define( $constpref."_CFG_DESCGMAPKEY" , "When GoogleMap is used, GoogleMapAPI Key is needed. Please acquire key from following URL.<br /><a href='https://developers.google.com/maps/documentation/javascript/tutorial'>https://developers.google.com/maps/documentation/javascript/tutorial</a>" ) ;
+define( $constpref."_CFG_GMAPAPIVER" , "GoogleMap API version" ) ;
+define( $constpref."_CFG_DESCGMAPAPIVER" , "GoogleMap API version. Default: 3" ) ;
 define( $constpref."_CFG_DEFLAT" , "default Latitude" ) ;
 define( $constpref."_CFG_DESCDEFLAT" , "" ) ;
 define( $constpref."_CFG_DEFLNG" , "default Longitude" ) ;
