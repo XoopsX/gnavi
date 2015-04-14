@@ -10,7 +10,7 @@ include dirname(dirname(__FILE__)).'/include/common_prepend.inc.php' ;
 // kml must no warning , notice ...
 error_reporting(0);
 
-$myts =& MyTextSanitizer::getInstance() ; // MyTextSanitizer object
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ; // MyTextSanitizer object
 
 $num = empty( $_GET['num'] ) ? 0 : intval( $_GET['num'] ) ;
 $cid = empty( $_GET['cid'] ) ? 0 : intval( $_GET['cid'] ) ;

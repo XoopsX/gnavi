@@ -866,7 +866,7 @@ function gnavi_get_cat_options( $order = 'title' , $preset = 0 , $prefix = '--' 
 {
 	global $xoopsDB ;
 
-	$myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
 
 	if( empty( $table_name_cat ) ) $table_name_cat = $GLOBALS['table_cat'] ;
 	if( empty( $table_name_photos ) ) $table_name_photos = $GLOBALS['table_photos'] ;
@@ -1242,7 +1242,7 @@ function gnavi_make_breadcrumbs($sel_id, $url , $arrcrumbs = array() )
 	$result = $xoopsDB->query($sql);
 	if ( $xoopsDB->getRowsNum($result) == 0 ) return $arrcrumbs;
 	list($pid,$title) = $xoopsDB->fetchRow($result);
-	$myts =& MyTextSanitizer::getInstance();
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 	$title = $myts->makeTboxData4Show($title);
 
 	$urls = $url.(preg_match('/\?/',$url) ? '&' :'?').'cid='.$sel_id;

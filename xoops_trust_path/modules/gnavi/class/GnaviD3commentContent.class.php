@@ -12,7 +12,7 @@ function fetchSummary( $external_link_id )
 	$module =& $module_handler->getByDirname( $this->mydirname ) ;
 
 	$db =& Database::getInstance() ;
-	$myts =& MyTextsanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextsanitizer::getInstance() ;
 
 	$content_id = intval( $external_link_id ) ;
 	$mydirname = $this->mydirname ;

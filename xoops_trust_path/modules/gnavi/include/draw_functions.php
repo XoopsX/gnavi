@@ -393,7 +393,7 @@ function gnavi_get_sub_categories( $parent_id , $cattree ,$where="")
 {
 	global $xoopsDB , $table_cat ;
 
-	$myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
 
 	$ret = array() ;
 
@@ -442,7 +442,7 @@ function gnavi_get_mycat($cid,$cid1,$cid2,$cid3,$cid4){
 	global $xoopsDB;
 	global $table_cat;
 	$ret='';
-	$myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
 	
 	$where='';
 	if($cid){

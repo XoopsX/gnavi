@@ -44,7 +44,7 @@ function b_gnavi_d3pipes_joints( $options )
 
 
 	$block = array() ;
-	$myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
 
 	if($show_desc){
 		$result = $xoopsDB->query("SELECT l.lid , l.cid , l.title , l.ext , l.res_x , l.res_y , l.submitter , l.status , l.date AS unixtime , l.hits , l.rating , l.votes , l.comments , c.title AS cat_title ,t.description ,t.arrowhtml FROM $table_photos l LEFT JOIN $table_cat c ON l.cid=c.cid LEFT JOIN $table_text t ON l.lid=t.lid WHERE l.status>0 AND $whr_cat $query" , $photos_num , 0 ) ;

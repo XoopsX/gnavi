@@ -55,7 +55,7 @@ $action = isset( $_POST[ 'action' ] ) ? $_POST[ 'action' ] : '' ;
 //������������
 
 // Initializations
-$myts =& MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 
 $disp = isset( $_GET[ 'disp' ] ) ? $_GET[ 'disp' ] : '' ;
 $icd = isset( $_GET[ 'icd' ] ) ? intval( $_GET[ 'icd' ] ) : 0 ;
@@ -319,7 +319,7 @@ function display_edit_form( $icons , $form_title , $action)
 	global $gnavi_googlemapapi_key;
 	global $gnavi_usegooglemap,$gnavi_fsize;
 
-	$myts =& MyTextSanitizer::getInstance();
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 
 	extract( $icons ) ;
 

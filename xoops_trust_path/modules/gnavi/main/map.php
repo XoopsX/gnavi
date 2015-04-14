@@ -8,7 +8,7 @@
 
 include_once dirname(dirname(__FILE__)).'/include/common_prepend.inc.php' ;
 
-$myts =& MyTextSanitizer::getInstance() ; // MyTextSanitizer object
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ; // MyTextSanitizer object
 $cattree = new XoopsTree( $table_cat , "cid" , "pid" ) ;
 
 //GET

@@ -9,7 +9,7 @@ include_once( XOOPS_ROOT_PATH."/class/xoopstree.php" ) ;
 include_once( "../../../class/xoopsformloader.php" ) ;
 include_once( "../../../include/xoopscodes.php" ) ;
 
-$myts =& MyTextSanitizer::getInstance() ;
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
 $cattree = new XoopsTree( $table_cat , "cid" , "pid" ) ;
 
 // GPCS vars
