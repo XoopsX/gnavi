@@ -365,13 +365,19 @@ if( ! empty( $_POST['submit'] ) ) {
 							$caption,$caption1,$caption2,
                             $desc_text,$arrow_html,$addinfo, $exif);
 
-	$redirect_uri = "index.php?lid=$lid" ;
+	$moreMsg = '' ;
+	if (!$valid) {
+		$redirect_uri = "index.php?cid=$cid" ;
+		$moreMsg = '<br />' . _MD_GNAV_MSG_WAITAPPROVED;
+	} else {
+		$redirect_uri = "index.php?lid=$lid" ;
+	}
 
 	if( $mode == G_INSERT){
 		gnavi_clear_tmp_files( $photos_dir ) ;
-		redirect_header( $redirect_uri , 2 , _MD_GNAV_MSG_RECEIVED ) ;
+		redirect_header( $redirect_uri , 2 , _MD_GNAV_MSG_RECEIVED . $moreMsg ) ;
 	}else{
-		redirect_header( $redirect_uri , 2 , _MD_GNAV_MSG_DBUPDATED ) ;
+		redirect_header( $redirect_uri , 2 , _MD_GNAV_MSG_DBUPDATED . $moreMsg ) ;
 	}
 
 	exit ;

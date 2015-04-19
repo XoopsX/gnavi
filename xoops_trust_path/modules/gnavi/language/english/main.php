@@ -174,6 +174,7 @@ define( "_MD_GNAV_CMT_COMMENTSC" , "Comments" ) ;
 
 //message
 define( "_MD_GNAV_MSG_RECEIVED" , "We received your post. Thank you!" ) ;
+define( "_MD_GNAV_MSG_WAITAPPROVED" , "Please wait for approval by administrator." ) ;
 define( "_MD_GNAV_MSG_NOMATCH" , "No article matches your request" ) ;
 define( "_MD_GNAV_MSG_MUSTREGFIRST" , "Sorry, you don't have permission to perform this action.<br>Please register or login first!" ) ;
 define( "_MD_GNAV_MSG_MUSTADDCATFIRST" , "Sorry, there are no categories to add to yet.<br>Please create a category first!" ) ;

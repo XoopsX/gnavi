@@ -174,6 +174,7 @@ define( "_MD_GNAV_CMT_COMMENTSC" , "コメント数" ) ;
 
 //message
 define( "_MD_GNAV_MSG_RECEIVED" , "登録しました。ご投稿有難うございます。" ) ;
+define( "_MD_GNAV_MSG_WAITAPPROVED" , "管理者による承認をお待ちください。" ) ;
 define( "_MD_GNAV_MSG_NOMATCH" , "このカテゴリには記事が登録されていません。" ) ;
 define( "_MD_GNAV_MSG_MUSTREGFIRST" , "申し訳ありませんがアクセス権限がありません。<br>登録するか、ログイン後にお願いします。" ) ;
 define( "_MD_GNAV_MSG_MUSTADDCATFIRST" , "追加するためにはカテゴリが必要です。<br>まずカテゴリを作成して下さい。" ) ;
