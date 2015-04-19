@@ -23,6 +23,7 @@
 
 #gn_map td {
 	background:#FFFFFF;
+	vertical-align: top;
 }
 
 #gn_mkhead {
@@ -32,6 +33,7 @@
 	padding:3px;
 	height:34px;
 	margin:0;
+	font-size: 12px;
 }
 
 #gn_mklist {
