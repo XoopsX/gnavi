@@ -7,9 +7,9 @@
 // ------------------------------------------------------------------------- //
 
 // constants
-define( 'PIPEID_GD' , 0 ) ;
-define( 'PIPEID_IMAGICK' , 1 ) ;
-define( 'PIPEID_NETPBM' , 2 ) ;
+!defined( 'PIPEID_GD' ) && define( 'PIPEID_GD' , 0 ) ;
+!defined( 'PIPEID_IMAGICK' ) && define( 'PIPEID_IMAGICK' , 1 ) ;
+!defined( 'PIPEID_NETPBM' ) && define( 'PIPEID_NETPBM' , 2 ) ;
 
 
 function gnavi_get_thumbnail_wh( $width , $height )
