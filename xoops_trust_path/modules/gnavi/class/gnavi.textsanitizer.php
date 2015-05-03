@@ -32,12 +32,16 @@ class GNaviTextSanitizer extends MyTextSanitizer {
      * @static
      * @staticvar   object
 	 */
-	function &getInstance()
+	public static function &sGetInstance()
 	{
 		static $instance;
 		if (!isset($instance)) {
 			$instance = new GNaviTextSanitizer();
 		}
+		return $instance;
+	}
+	function &getInstance() {
+		$instance =& self::sGetInstance();
 		return $instance;
 	}
 
@@ -52,11 +56,12 @@ class GNaviTextSanitizer extends MyTextSanitizer {
 	 * @param   bool    $br     convert linebreaks?
 	 * @return  string
 	 **/
-	function displayTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1 , $nbsp = 0 )
+	function &displayTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1 , $nbsp = 0 )
 	{
 		$this->nbsp = $nbsp ;
 		$text = parent::displayTarea( $text , $html , $smiley , $xcode , $image , $br ) ;
-		return $this->postCodeDecode( $text , $image ) ;
+		$ret = $this->postCodeDecode( $text , $image ) ;
+		return $ret;
 /*		if ($html != 1) {
 			// html not allowed
 			$text =& $this->htmlSpecialChars($text);
@@ -153,7 +158,7 @@ class GNaviTextSanitizer extends MyTextSanitizer {
     *
     * @return	string
 	*/
-	function stripSlashesGPC($text)
+	function &stripSlashesGPC($text)
 	{
 		if (get_magic_quotes_gpc()) {
 			$text = stripslashes($text);
