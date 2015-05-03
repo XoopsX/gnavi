@@ -604,7 +604,7 @@ function gnavi_update_item($mode,$lid,
 	global $xoopsDB;
 	global $table_photos , $isadmin ;
 
-	$myts =& GNaviTextSanitizer::getInstance() ;
+	$myts =& GNaviTextSanitizer::sGetInstance() ;
 
 	if( $mode == G_INSERT){
 
@@ -657,7 +657,7 @@ function gnavi_update_desc($mode,$lid,$cid,$title,$submitter,$valid,
 
 	global $xoopsDB,$gnavi_addposts;
 	global $table_photos , $table_text , $table_cat , $table_exif , $mod_url , $isadmin ;
-	$myts =& GNaviTextSanitizer::getInstance() ;
+	$myts =& GNaviTextSanitizer::sGetInstance() ;
 
 	$caption  = $ext =='' ? '' : $caption  ;
 	$caption1 = $ext1=='' ? '' : $caption1 ;

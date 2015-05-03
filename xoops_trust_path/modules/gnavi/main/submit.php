@@ -10,7 +10,7 @@ include dirname(dirname(__FILE__)).'/include/common_prepend.inc.php' ;
 require_once dirname(dirname(__FILE__)).'/class/myuploader.php' ;
 require_once dirname(dirname(__FILE__)).'/class/gnavi.textsanitizer.php' ;
 require_once dirname(dirname(__FILE__)).'/class/gtickets.php' ;
-$myts =& GNaviTextSanitizer::getInstance() ;
+$myts =& GNaviTextSanitizer::sGetInstance() ;
 $cattree = new XoopsTree( $table_cat , 'cid' , 'pid' ) ;
 $exif_init = array_pad(array(), 3, array());
 $exif_init_s = serialize($exif_init);

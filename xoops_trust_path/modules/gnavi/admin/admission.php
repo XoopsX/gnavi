@@ -13,7 +13,7 @@ require_once dirname(dirname(__FILE__)).'/class/gnavi.textsanitizer.php' ;
 
 // initialization of Xoops vars
 $cattree = new XoopsTree( $table_cat , "cid" , "pid" ) ;
-$myts =& GNaviTextSanitizer::getInstance() ;
+$myts =& GNaviTextSanitizer::sGetInstance() ;
 
 
 // GET vars

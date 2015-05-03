@@ -218,7 +218,7 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 
 	include_once dirname(dirname(__FILE__)).'/class/gnavi.textsanitizer.php' ;
 
-	$myts =& GNaviTextSanitizer::getInstance() ;
+	$myts =& GNaviTextSanitizer::sGetInstance() ;
 
 	extract( $fetched_result_array ) ;
 
