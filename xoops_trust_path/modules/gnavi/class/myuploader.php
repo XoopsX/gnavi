@@ -158,6 +158,10 @@ class MyXoopsMediaUploader
 			$this->setErrors('Error occurred: Error #'.$this->mediaError);
 			return false;
 		}
+		if (class_exists('HypCommonFunc', false) && version_compare(HypCommonFunc::get_version(), '20150514', '>=')) {
+			// Try auto rotation
+			HypCommonFunc::rotateImage($this->mediaTmpName, 0);
+		}
 		return true;
 	}
 
