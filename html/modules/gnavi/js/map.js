@@ -640,3 +640,75 @@ function var_dumpj(mt,cnt,pre){
 	}
 	return r;
 }
+
+if (window.File && window.FileReader) {
+	window.addEventListener('DOMContentLoaded', function(){
+		var $j = this.JpegMeta.JpegFile;
+		var loadFiles = function(elm) {
+
+			function setPoint(latlng) {
+				mypoint2.setPosition(latlng);
+				gn_map.setCenter(latlng);
+				if (gn_geoz) {
+					gn_map.setZoom(gn_geoz);
+				}
+				document.getElementById('pchange').value = '1';
+			}
+			function getPoint(data, filename) {
+				var jpeg, latlng;
+				try {
+					jpeg = new $j(data, filename),
+						latlng;
+					if (jpeg.gps && jpeg.gps.longitude) {
+						latlng = new google.maps.LatLng(jpeg.gps.latitude, jpeg.gps.longitude);
+					}
+				} catch(e) {}
+				return latlng;
+			}
+
+			var f = elm.files[0];
+			if (!f.type.match('image.*')) {
+				return;
+			}
+
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				var id  = elm.id + '_preview',
+					div = document.createElement('div'),
+					img = document.createElement('img'),
+					btn = document.createElement('input'),
+					rmelm, point;
+				if (rmelm = document.getElementById(id)) {
+					rmelm.parentNode.removeChild(rmelm);
+				}
+				div.id = id;
+				img.src = this.result;
+				img.width = '150';
+				img.style.verticalAlign = 'bottom';
+				div.appendChild(img);
+				point = getPoint(atob(this.result.replace(/^.*?,/,'')), f);
+				if (point) {
+					btn.type = 'button';
+					btn.value = 'GPS';
+					btn.onclick = function(){setPoint(point);};
+					div.appendChild(btn);
+					var maptd = document.getElementById('maparea').parentNode.parentNode.children[0],
+						mapdiv = document.createElement('div'),
+						mapimg = img.cloneNode();
+					mapimg.width = '80';
+					mapimg.style.cursor = 'pointer';
+					mapimg.style.margin = '5px';
+					mapdiv.onclick = function(){setPoint(point);};
+					mapdiv.appendChild(mapimg);
+					maptd.appendChild(mapdiv);
+				}
+				elm.parentNode.insertBefore(div, elm);
+			};
+			reader.readAsDataURL(f);
+		};
+		document.getElementById('photofile').addEventListener('change', function() { loadFiles(this); }, true);
+		document.getElementById('photofile1').addEventListener('change', function() { loadFiles(this); }, true);
+		document.getElementById('photofile2').addEventListener('change', function() { loadFiles(this); }, true);
+		document.getElementById('gps_preview').parentNode.parentNode.style.display = 'none';
+	}, false );
+}

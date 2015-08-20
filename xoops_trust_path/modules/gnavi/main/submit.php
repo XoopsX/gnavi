@@ -679,7 +679,11 @@ if(!empty( $_POST['preview'] )){
 
 // Show the form
 OpenTable() ;
-$form = new XoopsThemeForm( ($mode == G_INSERT ? _MD_GNAV_SMT_UPLOAD : _MD_GNAV_SMT_EDIT ) , "uploadphoto", "index.php?page=submit" ) ;
+if (defined('HYP_K_TAI_RENDER') && HYP_K_TAI_RENDER > 0) {
+	$form = new XoopsSimpleForm( ($mode == G_INSERT ? _MD_GNAV_SMT_UPLOAD : _MD_GNAV_SMT_EDIT ) , "uploadphoto", "index.php?page=submit" ) ;
+} else {
+	$form = new XoopsThemeForm( ($mode == G_INSERT ? _MD_GNAV_SMT_UPLOAD : _MD_GNAV_SMT_EDIT ) , "uploadphoto", "index.php?page=submit" ) ;
+}
 $form->setExtra("enctype='multipart/form-data'");
 $xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<link rel='stylesheet' type='text/css' href='css/gnavi.css'/>";
 
@@ -911,6 +915,7 @@ if($gnavi_usegooglemap){
 //Google Maps
 if($gnavi_usegooglemap){
 $xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
+<script src='js/jpegmeta.js' type='text/javascript' charset='utf-8'></script>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
@@ -1050,5 +1055,3 @@ gnavi_footer() ;
 
 include( XOOPS_ROOT_PATH . "/footer.php" ) ;
 
-
-?>
