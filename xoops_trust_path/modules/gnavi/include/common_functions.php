@@ -929,7 +929,7 @@ function gnavi_submit_uploader_pre($field , $preview_name,$del_photo,$guard_name
 
 	global $gnavi_canresize,$photos_dir , $array_allowed_mimetypes , $gnavi_fsize , $gnavi_width , $gnavi_height , $array_allowed_exts;
 	
-	if( is_readable( $_FILES[$field]['tmp_name'] ) ) {
+	if( isset( $_FILES[$field] ) && is_readable( $_FILES[$field]['tmp_name'] ) ) {
 		// new preview
 		if( $preview_name != ''){
 			if($guard_name != $preview_name){
@@ -1347,4 +1347,3 @@ function gnavi_get_submenu( $mydirname ){
 
 }
 
-?>
