@@ -695,6 +695,10 @@ if (window.File && window.FileReader) {
 					var maptd = document.getElementById('maparea').parentNode.parentNode.children[0],
 						mapdiv = document.createElement('div'),
 						mapimg = img.cloneNode();
+					if (maptd.tagName !== 'TD') {
+						maptd = document.getElementById('maparea');
+						mapdiv.style.display = 'inline'
+					}
 					mapimg.width = '80';
 					mapimg.style.cursor = 'pointer';
 					mapimg.style.margin = '5px';
@@ -709,6 +713,9 @@ if (window.File && window.FileReader) {
 		document.getElementById('photofile').addEventListener('change', function() { loadFiles(this); }, true);
 		document.getElementById('photofile1').addEventListener('change', function() { loadFiles(this); }, true);
 		document.getElementById('photofile2').addEventListener('change', function() { loadFiles(this); }, true);
-		document.getElementById('gps_preview').parentNode.parentNode.style.display = 'none';
+		var hide = document.getElementById('gps_preview').parentNode.parentNode;
+		if (hide.tagName === 'TR') {
+			hide.style.display = 'none';
+		}
 	}, false );
 }
