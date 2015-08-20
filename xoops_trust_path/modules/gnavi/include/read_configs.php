@@ -8,7 +8,9 @@
 	$mod_url = XOOPS_URL . "/modules/$mydirname" ;
 	$mod_path = XOOPS_ROOT_PATH . "/modules/$mydirname" ;
 	$mod_trust_path = XOOPS_TRUST_PATH . "/modules/$mytrustdirname" ;
-	$mod_copyright = "<a href='http://xoops.iko-ze.net'><strong>GNavi</strong></a> &nbsp; <span style='font-size:0.8em;'>(based on <a href='http://www.peak.ne.jp/'>MyAlbum-P</a>)</span>" ;
+	// "xoops.iko-ze.net" was gone
+	//$mod_copyright = "<a href='http://xoops.iko-ze.net'><strong>GNavi</strong></a> &nbsp; <span style='font-size:0.8em;'>(based on <a href='http://www.peak.ne.jp/'>MyAlbum-P</a>)</span>" ;
+	$mod_copyright = "<a href='https://github.com/XoopsX/gnavi'><strong>GNavi</strong></a> &nbsp; <span style='font-size:0.8em;'>(based on <a href='http://www.peak.ne.jp/'>MyAlbum-P</a>)</span>" ;
 
 	// global langauge file
 	$language = $xoopsConfig['language'] ;
