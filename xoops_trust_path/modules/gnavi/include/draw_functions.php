@@ -197,7 +197,8 @@ function gnavi_photo_assign($photo)
 							$_val = constant($_val);
 						}
 					}
-					$_tmp[constant('_MD_GNAV_' . strtoupper($_key))] = $_val;
+					$_key = defined('_MD_GNAV_' . strtoupper($_key))? constant('_MD_GNAV_' . strtoupper($_key)) : $_key;
+					$_tmp[$_key] = $_val;
 				} else {
 					$_tmp['GPS'] = $_val;
 				}
