@@ -1,7 +1,7 @@
 <?php
 
-$gnavi_googlemap_url="http://maps.google.com";
-//$gnavi_googlemap_url="http://ditu.google.com"; Chinese GoogleMap
+$gnavi_googlemap_url="https://maps.google.com";
+//$gnavi_googlemap_url="https://ditu.google.com"; Chinese GoogleMap
 
 $gnavi_maptypes=array('ROADMAP',
 					'SATELLITE',

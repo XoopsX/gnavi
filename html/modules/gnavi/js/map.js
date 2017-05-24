@@ -225,12 +225,12 @@ function right_click(){
 		var righticon = {
 			size: new google.maps.Size(31, 27),
 			anchor: new google.maps.Point(8, 27),
-			url: 'http://www.google.com/mapfiles/gadget/arrowSmall80.png'
+			url: 'https://www.google.com/mapfiles/gadget/arrowSmall80.png'
 		};
 		var righticonsh = {
 			size: new google.maps.Size(31, 27),
 			anchor: new google.maps.Point(8, 27),
-			url: 'http://www.google.com/mapfiles/gadget/arrowshadowSmall80.png'
+			url: 'https://www.google.com/mapfiles/gadget/arrowshadowSmall80.png'
 		};
 
 		mypoint = new google.maps.Marker({
@@ -603,8 +603,8 @@ function drawCameraMarker(lat, lng, title){
         position: c,
         map: gn_map,
         title: title + c,
-        icon: 'http://maps.google.com/mapfiles/ms/micons/camera.png',
-        //shadow: 'http://maps.google.com/mapfiles/ms/micons/camera.shadow.png',
+        icon: 'https://maps.google.com/mapfiles/ms/micons/camera.png',
+        //shadow: 'https://maps.google.com/mapfiles/ms/micons/camera.shadow.png',
         draggable: false
     });
 }
@@ -641,7 +641,7 @@ function var_dumpj(mt,cnt,pre){
 	return r;
 }
 
-if (window.File && window.FileReader) {
+if (window.File && window.FileReader && window.JpegMeta) {
 	window.addEventListener('DOMContentLoaded', function(){
 		var $j = this.JpegMeta.JpegFile;
 		var loadFiles = function(elm) {
