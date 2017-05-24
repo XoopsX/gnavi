@@ -19,7 +19,7 @@ function gnavi_global_search_base( $mydirname , $keywords , $andor , $limit , $o
 	//	return array() ;
 	//}
 
-	$db =& Database::getInstance() ;
+	$db = Database::getInstance() ;
 
 	// XOOPS Search module
 	$showcontext = empty( $_GET['showcontext'] ) ? 0 : 1 ;

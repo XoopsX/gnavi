@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------- //
 
 include( "admin_header.php" ) ;
-(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 
 // GPCS vars
 $max_col = 4 ;

@@ -604,7 +604,7 @@ function gnavi_update_item($mode,$lid,
 	global $xoopsDB;
 	global $table_photos , $isadmin ;
 
-	$myts =& GNaviTextSanitizer::sGetInstance() ;
+	$myts = GNaviTextSanitizer::sGetInstance() ;
 
 	if( $mode == G_INSERT){
 
@@ -657,7 +657,7 @@ function gnavi_update_desc($mode,$lid,$cid,$title,$submitter,$valid,
 
 	global $xoopsDB,$gnavi_addposts;
 	global $table_photos , $table_text , $table_cat , $table_exif , $mod_url , $isadmin ;
-	$myts =& GNaviTextSanitizer::sGetInstance() ;
+	$myts = GNaviTextSanitizer::sGetInstance() ;
 
 	$caption  = $ext =='' ? '' : $caption  ;
 	$caption1 = $ext1=='' ? '' : $caption1 ;
@@ -780,7 +780,7 @@ function gnavi_trigger_event( $category , $item_id , $event , $tags, $extra_tags
 		}
 		$criteria->add($user_criteria);
 	}
-	$notifications =& $notification_handler->getObjects($criteria);
+	$notifications = $notification_handler->getObjects($criteria);
 	if (empty($notifications)) {
 		return;
 	}
@@ -866,7 +866,7 @@ function gnavi_get_cat_options( $order = 'title' , $preset = 0 , $prefix = '--' 
 {
 	global $xoopsDB ;
 
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 
 	if( empty( $table_name_cat ) ) $table_name_cat = $GLOBALS['table_cat'] ;
 	if( empty( $table_name_photos ) ) $table_name_photos = $GLOBALS['table_photos'] ;
@@ -1242,7 +1242,7 @@ function gnavi_make_breadcrumbs($sel_id, $url , $arrcrumbs = array() )
 	$result = $xoopsDB->query($sql);
 	if ( $xoopsDB->getRowsNum($result) == 0 ) return $arrcrumbs;
 	list($pid,$title) = $xoopsDB->fetchRow($result);
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 	$title = $myts->makeTboxData4Show($title);
 
 	$urls = $url.(preg_match('/\?/',$url) ? '&' :'?').'cid='.$sel_id;

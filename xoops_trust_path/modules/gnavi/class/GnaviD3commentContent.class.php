@@ -11,8 +11,8 @@ function fetchSummary( $external_link_id )
 	$module_handler =& xoops_gethandler( 'module' ) ;
 	$module =& $module_handler->getByDirname( $this->mydirname ) ;
 
-	$db =& Database::getInstance() ;
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextsanitizer::getInstance() ;
+	$db = Database::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextsanitizer::getInstance() ;
 
 	$content_id = intval( $external_link_id ) ;
 	$mydirname = $this->mydirname ;
@@ -40,7 +40,7 @@ function validate_id( $link_id )
 	$content_id = intval( $link_id ) ;
 	$mydirname = $this->mydirname ;
 
-	$db =& Database::getInstance() ;
+	$db = Database::getInstance() ;
 	list( $count ) = $db->fetchRow( $db->query( "SELECT COUNT(*) FROM ".$db->prefix($mydirname."_photos")." WHERE lid = $content_id AND status > 0 " ) ) ;
 	if( $count <= 0 ) return false ;
 	else return $content_id ;
@@ -53,7 +53,7 @@ function onUpdate( $mode , $link_id , $forum_id , $topic_id , $post_id = 0 )
 	$content_id = intval( $link_id ) ;
 	$mydirname = $this->mydirname ;
 
-	$db =& Database::getInstance() ;
+	$db = Database::getInstance() ;
 
 	list( $count ) = $db->fetchRow( $db->query( "SELECT COUNT(*) FROM ".$db->prefix($this->d3forum_dirname."_posts")." p LEFT JOIN ".$db->prefix($this->d3forum_dirname."_topics")." t ON t.topic_id=p.topic_id WHERE t.forum_id=$forum_id AND t.topic_external_link_id='$content_id'" ) ) ;
 	$db->queryF( "UPDATE ".$db->prefix($mydirname."_photos")." SET comments = $count WHERE lid=$content_id" ) ;

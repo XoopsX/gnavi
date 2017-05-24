@@ -10,7 +10,7 @@ include_once dirname(dirname(__FILE__)).'/include/common_prepend.inc.php' ;
 require_once dirname(dirname(__FILE__)).'/include/item_orders.php' ;
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php' ;
 
-(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ; // MyTextSanitizer object
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ; // MyTextSanitizer object
 $cattree = new XoopsTree( $table_cat , "cid" , "pid" ) ;
 
 //GET

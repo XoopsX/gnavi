@@ -219,7 +219,7 @@ function gnavi_get_array_for_photo_assign( $fetched_result_array , $summary = fa
 
 	include_once dirname(dirname(__FILE__)).'/class/gnavi.textsanitizer.php' ;
 
-	$myts =& GNaviTextSanitizer::sGetInstance() ;
+	$myts = GNaviTextSanitizer::sGetInstance() ;
 
 	extract( $fetched_result_array ) ;
 
@@ -394,7 +394,7 @@ function gnavi_get_sub_categories( $parent_id , $cattree ,$where="")
 {
 	global $xoopsDB , $table_cat ;
 
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 
 	$ret = array() ;
 
@@ -443,7 +443,7 @@ function gnavi_get_mycat($cid,$cid1,$cid2,$cid3,$cid4){
 	global $xoopsDB;
 	global $table_cat;
 	$ret='';
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 	
 	$where='';
 	if($cid){
