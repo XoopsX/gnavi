@@ -211,7 +211,7 @@ $xoopsTpl->assign('default_lng',$default_lng);
 $xoopsTpl->assign('default_zoom',$default_zoom);
 $xoopsTpl->assign('default_mtype',$default_mtype);
 
-$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header = $xoopsTpl->get_template_vars( "xoops_module_header" ) ."\n" ."<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;key=".$gnavi_googlemapapi_key."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
 <link rel='stylesheet' type='text/css' href='css/gnavi.css'/>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script src='js/prototype.js'></script>

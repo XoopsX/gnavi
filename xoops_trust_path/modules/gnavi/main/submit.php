@@ -914,7 +914,7 @@ if($gnavi_usegooglemap){
 
 //Google Maps
 if($gnavi_usegooglemap){
-$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
+$xoops_module_header .="<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;key=".$gnavi_googlemapapi_key."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
 <script src='js/jpegmeta.js' type='text/javascript' charset='utf-8'></script>
 <script src='js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>

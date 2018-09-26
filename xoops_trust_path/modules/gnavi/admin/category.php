@@ -277,6 +277,7 @@ function display_edit_form( $cat_array , $form_title , $action)
 	global $gnavi_body_editor;
 	global $gnavi_googlemap_url;
 	global $gnavi_gmapapi_ver;
+	global $gnavi_googlemapapi_key;
 
 	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 
@@ -377,7 +378,7 @@ $gmap = new XoopsFormLabel(_MD_GNAV_MAP, "
 <input type='hidden' name='z' id='z' size='20' value='".$myts->makeTboxData4Edit($zoom)."' />
 <input type='hidden' name='mt' id='mt' size='30' value='".$myts->makeTboxData4Edit($mtype)."' />
 </div>
-<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
+<script src='".$gnavi_googlemap_url."/maps/api/js?v=".$gnavi_gmapapi_ver."&amp;key=".$gnavi_googlemapapi_key."&amp;sensor=false' type='text/javascript' charset='utf-8'></script>
 <script src='../js/map.js' type='text/javascript' charset='utf-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
