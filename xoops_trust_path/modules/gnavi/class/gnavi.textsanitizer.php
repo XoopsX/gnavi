@@ -41,7 +41,7 @@ class GNaviTextSanitizer extends MyTextSanitizer {
 		return $instance;
 	}
 	function &getInstance() {
-		$instance =& self::sGetInstance();
+		$instance = self::sGetInstance();
 		return $instance;
 	}
 

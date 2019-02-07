@@ -11,7 +11,7 @@ function b_gnavi_menu_show( $options )
 	if( preg_match( '/[^0-9a-zA-Z_-]/' , $mydirname ) ) die( 'Invalid mydirname' ) ;
 	require dirname(dirname(__FILE__)).'/include/read_configs.php' ;
 
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 	$result = $xoopsDB->query( "SELECT c1.cid ,c1.title,c1.imgurl ,c2.cid AS ccid, c2.title AS ctitle, c2.imgurl AS cimgurl FROM $table_cat c1 LEFT JOIN $table_cat c2 ON c1.cid=c2.pid WHERE c1.pid=0 ORDER BY c1.weight,c2.weight ") ;
 
 	if(preg_match( '/'.'\/modules\/'.$mydirname.'/' ,htmlspecialchars(getenv('REQUEST_URI')))){

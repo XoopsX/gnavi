@@ -22,7 +22,7 @@ $action = isset( $_POST[ 'action' ] ) ? $_POST[ 'action' ] : '' ;
 //������������
 
 // Initializations
-(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 $cattree = new XoopsTree( $table_cat , "cid" , "pid" ) ;
 
 $disp = isset( $_GET[ 'disp' ] ) ? $_GET[ 'disp' ] : '' ;
@@ -279,7 +279,7 @@ function display_edit_form( $cat_array , $form_title , $action)
 	global $gnavi_gmapapi_ver;
 	global $gnavi_googlemapapi_key;
 
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 
 	extract( $cat_array ) ;
 

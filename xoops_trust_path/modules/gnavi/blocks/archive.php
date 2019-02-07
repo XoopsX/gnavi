@@ -13,7 +13,7 @@ function b_gnavi_archive_show( $options )
 	$block = array() ;
 
 	$constpref = '_MB_' . strtoupper( $mydirname ) ;
-	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance() ;
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance() ;
 	$result = $xoopsDB->query( "SELECT date FROM $table_photos WHERE status>0 ORDER BY date DESC" ) ;
 
 	$count = 1 ;

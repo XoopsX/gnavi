@@ -9,7 +9,7 @@ eval( '
 if( ! function_exists( 'gnavi_comments_update_base' ) ) {
 
 	function gnavi_comments_update_base($mydirname, $lid , $total_num ) {
-        $db =& Database::getInstance();
+        $db = Database::getInstance();
 		$ret = $db->query( "UPDATE ".$db->prefix($mydirname.'_photos')." SET comments=$total_num WHERE lid=$lid" ) ;
 		return $ret ;
 	}

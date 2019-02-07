@@ -2,7 +2,7 @@
 
 function b_waiting_gnavi( $mydirname )
 {
-	$db =& Database::getInstance();
+	$db = Database::getInstance();
 	$ret = array();
 
 	$sql = "SELECT COUNT(*) FROM ".$db->prefix($mydirname."_photos")." WHERE status=0";
