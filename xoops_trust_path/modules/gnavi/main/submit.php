@@ -891,7 +891,9 @@ $rss_text = new XoopsFormText(_MD_GNAV_ITM_RSS, "rss" , 50 , 255 , $myts->makeTb
 if($language=='japanese' || $language=='ja_utf8' ){
 	if(file_exists(XOOPS_ROOT_PATH.$gnavi_ajaxzip_place."ajaxzip2.js")){
 $xoops_module_header .="
+<script>var window.gnaviNoconflictArrayFrom = Array.from;// for StreetView mouse events</script>
 <script src='js/prototype.js' charset='UTF-8'></script>
+<script>Array.from = window.gnaviNoconflictArrayFrom;delete  window.gnaviNoconflictArrayFrom;</script>
 <script src='".XOOPS_URL.$gnavi_ajaxzip_place."ajaxzip2.js' charset='UTF-8'></script>
 <script type='text/javascript'>
 //<![CDATA[
